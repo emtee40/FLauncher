@@ -9,7 +9,7 @@ class DateTimeWidget extends StatefulWidget {
 }
 
 class _DateTimeWidgetState extends State<DateTimeWidget> {
-  Timer timer;
+  late Timer timer;
 
   @override
   void initState() {
