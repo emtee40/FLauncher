@@ -3,8 +3,8 @@ import 'dart:typed_data';
 class ApplicationInfo {
   String name;
   String packageName;
-  Uint8List banner;
-  Uint8List icon;
+  Uint8List? banner;
+  Uint8List? icon;
 
   ApplicationInfo(this.name, this.packageName, this.banner, this.icon);
 
