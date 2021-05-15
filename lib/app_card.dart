@@ -19,9 +19,7 @@ class AppCard extends StatelessWidget {
         scale: 1.1,
         focusNode: focusNode,
         autofocus: autofocus,
-        onPressed: () {
-          FLauncherChannel.startActivity(application.packageName);
-        },
+        onPressed: () => FLauncherChannel.launchApp(application),
         child: Builder(
           builder: (context) {
             final hasFocus = Focus.of(context).hasFocus;
