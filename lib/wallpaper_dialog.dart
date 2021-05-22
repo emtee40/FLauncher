@@ -1,8 +1,7 @@
-import 'dart:io';
-
+import 'package:flauncher/wallpaper.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 class WallpaperDialog extends StatelessWidget {
   @override
@@ -14,17 +13,11 @@ class WallpaperDialog extends StatelessWidget {
             children: [
               TextButton(
                 autofocus: true,
-                onPressed: () async {
-                  await _changeWallpaper();
-                  Navigator.of(context).pop();
-                },
+                onPressed: () => _pickFile(context),
                 child: Text("SELECT"),
               ),
               TextButton(
-                onPressed: () async {
-                  await _clearWallpaper();
-                  Navigator.of(context).pop();
-                },
+                onPressed: () => _clearWallpaper(context),
                 child: Text("CLEAR"),
               ),
             ],
@@ -32,19 +25,18 @@ class WallpaperDialog extends StatelessWidget {
         ],
       );
 
-  Future<void> _changeWallpaper() async {
-    final file = await ImagePicker().getImage(source: ImageSource.gallery);
-    if (file != null) {
-      final directory = await getApplicationDocumentsDirectory();
-      File(file.path).copy("${directory.path}/wallpaper");
+  Future<void> _pickFile(BuildContext context) async {
+    final imagePicker = context.read<ImagePicker>();
+    final pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+      context.read<Wallpaper>().setWallpaper(bytes);
     }
+    Navigator.of(context).pop();
   }
 
-  Future<void> _clearWallpaper() async {
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File("${directory.path}/wallpaper");
-    if (await file.exists()) {
-      await file.delete();
-    }
+  Future<void> _clearWallpaper(BuildContext context) async {
+    await context.read<Wallpaper>().clearWallpaper();
+    Navigator.of(context).pop();
   }
 }
