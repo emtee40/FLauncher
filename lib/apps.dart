@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flauncher/application_info.dart';
 import 'package:flauncher/flauncher_channel.dart';
 import 'package:flutter/foundation.dart';
@@ -13,6 +15,13 @@ class Apps extends ChangeNotifier {
   }
 
   Future<void> _init() async {
+    final apps = await _fLauncherChannel.getInstalledApplications();
+    _apps = apps.map((e) => ApplicationInfo.create(e)).toList();
+    _fLauncherChannel.addAppsChangedListener(_onAppsChanged);
+    notifyListeners();
+  }
+
+  Future<void> _onAppsChanged(Map<dynamic, dynamic> event) async {
     final apps = await _fLauncherChannel.getInstalledApplications();
     _apps = apps.map((e) => ApplicationInfo.create(e)).toList();
     notifyListeners();
