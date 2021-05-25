@@ -24,6 +24,8 @@ private const val METHOD_CHANNEL = "me.efesser.flauncher/method"
 private const val EVENT_CHANNEL = "me.efesser.flauncher/event"
 
 class MainActivity : FlutterActivity() {
+    val broadcastReceivers = ArrayList<BroadcastReceiver>()
+
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, METHOD_CHANNEL).setMethodCallHandler { call, result ->
@@ -52,13 +54,20 @@ class MainActivity : FlutterActivity() {
                 intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED)
                 intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED)
                 intentFilter.addDataScheme("package")
+                broadcastReceivers.add(broadcastReceiver)
                 registerReceiver(broadcastReceiver, intentFilter)
             }
 
             override fun onCancel(o: Any?) {
                 unregisterReceiver(broadcastReceiver)
+                broadcastReceivers.remove(broadcastReceiver)
             }
         })
+    }
+
+    override fun onDestroy() {
+        broadcastReceivers.forEach(::unregisterReceiver)
+        super.onDestroy()
     }
 
     private fun getInstalledApplications() = packageManager
