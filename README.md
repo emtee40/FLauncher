@@ -1,3 +1,3 @@
 # FLauncher
 
-Flutter-based Android TV launcher
+Flutter-based Android TV launcher.
