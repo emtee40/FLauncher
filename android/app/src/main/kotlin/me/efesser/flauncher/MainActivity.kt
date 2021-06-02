@@ -27,6 +27,7 @@ import android.content.pm.ResolveInfo
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.provider.Settings
 import androidx.annotation.NonNull
 import io.flutter.embedding.android.FlutterActivity
@@ -58,6 +59,15 @@ class MainActivity : FlutterActivity() {
                 }
                 "openSettings" -> {
                     result.success(openSettings())
+                }
+                "openAppInfo" -> {
+                    result.success(openAppInfo(call.arguments as String))
+                }
+                "uninstallApp" -> {
+                    result.success(uninstallApp(call.arguments as String))
+                }
+                "isDefaultLauncher" -> {
+                    result.success(isDefaultLauncher())
                 }
                 else -> throw IllegalArgumentException()
             }
@@ -97,7 +107,8 @@ class MainActivity : FlutterActivity() {
                         "packageName" to it.packageName,
                         "banner" to it.loadBanner(packageManager)?.let(::drawableToByteArray),
                         "icon" to it.loadIcon(packageManager)?.let(::drawableToByteArray),
-                        "className" to it.name
+                        "className" to it.name,
+                        "version" to packageManager.getPackageInfo(it.packageName, 0).versionName,
                 )
             }
             .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it["name"] as String })
@@ -130,6 +141,31 @@ class MainActivity : FlutterActivity() {
     private fun openSettings() = try {
         startActivity(Intent(Settings.ACTION_SETTINGS))
         true
+    } catch (e: Exception) {
+        false
+    }
+
+    private fun openAppInfo(packageName: String) = try {
+        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                .setData(Uri.fromParts("package", packageName, null))
+                .let(::startActivity)
+        true
+    } catch (e: Exception) {
+        false
+    }
+
+    private fun uninstallApp(packageName: String) = try {
+        Intent(Intent.ACTION_DELETE)
+                .setData(Uri.fromParts("package", packageName, null))
+                .let(::startActivity)
+        true
+    } catch (e: Exception) {
+        false
+    }
+
+    private fun isDefaultLauncher() = try {
+        val defaultLauncher = packageManager.resolveActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME), 0)
+        defaultLauncher?.activityInfo?.packageName == packageName
     } catch (e: Exception) {
         false
     }

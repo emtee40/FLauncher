@@ -34,6 +34,15 @@ class FLauncherChannel {
   Future<void> openSettings() async =>
       await _methodChannel.invokeMethod('openSettings');
 
+  Future<void> openAppInfo(String packageName) async =>
+      await _methodChannel.invokeMethod('openAppInfo', packageName);
+
+  Future<void> uninstallApp(String packageName) async =>
+      await _methodChannel.invokeMethod('uninstallApp', packageName);
+
+  Future<bool> isDefaultLauncher() async =>
+      await _methodChannel.invokeMethod('isDefaultLauncher');
+
   void addAppsChangedListener(void Function(Map<dynamic, dynamic>) listener) =>
       _eventChannel.receiveBroadcastStream().listen((event) => listener(event));
 }
