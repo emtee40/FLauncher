@@ -17,53 +17,66 @@
  */
 
 import 'package:flauncher/apps.dart';
+import 'package:flauncher/settings.dart';
 import 'package:flauncher/wallpaper.dart';
 import 'package:flauncher/widgets/right_panel_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) => RightPanelDialog(
-        child: Column(
-          children: [
-            Text(
-              "Settings",
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            Divider(),
-            TextButton(
-              child: Row(
-                children: [
-                  Icon(Icons.wallpaper_outlined),
-                  Container(width: 8),
-                  Text(
-                    "Wallpaper",
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ],
+        width: 300,
+        child: Consumer<Settings>(
+          builder: (context, settings, _) => Column(
+            children: [
+              Text(
+                "Settings",
+                style: Theme.of(context).textTheme.headline6,
               ),
-              onPressed: () => showDialog(
-                context: context,
-                builder: (context) => _WallpaperDialog(),
+              Divider(),
+              TextButton(
+                child: Row(
+                  children: [
+                    Icon(Icons.wallpaper_outlined),
+                    Container(width: 8),
+                    Text(
+                      "Wallpaper",
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ],
+                ),
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => _WallpaperDialog(),
+                ),
               ),
-            ),
-            Divider(),
-            TextButton(
-              child: Row(
-                children: [
-                  Icon(Icons.settings_outlined),
-                  Container(width: 8),
-                  Text(
-                    "Android settings",
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ],
+              Divider(),
+              TextButton(
+                child: Row(
+                  children: [
+                    Icon(Icons.settings_outlined),
+                    Container(width: 8),
+                    Text(
+                      "Android settings",
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ],
+                ),
+                onPressed: () => context.read<Apps>().openSettings(),
               ),
-              onPressed: () => context.read<Apps>().openSettings(),
-            ),
-          ],
+              Divider(),
+              SwitchListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                value: settings.crashReportsEnabled,
+                onChanged: (value) => settings.setCrashReportsEnabled(value),
+                title: Text("Crash Reporting"),
+                dense: true,
+                subtitle: Text(
+                    "Automatically send crash reports through Firebase Crashlytics."),
+              ),
+            ],
+          ),
         ),
       );
 }
@@ -78,30 +91,21 @@ class _WallpaperDialog extends StatelessWidget {
             children: [
               TextButton(
                 autofocus: true,
-                onPressed: () => _pickFile(context),
+                onPressed: () async {
+                  await context.read<Wallpaper>().pickWallpaper();
+                  Navigator.of(context).pop();
+                },
                 child: Text("SELECT"),
               ),
               TextButton(
-                onPressed: () => _clearWallpaper(context),
+                onPressed: () async {
+                  await context.read<Wallpaper>().clearWallpaper();
+                  Navigator.of(context).pop();
+                },
                 child: Text("CLEAR"),
               ),
             ],
           ),
         ],
       );
-
-  Future<void> _pickFile(BuildContext context) async {
-    final imagePicker = context.read<ImagePicker>();
-    final pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
-      context.read<Wallpaper>().setWallpaper(bytes);
-    }
-    Navigator.of(context).pop();
-  }
-
-  Future<void> _clearWallpaper(BuildContext context) async {
-    await context.read<Wallpaper>().clearWallpaper();
-    Navigator.of(context).pop();
-  }
 }
