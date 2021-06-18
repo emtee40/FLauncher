@@ -3,8 +3,8 @@ variables:
 
 stages:
   - precheck
-  - generate
   - analyze
+  - test
   - build
   - deploy
   - promote
@@ -27,29 +27,31 @@ stylelint:
   script:
     - flutter format --line-length 120 --dry-run --set-exit-if-changed .
 
-generate:
-  image: $FLUTTER_DOCKER_IMAGE
-  stage: generate
-  needs: [ ]
-  script:
-    - flutter pub get
-    - flutter pub run build_runner build
-  artifacts:
-    paths:
-      - .dart_tool
-      - lib/database.g.dart
-
 analyze:
   image: $FLUTTER_DOCKER_IMAGE
   stage: analyze
-  needs: [ "generate" ]
+  needs: [ ]
   script:
     - flutter analyze
+
+test:
+  image: $FLUTTER_DOCKER_IMAGE
+  stage: test
+  needs: [ ]
+  before_script:
+    - apt-get update
+    - apt-get install -y libsqlite3-dev
+  script:
+    - flutter test --coverage
+  after_script:
+    - lcov --remove coverage/lcov.info lib/database.moor.dart --output-file coverage/lcov.info
+    - genhtml --output ./coverage coverage/lcov.info
+  coverage: '/^\s+lines\.+:\s+([\d.]+\%)\s+/'
 
 build:debug:
   image: $FLUTTER_DOCKER_IMAGE
   stage: build
-  needs: [ "generate" ]
+  needs: [ ]
   except:
     - master
     - tags
@@ -59,7 +61,7 @@ build:debug:
 build:release:
   image: $FLUTTER_DOCKER_IMAGE
   stage: build
-  needs: [ "generate" ]
+  needs: [ ]
   only:
     - master
     - tags
@@ -75,7 +77,7 @@ build:release:
 
 deploy:
   stage: deploy
-  needs: [ "commitlint", "stylelint", "analyze", "build:release" ]
+  needs: [ "commitlint", "stylelint", "analyze", "build:release", "test" ]
   image: ruby:2.6.3
   only:
     - tags

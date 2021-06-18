@@ -23,7 +23,7 @@ import 'package:moor/moor.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
-part 'database.g.dart';
+part 'database.moor.dart';
 
 class Apps extends Table {
   TextColumn get packageName => text()();
@@ -73,7 +73,7 @@ class CategoryWithApps {
 
 @UseMoor(tables: [Apps, Categories, AppsCategories])
 class FLauncherDatabase extends _$FLauncherDatabase {
-  FLauncherDatabase() : super(_openConnection());
+  FLauncherDatabase([DatabaseOpener databaseOpener = _openConnection]) : super(LazyDatabase(databaseOpener));
 
   @override
   int get schemaVersion => 1;
@@ -140,8 +140,8 @@ class FLauncherDatabase extends _$FLauncherDatabase {
   }
 }
 
-LazyDatabase _openConnection() => LazyDatabase(() async {
-      final dbFolder = await getApplicationDocumentsDirectory();
-      final file = File(path.join(dbFolder.path, 'db.sqlite'));
-      return VmDatabase(file, logStatements: true);
-    });
+Future<VmDatabase> _openConnection() async {
+  final dbFolder = await getApplicationDocumentsDirectory();
+  final file = File(path.join(dbFolder.path, 'db.sqlite'));
+  return VmDatabase(file, logStatements: true);
+}
