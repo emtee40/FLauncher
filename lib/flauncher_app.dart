@@ -17,6 +17,7 @@
  */
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flauncher/providers/apps_service.dart';
 import 'package:flauncher/providers/settings_service.dart';
 import 'package:flauncher/providers/wallpaper_service.dart';
@@ -25,6 +26,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unsplash_client/unsplash_client.dart';
 
 import 'database.dart';
 import 'flauncher.dart';
@@ -36,6 +38,8 @@ class FLauncherApp extends StatelessWidget {
   final ImagePicker _imagePicker;
   final FLauncherChannel _fLauncherChannel;
   final FLauncherDatabase _fLauncherDatabase;
+  final UnsplashClient _unsplashClient;
+  final RemoteConfig _remoteConfig;
 
   static const MaterialColor _swatch = MaterialColor(0xFF011526, <int, Color>{
     50: Color(0xFF36A0FA),
@@ -56,14 +60,17 @@ class FLauncherApp extends StatelessWidget {
     this._imagePicker,
     this._fLauncherChannel,
     this._fLauncherDatabase,
+    this._unsplashClient,
+    this._remoteConfig,
   );
 
   @override
   Widget build(BuildContext context) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => WallpaperService(_imagePicker, _fLauncherChannel)),
+          ChangeNotifierProvider(create: (_) => WallpaperService(_imagePicker, _fLauncherChannel, _unsplashClient)),
           ChangeNotifierProvider(create: (_) => AppsService(_fLauncherChannel, _fLauncherDatabase)),
-          ChangeNotifierProvider(create: (_) => SettingsService(_sharedPreferences, _firebaseCrashlytics), lazy: false),
+          ChangeNotifierProvider(
+              create: (_) => SettingsService(_sharedPreferences, _firebaseCrashlytics, _remoteConfig), lazy: false),
         ],
         child: MaterialApp(
           shortcuts: {...WidgetsApp.defaultShortcuts, LogicalKeySet(LogicalKeyboardKey.select): ActivateIntent()},
@@ -82,6 +89,15 @@ class FLauncherApp extends StatelessWidget {
             textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom(primary: Colors.white)),
             appBarTheme: AppBarTheme(elevation: 0, backgroundColor: Colors.transparent),
             typography: Typography.material2018(),
+            inputDecorationTheme: InputDecorationTheme(
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+              labelStyle: Typography.material2018().white.bodyText2,
+            ),
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: Colors.white,
+              selectionColor: _swatch[200],
+              selectionHandleColor: _swatch[200],
+            ),
           ),
           home: Builder(
             builder: (context) => WillPopScope(
