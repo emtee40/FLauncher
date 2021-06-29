@@ -18,6 +18,7 @@
 
 import 'package:flauncher/providers/settings_service.dart';
 import 'package:flauncher/providers/wallpaper_service.dart';
+import 'package:flauncher/widgets/gradient_panel_page.dart';
 import 'package:flauncher/widgets/unsplash_panel_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +43,17 @@ class WallpaperPanelPage extends StatelessWidget {
               ),
               onPressed: () => Navigator.of(context).pushNamed(UnsplashPanelPage.routeName),
             ),
+          TextButton(
+            autofocus: true,
+            child: Row(
+              children: [
+                Icon(Icons.wallpaper),
+                Container(width: 8),
+                Text("Gradient", style: Theme.of(context).textTheme.bodyText2),
+              ],
+            ),
+            onPressed: () => Navigator.of(context).pushNamed(GradientPanelPage.routeName),
+          ),
           TextButton(
             child: Row(
               children: [
