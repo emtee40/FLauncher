@@ -20,6 +20,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flauncher/flauncher_channel.dart';
+import 'package:flauncher/gradients.dart';
+import 'package:flauncher/providers/settings_service.dart';
+import 'package:flauncher/unsplash_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -27,13 +30,22 @@ import 'package:path_provider/path_provider.dart';
 class WallpaperService extends ChangeNotifier {
   final ImagePicker _imagePicker;
   final FLauncherChannel _fLauncherChannel;
-  late final File _wallpaperFile;
+  final UnsplashService _unsplashService;
+  late SettingsService _settingsService;
 
+  late final File _wallpaperFile;
   Uint8List? _wallpaper;
 
   Uint8List? get wallpaperBytes => _wallpaper;
 
-  WallpaperService(this._imagePicker, this._fLauncherChannel) {
+  FLauncherGradient get gradient => FLauncherGradients.all.firstWhere(
+        (gradient) => gradient.uuid == _settingsService.gradientUuid,
+        orElse: () => FLauncherGradients.greatWhale,
+      );
+
+  set settingsService(SettingsService settingsService) => _settingsService = settingsService;
+
+  WallpaperService(this._imagePicker, this._fLauncherChannel, this._unsplashService) {
     _init();
   }
 
@@ -47,7 +59,7 @@ class WallpaperService extends ChangeNotifier {
   }
 
   Future<void> pickWallpaper() async {
-    if (!(await _fLauncherChannel.checkForGetContentAvailability())) {
+    if (!await _fLauncherChannel.checkForGetContentAvailability()) {
       throw NoFileExplorerException();
     }
     final pickedFile = await _imagePicker.getImage(source: ImageSource.gallery);
@@ -59,11 +71,28 @@ class WallpaperService extends ChangeNotifier {
     }
   }
 
-  Future<void> clearWallpaper() async {
+  Future<void> randomFromUnsplash(String query) async {
+    final bytes = await _unsplashService.randomPhoto(query);
+    await _wallpaperFile.writeAsBytes(bytes);
+    _wallpaper = bytes;
+    notifyListeners();
+  }
+
+  Future<List<Photo>> searchFromUnsplash(String query) => _unsplashService.searchPhotos(query);
+
+  Future<void> setFromUnsplash(Photo photo) async {
+    final bytes = await _unsplashService.downloadPhoto(photo);
+    await _wallpaperFile.writeAsBytes(bytes);
+    _wallpaper = bytes;
+    notifyListeners();
+  }
+
+  Future<void> setGradient(FLauncherGradient fLauncherGradient) async {
     if (await _wallpaperFile.exists()) {
       await _wallpaperFile.delete();
     }
     _wallpaper = null;
+    _settingsService.setGradientUuid(fLauncherGradient.uuid);
     notifyListeners();
   }
 }

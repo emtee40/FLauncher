@@ -13,6 +13,7 @@ dependencies:
 
   firebase_core: ^1.2.0
   firebase_crashlytics: ^2.0.4
+  firebase_remote_config: ^0.10.0+2
   image_picker: ^0.7.5
   intl: ^0.17.0
   moor: ^4.3.2
@@ -22,6 +23,7 @@ dependencies:
   provider: ^5.0.0
   shared_preferences: ^2.0.6
   sqlite3_flutter_libs: ^0.5.0
+  unsplash_client: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +33,7 @@ dev_dependencies:
   lints: ^1.0.1
   mockito: ^5.0.10
   moor_generator: ^4.3.1
+  network_image_mock: ^2.0.1
   transparent_image: ^2.0.0
 
 flutter:

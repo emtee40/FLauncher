@@ -18,15 +18,16 @@
 
 import 'dart:ui';
 
-import 'package:flauncher/providers/apps_service.dart';
 import 'package:flauncher/database.dart';
 import 'package:flauncher/flauncher.dart';
+import 'package:flauncher/gradients.dart';
+import 'package:flauncher/providers/apps_service.dart';
 import 'package:flauncher/providers/settings_service.dart';
 import 'package:flauncher/providers/wallpaper_service.dart';
 import 'package:flauncher/widgets/application_info_panel.dart';
 import 'package:flauncher/widgets/apps_grid.dart';
 import 'package:flauncher/widgets/category_row.dart';
-import 'package:flauncher/widgets/settings_panel.dart';
+import 'package:flauncher/widgets/settings/settings_panel_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -51,6 +52,7 @@ void main() {
     final appsService = MockAppsService();
     final settingsService = MockSettingsService();
     when(wallpaperService.wallpaperBytes).thenReturn(null);
+    when(wallpaperService.gradient).thenReturn(FLauncherGradients.greatWhale);
     final applicationsCategory = fakeCategory("Applications", 1);
     when(appsService.categoriesWithApps).thenReturn([
       CategoryWithApps(fakeCategory("Favorites", 0), []),
@@ -84,6 +86,7 @@ void main() {
     final settingsService = MockSettingsService();
     when(appsService.categoriesWithApps).thenReturn([]);
     when(wallpaperService.wallpaperBytes).thenReturn(kTransparentImage);
+    when(wallpaperService.gradient).thenReturn(FLauncherGradients.greatWhale);
     when(settingsService.use24HourTimeFormat).thenReturn(false);
 
     await _pumpWidgetWithProviders(tester, wallpaperService, appsService, settingsService);
@@ -91,11 +94,26 @@ void main() {
     expect(tester.widget(find.byKey(Key("background"))), isA<Image>());
   });
 
+  testWidgets("Home page displays background gradient", (tester) async {
+    final wallpaperService = MockWallpaperService();
+    final appsService = MockAppsService();
+    final settingsService = MockSettingsService();
+    when(appsService.categoriesWithApps).thenReturn([]);
+    when(wallpaperService.wallpaperBytes).thenReturn(null);
+    when(wallpaperService.gradient).thenReturn(FLauncherGradients.greatWhale);
+    when(settingsService.use24HourTimeFormat).thenReturn(false);
+
+    await _pumpWidgetWithProviders(tester, wallpaperService, appsService, settingsService);
+
+    expect(tester.widget(find.byKey(Key("background"))), isA<Container>());
+  });
+
   testWidgets("Pressing select on settings icon opens SettingsPanel", (tester) async {
     final wallpaperService = MockWallpaperService();
     final appsService = MockAppsService();
     final settingsService = MockSettingsService();
     when(wallpaperService.wallpaperBytes).thenReturn(null);
+    when(wallpaperService.gradient).thenReturn(FLauncherGradients.greatWhale);
     when(appsService.categoriesWithApps).thenReturn([
       CategoryWithApps(fakeCategory("Favorites", 0), []),
       CategoryWithApps(fakeCategory("Applications", 1), []),
@@ -109,7 +127,7 @@ void main() {
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
 
-    expect(find.byType(SettingsPanel), findsOneWidget);
+    expect(find.byType(SettingsPanelPage), findsOneWidget);
   });
 
   testWidgets("Pressing select on app opens ApplicationInfoPanel", (tester) async {
@@ -117,6 +135,7 @@ void main() {
     final appsService = MockAppsService();
     final settingsService = MockSettingsService();
     when(wallpaperService.wallpaperBytes).thenReturn(null);
+    when(wallpaperService.gradient).thenReturn(FLauncherGradients.greatWhale);
     when(settingsService.use24HourTimeFormat).thenReturn(false);
     final app = fakeApp(
       "me.efesser.flauncher",
@@ -143,6 +162,7 @@ void main() {
     final appsService = MockAppsService();
     final settingsService = MockSettingsService();
     when(wallpaperService.wallpaperBytes).thenReturn(null);
+    when(wallpaperService.gradient).thenReturn(FLauncherGradients.greatWhale);
     when(settingsService.use24HourTimeFormat).thenReturn(false);
     final applicationsCategory = fakeCategory("Applications", 1);
     when(appsService.categoriesWithApps).thenReturn([
@@ -171,6 +191,7 @@ void main() {
     final appsService = MockAppsService();
     final settingsService = MockSettingsService();
     when(wallpaperService.wallpaperBytes).thenReturn(null);
+    when(wallpaperService.gradient).thenReturn(FLauncherGradients.greatWhale);
     when(settingsService.use24HourTimeFormat).thenReturn(false);
     final applicationsCategory = fakeCategory("Applications", 1);
     when(appsService.categoriesWithApps).thenReturn([
