@@ -224,75 +224,32 @@ class $AppsTable extends Apps with TableInfo<$AppsTable, App> {
   final String? _alias;
   $AppsTable(this._db, [this._alias]);
   final VerificationMeta _packageNameMeta = const VerificationMeta('packageName');
-  @override
-  late final GeneratedTextColumn packageName = _constructPackageName();
-  GeneratedTextColumn _constructPackageName() {
-    return GeneratedTextColumn(
-      'package_name',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> packageName =
+      GeneratedColumn<String?>('package_name', aliasedName, false, typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _nameMeta = const VerificationMeta('name');
-  @override
-  late final GeneratedTextColumn name = _constructName();
-  GeneratedTextColumn _constructName() {
-    return GeneratedTextColumn(
-      'name',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> name =
+      GeneratedColumn<String?>('name', aliasedName, false, typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _versionMeta = const VerificationMeta('version');
-  @override
-  late final GeneratedTextColumn version = _constructVersion();
-  GeneratedTextColumn _constructVersion() {
-    return GeneratedTextColumn(
-      'version',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> version =
+      GeneratedColumn<String?>('version', aliasedName, false, typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _bannerMeta = const VerificationMeta('banner');
-  @override
-  late final GeneratedBlobColumn banner = _constructBanner();
-  GeneratedBlobColumn _constructBanner() {
-    return GeneratedBlobColumn(
-      'banner',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<Uint8List?> banner =
+      GeneratedColumn<Uint8List?>('banner', aliasedName, true, typeName: 'BLOB', requiredDuringInsert: false);
   final VerificationMeta _iconMeta = const VerificationMeta('icon');
-  @override
-  late final GeneratedBlobColumn icon = _constructIcon();
-  GeneratedBlobColumn _constructIcon() {
-    return GeneratedBlobColumn(
-      'icon',
-      $tableName,
-      true,
-    );
-  }
-
+  late final GeneratedColumn<Uint8List?> icon =
+      GeneratedColumn<Uint8List?>('icon', aliasedName, true, typeName: 'BLOB', requiredDuringInsert: false);
   final VerificationMeta _hiddenMeta = const VerificationMeta('hidden');
-  @override
-  late final GeneratedBoolColumn hidden = _constructHidden();
-  GeneratedBoolColumn _constructHidden() {
-    return GeneratedBoolColumn('hidden', $tableName, false, defaultValue: Constant(false));
-  }
-
+  late final GeneratedColumn<bool?> hidden = GeneratedColumn<bool?>('hidden', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (hidden IN (0, 1))',
+      defaultValue: Constant(false));
   @override
   List<GeneratedColumn> get $columns => [packageName, name, version, banner, icon, hidden];
   @override
-  $AppsTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'apps';
   @override
-  String get $tableName => _alias ?? 'apps';
-  @override
-  final String actualTableName = 'apps';
+  String get actualTableName => 'apps';
   @override
   VerificationContext validateIntegrity(Insertable<App> instance, {bool isInserting = false}) {
     final context = VerificationContext();
@@ -340,13 +297,30 @@ class $AppsTable extends Apps with TableInfo<$AppsTable, App> {
 class Category extends DataClass implements Insertable<Category> {
   final int id;
   final String name;
+  final CategorySort sort;
+  final CategoryType type;
+  final int rowHeight;
+  final int columnsCount;
   final int order;
-  Category({required this.id, required this.name, required this.order});
+  Category(
+      {required this.id,
+      required this.name,
+      required this.sort,
+      required this.type,
+      required this.rowHeight,
+      required this.columnsCount,
+      required this.order});
   factory Category.fromData(Map<String, dynamic> data, GeneratedDatabase db, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Category(
       id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       name: const StringType().mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
+      sort: $CategoriesTable.$converter0
+          .mapToDart(const IntType().mapFromDatabaseResponse(data['${effectivePrefix}sort']))!,
+      type: $CategoriesTable.$converter1
+          .mapToDart(const IntType().mapFromDatabaseResponse(data['${effectivePrefix}type']))!,
+      rowHeight: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}row_height'])!,
+      columnsCount: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}columns_count'])!,
       order: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}order'])!,
     );
   }
@@ -355,6 +329,16 @@ class Category extends DataClass implements Insertable<Category> {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['name'] = Variable<String>(name);
+    {
+      final converter = $CategoriesTable.$converter0;
+      map['sort'] = Variable<int>(converter.mapToSql(sort)!);
+    }
+    {
+      final converter = $CategoriesTable.$converter1;
+      map['type'] = Variable<int>(converter.mapToSql(type)!);
+    }
+    map['row_height'] = Variable<int>(rowHeight);
+    map['columns_count'] = Variable<int>(columnsCount);
     map['order'] = Variable<int>(order);
     return map;
   }
@@ -363,6 +347,10 @@ class Category extends DataClass implements Insertable<Category> {
     return CategoriesCompanion(
       id: Value(id),
       name: Value(name),
+      sort: Value(sort),
+      type: Value(type),
+      rowHeight: Value(rowHeight),
+      columnsCount: Value(columnsCount),
       order: Value(order),
     );
   }
@@ -372,6 +360,10 @@ class Category extends DataClass implements Insertable<Category> {
     return Category(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
+      sort: serializer.fromJson<CategorySort>(json['sort']),
+      type: serializer.fromJson<CategoryType>(json['type']),
+      rowHeight: serializer.fromJson<int>(json['rowHeight']),
+      columnsCount: serializer.fromJson<int>(json['columnsCount']),
       order: serializer.fromJson<int>(json['order']),
     );
   }
@@ -381,60 +373,127 @@ class Category extends DataClass implements Insertable<Category> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
+      'sort': serializer.toJson<CategorySort>(sort),
+      'type': serializer.toJson<CategoryType>(type),
+      'rowHeight': serializer.toJson<int>(rowHeight),
+      'columnsCount': serializer.toJson<int>(columnsCount),
       'order': serializer.toJson<int>(order),
     };
   }
 
-  Category copyWith({int? id, String? name, int? order}) => Category(
+  Category copyWith(
+          {int? id,
+          String? name,
+          CategorySort? sort,
+          CategoryType? type,
+          int? rowHeight,
+          int? columnsCount,
+          int? order}) =>
+      Category(
         id: id ?? this.id,
         name: name ?? this.name,
+        sort: sort ?? this.sort,
+        type: type ?? this.type,
+        rowHeight: rowHeight ?? this.rowHeight,
+        columnsCount: columnsCount ?? this.columnsCount,
         order: order ?? this.order,
       );
   @override
   String toString() {
-    return (StringBuffer('Category(')..write('id: $id, ')..write('name: $name, ')..write('order: $order')..write(')'))
+    return (StringBuffer('Category(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('sort: $sort, ')
+          ..write('type: $type, ')
+          ..write('rowHeight: $rowHeight, ')
+          ..write('columnsCount: $columnsCount, ')
+          ..write('order: $order')
+          ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(id.hashCode, $mrjc(name.hashCode, order.hashCode)));
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          name.hashCode,
+          $mrjc(sort.hashCode,
+              $mrjc(type.hashCode, $mrjc(rowHeight.hashCode, $mrjc(columnsCount.hashCode, order.hashCode)))))));
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Category && other.id == this.id && other.name == this.name && other.order == this.order);
+      (other is Category &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.sort == this.sort &&
+          other.type == this.type &&
+          other.rowHeight == this.rowHeight &&
+          other.columnsCount == this.columnsCount &&
+          other.order == this.order);
 }
 
 class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<int> id;
   final Value<String> name;
+  final Value<CategorySort> sort;
+  final Value<CategoryType> type;
+  final Value<int> rowHeight;
+  final Value<int> columnsCount;
   final Value<int> order;
   const CategoriesCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
+    this.sort = const Value.absent(),
+    this.type = const Value.absent(),
+    this.rowHeight = const Value.absent(),
+    this.columnsCount = const Value.absent(),
     this.order = const Value.absent(),
   });
   CategoriesCompanion.insert({
     this.id = const Value.absent(),
     required String name,
+    this.sort = const Value.absent(),
+    this.type = const Value.absent(),
+    this.rowHeight = const Value.absent(),
+    this.columnsCount = const Value.absent(),
     required int order,
   })  : name = Value(name),
         order = Value(order);
   static Insertable<Category> custom({
     Expression<int>? id,
     Expression<String>? name,
+    Expression<CategorySort>? sort,
+    Expression<CategoryType>? type,
+    Expression<int>? rowHeight,
+    Expression<int>? columnsCount,
     Expression<int>? order,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
+      if (sort != null) 'sort': sort,
+      if (type != null) 'type': type,
+      if (rowHeight != null) 'row_height': rowHeight,
+      if (columnsCount != null) 'columns_count': columnsCount,
       if (order != null) 'order': order,
     });
   }
 
-  CategoriesCompanion copyWith({Value<int>? id, Value<String>? name, Value<int>? order}) {
+  CategoriesCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? name,
+      Value<CategorySort>? sort,
+      Value<CategoryType>? type,
+      Value<int>? rowHeight,
+      Value<int>? columnsCount,
+      Value<int>? order}) {
     return CategoriesCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
+      sort: sort ?? this.sort,
+      type: type ?? this.type,
+      rowHeight: rowHeight ?? this.rowHeight,
+      columnsCount: columnsCount ?? this.columnsCount,
       order: order ?? this.order,
     );
   }
@@ -448,6 +507,20 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
+    if (sort.present) {
+      final converter = $CategoriesTable.$converter0;
+      map['sort'] = Variable<int>(converter.mapToSql(sort.value)!);
+    }
+    if (type.present) {
+      final converter = $CategoriesTable.$converter1;
+      map['type'] = Variable<int>(converter.mapToSql(type.value)!);
+    }
+    if (rowHeight.present) {
+      map['row_height'] = Variable<int>(rowHeight.value);
+    }
+    if (columnsCount.present) {
+      map['columns_count'] = Variable<int>(columnsCount.value);
+    }
     if (order.present) {
       map['order'] = Variable<int>(order.value);
     }
@@ -459,6 +532,10 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     return (StringBuffer('CategoriesCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
+          ..write('sort: $sort, ')
+          ..write('type: $type, ')
+          ..write('rowHeight: $rowHeight, ')
+          ..write('columnsCount: $columnsCount, ')
           ..write('order: $order')
           ..write(')'))
         .toString();
@@ -470,42 +547,36 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
   final String? _alias;
   $CategoriesTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false, hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>('id', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: false, defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
-  @override
-  late final GeneratedTextColumn name = _constructName();
-  GeneratedTextColumn _constructName() {
-    return GeneratedTextColumn(
-      'name',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<String?> name =
+      GeneratedColumn<String?>('name', aliasedName, false, typeName: 'TEXT', requiredDuringInsert: true);
+  final VerificationMeta _sortMeta = const VerificationMeta('sort');
+  late final GeneratedColumnWithTypeConverter<CategorySort, int?> sort = GeneratedColumn<int?>(
+          'sort', aliasedName, false,
+          typeName: 'INTEGER', requiredDuringInsert: false, defaultValue: Constant(0))
+      .withConverter<CategorySort>($CategoriesTable.$converter0);
+  final VerificationMeta _typeMeta = const VerificationMeta('type');
+  late final GeneratedColumnWithTypeConverter<CategoryType, int?> type = GeneratedColumn<int?>(
+          'type', aliasedName, false,
+          typeName: 'INTEGER', requiredDuringInsert: false, defaultValue: Constant(0))
+      .withConverter<CategoryType>($CategoriesTable.$converter1);
+  final VerificationMeta _rowHeightMeta = const VerificationMeta('rowHeight');
+  late final GeneratedColumn<int?> rowHeight = GeneratedColumn<int?>('row_height', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: false, defaultValue: Constant(110));
+  final VerificationMeta _columnsCountMeta = const VerificationMeta('columnsCount');
+  late final GeneratedColumn<int?> columnsCount = GeneratedColumn<int?>('columns_count', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: false, defaultValue: Constant(6));
   final VerificationMeta _orderMeta = const VerificationMeta('order');
+  late final GeneratedColumn<int?> order =
+      GeneratedColumn<int?>('order', aliasedName, false, typeName: 'INTEGER', requiredDuringInsert: true);
   @override
-  late final GeneratedIntColumn order = _constructOrder();
-  GeneratedIntColumn _constructOrder() {
-    return GeneratedIntColumn(
-      'order',
-      $tableName,
-      false,
-    );
-  }
-
+  List<GeneratedColumn> get $columns => [id, name, sort, type, rowHeight, columnsCount, order];
   @override
-  List<GeneratedColumn> get $columns => [id, name, order];
+  String get aliasedName => _alias ?? 'categories';
   @override
-  $CategoriesTable get asDslTable => this;
-  @override
-  String get $tableName => _alias ?? 'categories';
-  @override
-  final String actualTableName = 'categories';
+  String get actualTableName => 'categories';
   @override
   VerificationContext validateIntegrity(Insertable<Category> instance, {bool isInserting = false}) {
     final context = VerificationContext();
@@ -517,6 +588,14 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
       context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
+    }
+    context.handle(_sortMeta, const VerificationResult.success());
+    context.handle(_typeMeta, const VerificationResult.success());
+    if (data.containsKey('row_height')) {
+      context.handle(_rowHeightMeta, rowHeight.isAcceptableOrUnknown(data['row_height']!, _rowHeightMeta));
+    }
+    if (data.containsKey('columns_count')) {
+      context.handle(_columnsCountMeta, columnsCount.isAcceptableOrUnknown(data['columns_count']!, _columnsCountMeta));
     }
     if (data.containsKey('order')) {
       context.handle(_orderMeta, order.isAcceptableOrUnknown(data['order']!, _orderMeta));
@@ -537,6 +616,9 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
   $CategoriesTable createAlias(String alias) {
     return $CategoriesTable(_db, alias);
   }
+
+  static TypeConverter<CategorySort, int> $converter0 = const EnumIndexConverter<CategorySort>(CategorySort.values);
+  static TypeConverter<CategoryType, int> $converter1 = const EnumIndexConverter<CategoryType>(CategoryType.values);
 }
 
 class AppCategory extends DataClass implements Insertable<AppCategory> {
@@ -680,40 +762,24 @@ class $AppsCategoriesTable extends AppsCategories with TableInfo<$AppsCategories
   final String? _alias;
   $AppsCategoriesTable(this._db, [this._alias]);
   final VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
-  @override
-  late final GeneratedIntColumn categoryId = _constructCategoryId();
-  GeneratedIntColumn _constructCategoryId() {
-    return GeneratedIntColumn('category_id', $tableName, false,
-        $customConstraints: 'REFERENCES categories(id) ON DELETE CASCADE');
-  }
-
+  late final GeneratedColumn<int?> categoryId = GeneratedColumn<int?>('category_id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES categories(id) ON DELETE CASCADE');
   final VerificationMeta _appPackageNameMeta = const VerificationMeta('appPackageName');
-  @override
-  late final GeneratedTextColumn appPackageName = _constructAppPackageName();
-  GeneratedTextColumn _constructAppPackageName() {
-    return GeneratedTextColumn('app_package_name', $tableName, false,
-        $customConstraints: 'REFERENCES apps(package_name) ON DELETE CASCADE');
-  }
-
+  late final GeneratedColumn<String?> appPackageName = GeneratedColumn<String?>('app_package_name', aliasedName, false,
+      typeName: 'TEXT',
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES apps(package_name) ON DELETE CASCADE');
   final VerificationMeta _orderMeta = const VerificationMeta('order');
-  @override
-  late final GeneratedIntColumn order = _constructOrder();
-  GeneratedIntColumn _constructOrder() {
-    return GeneratedIntColumn(
-      'order',
-      $tableName,
-      false,
-    );
-  }
-
+  late final GeneratedColumn<int?> order =
+      GeneratedColumn<int?>('order', aliasedName, false, typeName: 'INTEGER', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [categoryId, appPackageName, order];
   @override
-  $AppsCategoriesTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'apps_categories';
   @override
-  String get $tableName => _alias ?? 'apps_categories';
-  @override
-  final String actualTableName = 'apps_categories';
+  String get actualTableName => 'apps_categories';
   @override
   VerificationContext validateIntegrity(Insertable<AppCategory> instance, {bool isInserting = false}) {
     final context = VerificationContext();
