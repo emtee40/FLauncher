@@ -17,9 +17,11 @@
  */
 
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:flutter/foundation.dart';
 import 'package:moor/ffi.dart';
+import 'package:moor/isolate.dart';
 import 'package:moor/moor.dart';
 import 'package:moor_inspector/moor_inspector.dart';
 import 'package:path/path.dart' as path;
@@ -39,6 +41,8 @@ class Apps extends Table {
   BlobColumn get icon => blob().nullable()();
 
   BoolColumn get hidden => boolean().withDefault(Constant(false))();
+
+  BoolColumn get sideloaded => boolean().withDefault(Constant(false))();
 
   @override
   Set<Column> get primaryKey => {packageName};
@@ -92,7 +96,9 @@ enum CategoryType {
 
 @UseMoor(tables: [Apps, Categories, AppsCategories])
 class FLauncherDatabase extends _$FLauncherDatabase {
-  FLauncherDatabase([DatabaseOpener databaseOpener = _openConnection]) : super(LazyDatabase(databaseOpener)) {
+  late final bool wasCreated;
+
+  FLauncherDatabase.connect(DatabaseConnection databaseConnection) : super.connect(databaseConnection) {
     if (kDebugMode && !Platform.environment.containsKey('FLUTTER_TEST')) {
       MoorInspectorBuilder()
         ..bundleId = 'me.efesser.flauncher'
@@ -101,8 +107,10 @@ class FLauncherDatabase extends _$FLauncherDatabase {
     }
   }
 
+  FLauncherDatabase.inMemory() : super(LazyDatabase(() => VmDatabase.memory()));
+
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -110,8 +118,13 @@ class FLauncherDatabase extends _$FLauncherDatabase {
           await migrator.createAll();
         },
         onUpgrade: (migrator, from, to) async {
+          if (from <= 1) {
+            await migrator.alterTable(TableMigration(apps, newColumns: [apps.hidden, apps.sideloaded]));
+          }
+          if (from <= 2 && from != 1) {
+            await migrator.addColumn(apps, apps.hidden);
+          }
           if (from <= 3) {
-            await migrator.alterTable(TableMigration(apps, newColumns: [apps.hidden]));
             await migrator.addColumn(categories, categories.sort);
             await migrator.addColumn(categories, categories.type);
             await migrator.addColumn(categories, categories.rowHeight);
@@ -119,19 +132,13 @@ class FLauncherDatabase extends _$FLauncherDatabase {
             await (update(categories)..where((tbl) => tbl.name.equals("Applications")))
                 .write(CategoriesCompanion(type: Value(CategoryType.grid)));
           }
+          if (from <= 4 && from != 1) {
+            await migrator.addColumn(apps, apps.sideloaded);
+          }
         },
         beforeOpen: (openingDetails) async {
           await customStatement('PRAGMA foreign_keys = ON;');
-          if (openingDetails.wasCreated) {
-            await insertCategory(CategoriesCompanion.insert(name: "Favorites", order: 0));
-            await insertCategory(
-              CategoriesCompanion.insert(
-                name: "Applications",
-                order: 1,
-                type: Value(CategoryType.grid),
-              ),
-            );
-          }
+          wasCreated = openingDetails.wasCreated;
         },
       );
 
@@ -145,8 +152,6 @@ class FLauncherDatabase extends _$FLauncherDatabase {
 
   Future<void> deleteApps(List<String> packageNames) =>
       (delete(apps)..where((tbl) => tbl.packageName.isIn(packageNames))).go();
-
-  Future<Category> getCategory(String name) => (select(categories)..where((tbl) => tbl.name.equals(name))).getSingle();
 
   Future<void> insertCategory(CategoriesCompanion category) => into(categories).insert(category);
 
@@ -172,7 +177,7 @@ class FLauncherDatabase extends _$FLauncherDatabase {
       .go();
 
   Future<void> insertAppsCategories(List<AppsCategoriesCompanion> value) =>
-      batch((batch) => batch.insertAll(appsCategories, value));
+      batch((batch) => batch.insertAll(appsCategories, value, mode: InsertMode.insertOrIgnore));
 
   Future<void> replaceAppsCategories(List<AppsCategoriesCompanion> value) =>
       batch((batch) => batch.replaceAll(appsCategories, value));
@@ -204,17 +209,6 @@ class FLauncherDatabase extends _$FLauncherDatabase {
     return categoriesToApps.entries.map((entry) => CategoryWithApps(entry.key, entry.value)).toList();
   }
 
-  Future<List<App>> listCategoryApps(int categoryId) async {
-    final query = select(appsCategories).join([
-      innerJoin(apps, apps.packageName.equalsExp(appsCategories.appPackageName)),
-    ]);
-    query.where(appsCategories.categoryId.equals(categoryId));
-    query.orderBy([OrderingTerm.asc(appsCategories.order)]);
-
-    final result = await query.get();
-    return result.map((e) => e.readTable(apps)).toList();
-  }
-
   Future<int> nextAppCategoryOrder(int categoryId) async {
     final query = selectOnly(appsCategories);
     final maxExpression = coalesce([appsCategories.order.max(), Constant(-1)]) + Constant(1);
@@ -223,12 +217,36 @@ class FLauncherDatabase extends _$FLauncherDatabase {
     final result = await query.getSingle();
     return result.read(maxExpression);
   }
-
-  Future<List<App>> listHiddenApplications() => (select(apps)..where((tbl) => tbl.hidden.equals(true))).get();
 }
 
-Future<VmDatabase> _openConnection() async {
+DatabaseConnection connect() => DatabaseConnection.delayed(() async {
+      final dbFolder = await getApplicationDocumentsDirectory();
+      final file = File(path.join(dbFolder.path, 'db.sqlite'));
+      return DatabaseConnection.fromExecutor(VmDatabase(file, logStatements: kDebugMode));
+    }());
+
+DatabaseConnection connectOnBackgroundIsolate() => DatabaseConnection.delayed(() async {
+      final isolate = await _createMoorIsolate();
+      return await isolate.connect();
+    }());
+
+Future<MoorIsolate> _createMoorIsolate() async {
   final dbFolder = await getApplicationDocumentsDirectory();
-  final file = File(path.join(dbFolder.path, 'db.sqlite'));
-  return VmDatabase(file, logStatements: kDebugMode);
+  final file = path.join(dbFolder.path, 'db.sqlite');
+  final receivePort = ReceivePort();
+  await Isolate.spawn(_startBackground, _IsolateStartRequest(receivePort.sendPort, file), debugName: "MoorIsolate");
+  return await receivePort.first as MoorIsolate;
+}
+
+void _startBackground(_IsolateStartRequest request) {
+  final executor = VmDatabase(File(request.targetPath), logStatements: kDebugMode);
+  final moorIsolate = MoorIsolate.inCurrent(() => DatabaseConnection.fromExecutor(executor));
+  request.sendMoorIsolate.send(moorIsolate);
+}
+
+class _IsolateStartRequest {
+  final SendPort sendMoorIsolate;
+  final String targetPath;
+
+  _IsolateStartRequest(this.sendMoorIsolate, this.targetPath);
 }
