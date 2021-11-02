@@ -122,12 +122,7 @@ class App extends DataClass implements Insertable<App> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(
-      packageName.hashCode,
-      $mrjc(
-          name.hashCode,
-          $mrjc(version.hashCode,
-              $mrjc(banner.hashCode, $mrjc(icon.hashCode, $mrjc(hidden.hashCode, sideloaded.hashCode)))))));
+  int get hashCode => Object.hash(packageName, name, version, banner, icon, hidden, sideloaded);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -453,12 +448,7 @@ class Category extends DataClass implements Insertable<Category> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(
-      id.hashCode,
-      $mrjc(
-          name.hashCode,
-          $mrjc(sort.hashCode,
-              $mrjc(type.hashCode, $mrjc(rowHeight.hashCode, $mrjc(columnsCount.hashCode, order.hashCode)))))));
+  int get hashCode => Object.hash(id, name, sort, type, rowHeight, columnsCount, order);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -725,7 +715,7 @@ class AppCategory extends DataClass implements Insertable<AppCategory> {
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(categoryId.hashCode, $mrjc(appPackageName.hashCode, order.hashCode)));
+  int get hashCode => Object.hash(categoryId, appPackageName, order);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
