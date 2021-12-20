@@ -17,7 +17,6 @@
  */
 
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:flauncher/database.dart';
 import 'package:flauncher/providers/apps_service.dart';
@@ -25,7 +24,6 @@ import 'package:flauncher/widgets/application_info_panel.dart';
 import 'package:flauncher/widgets/focus_keyboard_listener.dart';
 import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
@@ -69,14 +67,15 @@ class _AppCardState extends State<AppCard> {
         builder: (context) => AspectRatio(
           aspectRatio: 16 / 9,
           child: AnimatedContainer(
-            duration: Duration(milliseconds: 150),
+            duration: Duration(milliseconds: 200),
             curve: Curves.easeInOut,
             transformAlignment: Alignment.center,
             transform: _scaleTransform(context),
             child: Material(
               borderRadius: BorderRadius.circular(8),
               clipBehavior: Clip.antiAlias,
-              elevation: 4,
+              elevation: Focus.of(context).hasFocus ? 16 : 0,
+              shadowColor: Colors.black,
               child: Stack(
                 children: [
                   InkWell(
@@ -113,10 +112,20 @@ class _AppCardState extends State<AppCard> {
                   if (_moving) ..._arrows(),
                   IgnorePointer(
                     child: AnimatedOpacity(
-                      duration: Duration(milliseconds: 150),
+                      duration: Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
                       opacity: Focus.of(context).hasFocus ? 0 : 0.10,
                       child: Container(color: Colors.black),
+                    ),
+                  ),
+                  IgnorePointer(
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.easeInOut,
+                      decoration: BoxDecoration(
+                        border: Focus.of(context).hasFocus ? Border.all(color: Color(0xFFCFE1E9), width: 3) : null,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
                 ],
