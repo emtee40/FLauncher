@@ -16,11 +16,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import 'package:drift/drift.dart';
 import 'package:flauncher/database.dart';
 import 'package:flauncher/providers/apps_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:drift/drift.dart';
 
 import '../mocks.dart';
 import '../mocks.mocks.dart';
@@ -34,7 +34,7 @@ void main() {
             {
               'packageName': 'me.efesser.flauncher',
               'name': 'FLauncher',
-              'version': '1.0.0',
+              'version': null,
               'banner': null,
               'icon': null,
               'sideloaded': false
@@ -84,7 +84,7 @@ void main() {
           AppsCompanion.insert(
             packageName: "me.efesser.flauncher",
             name: "FLauncher",
-            version: "1.0.0",
+            version: "(unknown)",
             banner: Value(null),
             icon: Value(null),
             sideloaded: Value(false),
@@ -238,6 +238,16 @@ void main() {
 
     verify(channel.isDefaultLauncher());
     expect(isDefaultLauncher, isTrue);
+  });
+
+  test("startAmbientMode calls channel", () async {
+    final channel = MockFLauncherChannel();
+    final database = MockFLauncherDatabase();
+    final appsService = await _buildInitialisedAppsService(channel, database, []);
+
+    await appsService.startAmbientMode();
+
+    verify(channel.startAmbientMode());
   });
 
   test("addToCategory adds app to category", () async {

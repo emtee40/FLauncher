@@ -19,12 +19,12 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:drift/drift.dart';
 import 'package:flauncher/database.dart';
 import 'package:flauncher/flauncher_channel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter/material.dart';
-import 'package:drift/drift.dart';
 
 class AppsService extends ChangeNotifier {
   final FLauncherChannel _fLauncherChannel;
@@ -72,7 +72,7 @@ class AppsService extends ChangeNotifier {
   AppsCompanion _buildAppCompanion(dynamic data) => AppsCompanion(
         packageName: Value(data["packageName"]),
         name: Value(data["name"]),
-        version: Value(data["version"]),
+        version: Value(data["version"] ?? "(unknown)"),
         banner: Value(data["banner"]),
         icon: Value(data["icon"]),
         hidden: Value.absent(),
@@ -142,6 +142,8 @@ class AppsService extends ChangeNotifier {
   Future<void> openSettings() => _fLauncherChannel.openSettings();
 
   Future<bool> isDefaultLauncher() => _fLauncherChannel.isDefaultLauncher();
+
+  Future<void> startAmbientMode() => _fLauncherChannel.startAmbientMode();
 
   Future<void> addToCategory(App app, Category category, {bool shouldNotifyListeners = true}) async {
     int index = await _database.nextAppCategoryOrder(category.id);
