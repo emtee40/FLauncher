@@ -57,6 +57,7 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
   MemoryImage? _imageProvider;
   late AnimationController _animation;
   Color _lastBorderColor = Colors.white;
+  final FocusNode node = FocusNode();
 
   @override
   void initState() {
@@ -99,7 +100,7 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) => FocusKeyboardListener(
-        onPressed: (key) => _onPressed(context, key),
+        onPressed: (key) => _onPressed(context, key: key, node: node),
         onLongPress: (key) => _onLongPress(context, key),
         builder: (context) => AspectRatio(
           aspectRatio: 16 / 9,
@@ -121,7 +122,7 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
                       InkWell(
                         autofocus: widget.autofocus,
                         focusColor: Colors.transparent,
-                        onTap: () => _onPressed(context, null),
+                        onTap: () => _onPressed(context, tap: true, node: node),
                         onLongPress: () => _onLongPress(context, null),
                         child: widget.application.banner != null
                             ? Ink.image(image: _cachedMemoryImage(widget.application.banner!), fit: BoxFit.cover)
@@ -214,7 +215,7 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
         ),
       );
 
-  KeyEventResult _onPressed(BuildContext context, LogicalKeyboardKey? key) {
+  KeyEventResult _onPressed(BuildContext context, {LogicalKeyboardKey? key, bool tap = false, FocusNode? node}) {
     if (_moving) {
       WidgetsBinding.instance!.addPostFrameCallback((_) => Scrollable.ensureVisible(context,
           alignment: 0.1, duration: Duration(milliseconds: 100), curve: Curves.easeInOut));
@@ -231,7 +232,8 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
         widget.onMoveEnd();
       }
       return KeyEventResult.handled;
-    } else if (_validationKeys.contains(key)) {
+    } else if (_validationKeys.contains(key) || tap) {
+      Focus.of(context).requestFocus(node);
       context.read<AppsService>().launchApp(widget.application);
       return KeyEventResult.handled;
     }
