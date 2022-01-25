@@ -15,6 +15,7 @@ class App extends DataClass implements Insertable<App> {
   final Uint8List? icon;
   final bool hidden;
   final bool sideloaded;
+
   App(
       {required this.packageName,
       required this.name,
@@ -23,6 +24,7 @@ class App extends DataClass implements Insertable<App> {
       this.icon,
       required this.hidden,
       required this.sideloaded});
+
   factory App.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return App(
@@ -35,6 +37,7 @@ class App extends DataClass implements Insertable<App> {
       sideloaded: const BoolType().mapFromDatabaseResponse(data['${effectivePrefix}sideloaded'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -76,6 +79,7 @@ class App extends DataClass implements Insertable<App> {
       sideloaded: serializer.fromJson<bool>(json['sideloaded']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -107,6 +111,7 @@ class App extends DataClass implements Insertable<App> {
         hidden: hidden ?? this.hidden,
         sideloaded: sideloaded ?? this.sideloaded,
       );
+
   @override
   String toString() {
     return (StringBuffer('App(')
@@ -123,6 +128,7 @@ class App extends DataClass implements Insertable<App> {
 
   @override
   int get hashCode => Object.hash(packageName, name, version, banner, icon, hidden, sideloaded);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -144,6 +150,7 @@ class AppsCompanion extends UpdateCompanion<App> {
   final Value<Uint8List?> icon;
   final Value<bool> hidden;
   final Value<bool> sideloaded;
+
   const AppsCompanion({
     this.packageName = const Value.absent(),
     this.name = const Value.absent(),
@@ -153,6 +160,7 @@ class AppsCompanion extends UpdateCompanion<App> {
     this.hidden = const Value.absent(),
     this.sideloaded = const Value.absent(),
   });
+
   AppsCompanion.insert({
     required String packageName,
     required String name,
@@ -164,6 +172,7 @@ class AppsCompanion extends UpdateCompanion<App> {
   })  : packageName = Value(packageName),
         name = Value(name),
         version = Value(version);
+
   static Insertable<App> custom({
     Expression<String>? packageName,
     Expression<String>? name,
@@ -248,7 +257,9 @@ class AppsCompanion extends UpdateCompanion<App> {
 class $AppsTable extends Apps with TableInfo<$AppsTable, App> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $AppsTable(this._db, [this._alias]);
+
   final VerificationMeta _packageNameMeta = const VerificationMeta('packageName');
   @override
   late final GeneratedColumn<String?> packageName = GeneratedColumn<String?>('package_name', aliasedName, false,
@@ -283,12 +294,16 @@ class $AppsTable extends Apps with TableInfo<$AppsTable, App> {
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (sideloaded IN (0, 1))',
       defaultValue: Constant(false));
+
   @override
   List<GeneratedColumn> get $columns => [packageName, name, version, banner, icon, hidden, sideloaded];
+
   @override
   String get aliasedName => _alias ?? 'apps';
+
   @override
   String get actualTableName => 'apps';
+
   @override
   VerificationContext validateIntegrity(Insertable<App> instance, {bool isInserting = false}) {
     final context = VerificationContext();
@@ -325,6 +340,7 @@ class $AppsTable extends Apps with TableInfo<$AppsTable, App> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {packageName};
+
   @override
   App map(Map<String, dynamic> data, {String? tablePrefix}) {
     return App.fromData(data, prefix: tablePrefix != null ? '$tablePrefix.' : null);
@@ -344,6 +360,8 @@ class Category extends DataClass implements Insertable<Category> {
   final int rowHeight;
   final int columnsCount;
   final int order;
+  final bool nameHidden;
+
   Category(
       {required this.id,
       required this.name,
@@ -351,7 +369,9 @@ class Category extends DataClass implements Insertable<Category> {
       required this.type,
       required this.rowHeight,
       required this.columnsCount,
-      required this.order});
+      required this.order,
+      required this.nameHidden});
+
   factory Category.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Category(
@@ -364,8 +384,10 @@ class Category extends DataClass implements Insertable<Category> {
       rowHeight: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}row_height'])!,
       columnsCount: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}columns_count'])!,
       order: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}order'])!,
+      nameHidden: const BoolType().mapFromDatabaseResponse(data['${effectivePrefix}name_hidden'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -382,6 +404,7 @@ class Category extends DataClass implements Insertable<Category> {
     map['row_height'] = Variable<int>(rowHeight);
     map['columns_count'] = Variable<int>(columnsCount);
     map['order'] = Variable<int>(order);
+    map['name_hidden'] = Variable<bool>(nameHidden);
     return map;
   }
 
@@ -394,6 +417,7 @@ class Category extends DataClass implements Insertable<Category> {
       rowHeight: Value(rowHeight),
       columnsCount: Value(columnsCount),
       order: Value(order),
+      nameHidden: Value(nameHidden),
     );
   }
 
@@ -407,8 +431,10 @@ class Category extends DataClass implements Insertable<Category> {
       rowHeight: serializer.fromJson<int>(json['rowHeight']),
       columnsCount: serializer.fromJson<int>(json['columnsCount']),
       order: serializer.fromJson<int>(json['order']),
+      nameHidden: serializer.fromJson<bool>(json['nameHidden']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -420,6 +446,7 @@ class Category extends DataClass implements Insertable<Category> {
       'rowHeight': serializer.toJson<int>(rowHeight),
       'columnsCount': serializer.toJson<int>(columnsCount),
       'order': serializer.toJson<int>(order),
+      'nameHidden': serializer.toJson<bool>(nameHidden),
     };
   }
 
@@ -430,7 +457,8 @@ class Category extends DataClass implements Insertable<Category> {
           CategoryType? type,
           int? rowHeight,
           int? columnsCount,
-          int? order}) =>
+          int? order,
+          bool? nameHidden}) =>
       Category(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -439,7 +467,9 @@ class Category extends DataClass implements Insertable<Category> {
         rowHeight: rowHeight ?? this.rowHeight,
         columnsCount: columnsCount ?? this.columnsCount,
         order: order ?? this.order,
+        nameHidden: nameHidden ?? this.nameHidden,
       );
+
   @override
   String toString() {
     return (StringBuffer('Category(')
@@ -449,13 +479,15 @@ class Category extends DataClass implements Insertable<Category> {
           ..write('type: $type, ')
           ..write('rowHeight: $rowHeight, ')
           ..write('columnsCount: $columnsCount, ')
-          ..write('order: $order')
+          ..write('order: $order, ')
+          ..write('nameHidden: $nameHidden')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name, sort, type, rowHeight, columnsCount, order);
+  int get hashCode => Object.hash(id, name, sort, type, rowHeight, columnsCount, order, nameHidden);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -466,7 +498,8 @@ class Category extends DataClass implements Insertable<Category> {
           other.type == this.type &&
           other.rowHeight == this.rowHeight &&
           other.columnsCount == this.columnsCount &&
-          other.order == this.order);
+          other.order == this.order &&
+          other.nameHidden == this.nameHidden);
 }
 
 class CategoriesCompanion extends UpdateCompanion<Category> {
@@ -477,6 +510,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<int> rowHeight;
   final Value<int> columnsCount;
   final Value<int> order;
+  final Value<bool> nameHidden;
+
   const CategoriesCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -485,7 +520,9 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     this.rowHeight = const Value.absent(),
     this.columnsCount = const Value.absent(),
     this.order = const Value.absent(),
+    this.nameHidden = const Value.absent(),
   });
+
   CategoriesCompanion.insert({
     this.id = const Value.absent(),
     required String name,
@@ -494,8 +531,10 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     this.rowHeight = const Value.absent(),
     this.columnsCount = const Value.absent(),
     required int order,
+    this.nameHidden = const Value.absent(),
   })  : name = Value(name),
         order = Value(order);
+
   static Insertable<Category> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -504,6 +543,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     Expression<int>? rowHeight,
     Expression<int>? columnsCount,
     Expression<int>? order,
+    Expression<bool>? nameHidden,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -513,6 +553,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       if (rowHeight != null) 'row_height': rowHeight,
       if (columnsCount != null) 'columns_count': columnsCount,
       if (order != null) 'order': order,
+      if (nameHidden != null) 'name_hidden': nameHidden,
     });
   }
 
@@ -523,7 +564,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       Value<CategoryType>? type,
       Value<int>? rowHeight,
       Value<int>? columnsCount,
-      Value<int>? order}) {
+      Value<int>? order,
+      Value<bool>? nameHidden}) {
     return CategoriesCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -532,6 +574,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       rowHeight: rowHeight ?? this.rowHeight,
       columnsCount: columnsCount ?? this.columnsCount,
       order: order ?? this.order,
+      nameHidden: nameHidden ?? this.nameHidden,
     );
   }
 
@@ -561,6 +604,9 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     if (order.present) {
       map['order'] = Variable<int>(order.value);
     }
+    if (nameHidden.present) {
+      map['name_hidden'] = Variable<bool>(nameHidden.value);
+    }
     return map;
   }
 
@@ -573,7 +619,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
           ..write('type: $type, ')
           ..write('rowHeight: $rowHeight, ')
           ..write('columnsCount: $columnsCount, ')
-          ..write('order: $order')
+          ..write('order: $order, ')
+          ..write('nameHidden: $nameHidden')
           ..write(')'))
         .toString();
   }
@@ -582,7 +629,9 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
 class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Category> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $CategoriesTable(this._db, [this._alias]);
+
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>('id', aliasedName, false,
@@ -615,12 +664,23 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
   @override
   late final GeneratedColumn<int?> order =
       GeneratedColumn<int?>('order', aliasedName, false, type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _nameHiddenMeta = const VerificationMeta('nameHidden');
   @override
-  List<GeneratedColumn> get $columns => [id, name, sort, type, rowHeight, columnsCount, order];
+  late final GeneratedColumn<bool?> nameHidden = GeneratedColumn<bool?>('name_hidden', aliasedName, false,
+      type: const BoolType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (name_hidden IN (0, 1))',
+      defaultValue: Constant(false));
+
+  @override
+  List<GeneratedColumn> get $columns => [id, name, sort, type, rowHeight, columnsCount, order, nameHidden];
+
   @override
   String get aliasedName => _alias ?? 'categories';
+
   @override
   String get actualTableName => 'categories';
+
   @override
   VerificationContext validateIntegrity(Insertable<Category> instance, {bool isInserting = false}) {
     final context = VerificationContext();
@@ -646,11 +706,15 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
     } else if (isInserting) {
       context.missing(_orderMeta);
     }
+    if (data.containsKey('name_hidden')) {
+      context.handle(_nameHiddenMeta, nameHidden.isAcceptableOrUnknown(data['name_hidden']!, _nameHiddenMeta));
+    }
     return context;
   }
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   Category map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Category.fromData(data, prefix: tablePrefix != null ? '$tablePrefix.' : null);
@@ -669,7 +733,9 @@ class AppCategory extends DataClass implements Insertable<AppCategory> {
   final int categoryId;
   final String appPackageName;
   final int order;
+
   AppCategory({required this.categoryId, required this.appPackageName, required this.order});
+
   factory AppCategory.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return AppCategory(
@@ -678,6 +744,7 @@ class AppCategory extends DataClass implements Insertable<AppCategory> {
       order: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}order'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -703,6 +770,7 @@ class AppCategory extends DataClass implements Insertable<AppCategory> {
       order: serializer.fromJson<int>(json['order']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -718,6 +786,7 @@ class AppCategory extends DataClass implements Insertable<AppCategory> {
         appPackageName: appPackageName ?? this.appPackageName,
         order: order ?? this.order,
       );
+
   @override
   String toString() {
     return (StringBuffer('AppCategory(')
@@ -730,6 +799,7 @@ class AppCategory extends DataClass implements Insertable<AppCategory> {
 
   @override
   int get hashCode => Object.hash(categoryId, appPackageName, order);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -743,11 +813,13 @@ class AppsCategoriesCompanion extends UpdateCompanion<AppCategory> {
   final Value<int> categoryId;
   final Value<String> appPackageName;
   final Value<int> order;
+
   const AppsCategoriesCompanion({
     this.categoryId = const Value.absent(),
     this.appPackageName = const Value.absent(),
     this.order = const Value.absent(),
   });
+
   AppsCategoriesCompanion.insert({
     required int categoryId,
     required String appPackageName,
@@ -755,6 +827,7 @@ class AppsCategoriesCompanion extends UpdateCompanion<AppCategory> {
   })  : categoryId = Value(categoryId),
         appPackageName = Value(appPackageName),
         order = Value(order);
+
   static Insertable<AppCategory> custom({
     Expression<int>? categoryId,
     Expression<String>? appPackageName,
@@ -804,7 +877,9 @@ class AppsCategoriesCompanion extends UpdateCompanion<AppCategory> {
 class $AppsCategoriesTable extends AppsCategories with TableInfo<$AppsCategoriesTable, AppCategory> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $AppsCategoriesTable(this._db, [this._alias]);
+
   final VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
   @override
   late final GeneratedColumn<int?> categoryId = GeneratedColumn<int?>('category_id', aliasedName, false,
@@ -821,12 +896,16 @@ class $AppsCategoriesTable extends AppsCategories with TableInfo<$AppsCategories
   @override
   late final GeneratedColumn<int?> order =
       GeneratedColumn<int?>('order', aliasedName, false, type: const IntType(), requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns => [categoryId, appPackageName, order];
+
   @override
   String get aliasedName => _alias ?? 'apps_categories';
+
   @override
   String get actualTableName => 'apps_categories';
+
   @override
   VerificationContext validateIntegrity(Insertable<AppCategory> instance, {bool isInserting = false}) {
     final context = VerificationContext();
@@ -852,6 +931,7 @@ class $AppsCategoriesTable extends AppsCategories with TableInfo<$AppsCategories
 
   @override
   Set<GeneratedColumn> get $primaryKey => {categoryId, appPackageName};
+
   @override
   AppCategory map(Map<String, dynamic> data, {String? tablePrefix}) {
     return AppCategory.fromData(data, prefix: tablePrefix != null ? '$tablePrefix.' : null);
@@ -865,12 +945,15 @@ class $AppsCategoriesTable extends AppsCategories with TableInfo<$AppsCategories
 
 abstract class _$FLauncherDatabase extends GeneratedDatabase {
   _$FLauncherDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+
   _$FLauncherDatabase.connect(DatabaseConnection c) : super.connect(c);
   late final $AppsTable apps = $AppsTable(this);
   late final $CategoriesTable categories = $CategoriesTable(this);
   late final $AppsCategoriesTable appsCategories = $AppsCategoriesTable(this);
+
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
+
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [apps, categories, appsCategories];
 }

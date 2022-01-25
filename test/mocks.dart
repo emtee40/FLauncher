@@ -69,13 +69,14 @@ Category fakeCategory({
   CategoryType type = CategoryType.grid,
   int rowHeight = 110,
   int columnsCount = 6,
+  bool nameHidden = false,
 }) =>
     Category(
-      id: Random().nextInt(1 << 32),
-      name: name,
-      sort: sort,
-      type: type,
-      rowHeight: rowHeight,
-      columnsCount: columnsCount,
-      order: order,
-    );
+        id: Random().nextInt(1 << 32),
+        name: name,
+        sort: sort,
+        type: type,
+        rowHeight: rowHeight,
+        columnsCount: columnsCount,
+        order: order,
+        nameHidden: nameHidden);

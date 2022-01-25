@@ -41,16 +41,17 @@ class AppsGrid extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 16),
-            child: Text(
-              category.name,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(shadows: [Shadow(color: Colors.black54, offset: Offset(1, 1), blurRadius: 8)]),
+          if (!category.nameHidden)
+            Padding(
+              padding: EdgeInsets.only(left: 16),
+              child: Text(
+                category.name,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(shadows: [Shadow(color: Colors.black54, offset: Offset(1, 1), blurRadius: 8)]),
+              ),
             ),
-          ),
           applications.isNotEmpty
               ? GridView.custom(
                   shrinkWrap: true,

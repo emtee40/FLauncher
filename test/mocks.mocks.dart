@@ -94,34 +94,43 @@ class MockFLauncherChannel extends _i1.Mock implements _i9.FLauncherChannel {
   @override
   _i10.Future<List<dynamic>> getApplications() => (super.noSuchMethod(Invocation.method(#getApplications, []),
       returnValue: Future<List<dynamic>>.value(<dynamic>[])) as _i10.Future<List<dynamic>>);
+
   @override
   _i10.Future<void> launchApp(String? packageName) => (super.noSuchMethod(Invocation.method(#launchApp, [packageName]),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> openSettings() => (super.noSuchMethod(Invocation.method(#openSettings, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> openAppInfo(String? packageName) =>
       (super.noSuchMethod(Invocation.method(#openAppInfo, [packageName]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> uninstallApp(String? packageName) =>
       (super.noSuchMethod(Invocation.method(#uninstallApp, [packageName]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<bool> isDefaultLauncher() =>
       (super.noSuchMethod(Invocation.method(#isDefaultLauncher, []), returnValue: Future<bool>.value(false))
           as _i10.Future<bool>);
+
   @override
   _i10.Future<bool> checkForGetContentAvailability() => (super
           .noSuchMethod(Invocation.method(#checkForGetContentAvailability, []), returnValue: Future<bool>.value(false))
       as _i10.Future<bool>);
+
   @override
   _i10.Future<void> startAmbientMode() => (super.noSuchMethod(Invocation.method(#startAmbientMode, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   void addAppsChangedListener(void Function(Map<dynamic, dynamic>)? listener) =>
       super.noSuchMethod(Invocation.method(#addAppsChangedListener, [listener]), returnValueForMissingStub: null);
+
   @override
   String toString() => super.toString();
 }
@@ -136,155 +145,196 @@ class MockFLauncherDatabase extends _i1.Mock implements _i3.FLauncherDatabase {
 
   @override
   bool get wasCreated => (super.noSuchMethod(Invocation.getter(#wasCreated), returnValue: false) as bool);
+
   @override
   set wasCreated(bool? _wasCreated) =>
       super.noSuchMethod(Invocation.setter(#wasCreated, _wasCreated), returnValueForMissingStub: null);
+
   @override
   int get schemaVersion => (super.noSuchMethod(Invocation.getter(#schemaVersion), returnValue: 0) as int);
+
   @override
   _i2.MigrationStrategy get migration =>
       (super.noSuchMethod(Invocation.getter(#migration), returnValue: _FakeMigrationStrategy_0())
           as _i2.MigrationStrategy);
+
   @override
   _i3.$AppsTable get apps =>
       (super.noSuchMethod(Invocation.getter(#apps), returnValue: _Fake$AppsTable_1()) as _i3.$AppsTable);
+
   @override
   _i3.$CategoriesTable get categories =>
       (super.noSuchMethod(Invocation.getter(#categories), returnValue: _Fake$CategoriesTable_2())
           as _i3.$CategoriesTable);
+
   @override
   _i3.$AppsCategoriesTable get appsCategories =>
       (super.noSuchMethod(Invocation.getter(#appsCategories), returnValue: _Fake$AppsCategoriesTable_3())
           as _i3.$AppsCategoriesTable);
+
   @override
   Iterable<_i2.TableInfo<_i2.Table, dynamic>> get allTables =>
       (super.noSuchMethod(Invocation.getter(#allTables), returnValue: <_i2.TableInfo<_i2.Table, dynamic>>[])
           as Iterable<_i2.TableInfo<_i2.Table, dynamic>>);
+
   @override
   List<_i2.DatabaseSchemaEntity> get allSchemaEntities =>
       (super.noSuchMethod(Invocation.getter(#allSchemaEntities), returnValue: <_i2.DatabaseSchemaEntity>[])
           as List<_i2.DatabaseSchemaEntity>);
+
   @override
   _i2.GeneratedDatabase get attachedDatabase =>
       (super.noSuchMethod(Invocation.getter(#attachedDatabase), returnValue: _FakeGeneratedDatabase_4())
           as _i2.GeneratedDatabase);
+
   @override
   _i2.StreamQueryUpdateRules get streamUpdateRules =>
       (super.noSuchMethod(Invocation.getter(#streamUpdateRules), returnValue: _FakeStreamQueryUpdateRules_5())
           as _i2.StreamQueryUpdateRules);
+
   @override
   _i2.DatabaseConnection get connection =>
       (super.noSuchMethod(Invocation.getter(#connection), returnValue: _FakeDatabaseConnection_6())
           as _i2.DatabaseConnection);
+
   @override
   _i2.SqlTypeSystem get typeSystem =>
       (super.noSuchMethod(Invocation.getter(#typeSystem), returnValue: _FakeSqlTypeSystem_7()) as _i2.SqlTypeSystem);
+
   @override
   _i2.QueryExecutor get executor =>
       (super.noSuchMethod(Invocation.getter(#executor), returnValue: _FakeQueryExecutor_8()) as _i2.QueryExecutor);
+
   @override
   _i4.StreamQueryStore get streamQueries =>
       (super.noSuchMethod(Invocation.getter(#streamQueries), returnValue: _FakeStreamQueryStore_9())
           as _i4.StreamQueryStore);
+
   @override
   _i2.DatabaseConnectionUser get resolvedEngine =>
       (super.noSuchMethod(Invocation.getter(#resolvedEngine), returnValue: _FakeDatabaseConnectionUser_10())
           as _i2.DatabaseConnectionUser);
+
   @override
   _i10.Future<List<_i3.App>> listApplications() => (super.noSuchMethod(Invocation.method(#listApplications, []),
       returnValue: Future<List<_i3.App>>.value(<_i3.App>[])) as _i10.Future<List<_i3.App>>);
+
   @override
   _i10.Future<void> persistApps(List<_i3.AppsCompanion>? applications) =>
       (super.noSuchMethod(Invocation.method(#persistApps, [applications]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> updateApp(String? packageName, _i3.AppsCompanion? value) =>
       (super.noSuchMethod(Invocation.method(#updateApp, [packageName, value]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> deleteApps(List<String>? packageNames) =>
       (super.noSuchMethod(Invocation.method(#deleteApps, [packageNames]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> insertCategory(_i3.CategoriesCompanion? category) =>
       (super.noSuchMethod(Invocation.method(#insertCategory, [category]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> deleteCategory(int? id) => (super.noSuchMethod(Invocation.method(#deleteCategory, [id]),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> updateCategories(List<_i3.CategoriesCompanion>? values) =>
       (super.noSuchMethod(Invocation.method(#updateCategories, [values]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> updateCategory(int? id, _i3.CategoriesCompanion? value) =>
       (super.noSuchMethod(Invocation.method(#updateCategory, [id, value]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> deleteAppCategory(int? categoryId, String? packageName) =>
       (super.noSuchMethod(Invocation.method(#deleteAppCategory, [categoryId, packageName]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> insertAppsCategories(List<_i3.AppsCategoriesCompanion>? value) =>
       (super.noSuchMethod(Invocation.method(#insertAppsCategories, [value]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> replaceAppsCategories(List<_i3.AppsCategoriesCompanion>? value) =>
       (super.noSuchMethod(Invocation.method(#replaceAppsCategories, [value]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<List<_i3.CategoryWithApps>> listCategoriesWithVisibleApps() =>
       (super.noSuchMethod(Invocation.method(#listCategoriesWithVisibleApps, []),
               returnValue: Future<List<_i3.CategoryWithApps>>.value(<_i3.CategoryWithApps>[]))
           as _i10.Future<List<_i3.CategoryWithApps>>);
+
   @override
   _i10.Future<int> nextAppCategoryOrder(int? categoryId) =>
       (super.noSuchMethod(Invocation.method(#nextAppCategoryOrder, [categoryId]), returnValue: Future<int>.value(0))
           as _i10.Future<int>);
+
   @override
   _i2.Migrator createMigrator() =>
       (super.noSuchMethod(Invocation.method(#createMigrator, []), returnValue: _FakeMigrator_11()) as _i2.Migrator);
+
   @override
   _i10.Future<void> beforeOpen(_i2.QueryExecutor? executor, _i2.OpeningDetails? details) =>
       (super.noSuchMethod(Invocation.method(#beforeOpen, [executor, details]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Stream<List<Map<String, Object?>>> createStream(_i4.QueryStreamFetcher? stmt) =>
       (super.noSuchMethod(Invocation.method(#createStream, [stmt]),
           returnValue: Stream<List<Map<String, Object?>>>.empty()) as _i10.Stream<List<Map<String, Object?>>>);
+
   @override
   T alias<T extends _i2.Table, D>(_i2.TableInfo<T, D>? table, String? alias) =>
       (super.noSuchMethod(Invocation.method(#alias, [table, alias]), returnValue: null) as T);
+
   @override
   void markTablesUpdated(Iterable<_i2.TableInfo<_i2.Table, dynamic>>? tables) =>
       super.noSuchMethod(Invocation.method(#markTablesUpdated, [tables]), returnValueForMissingStub: null);
+
   @override
   void notifyUpdates(Set<_i2.TableUpdate>? updates) =>
       super.noSuchMethod(Invocation.method(#notifyUpdates, [updates]), returnValueForMissingStub: null);
+
   @override
   _i10.Stream<Set<_i2.TableUpdate>> tableUpdates([_i2.TableUpdateQuery? query = const _i2.TableUpdateQuery.any()]) =>
       (super.noSuchMethod(Invocation.method(#tableUpdates, [query]), returnValue: Stream<Set<_i2.TableUpdate>>.empty())
           as _i10.Stream<Set<_i2.TableUpdate>>);
+
   @override
   _i10.Future<T> doWhenOpened<T>(_i10.FutureOr<T>? Function(_i2.QueryExecutor)? fn) =>
       (super.noSuchMethod(Invocation.method(#doWhenOpened, [fn]), returnValue: Future<T>.value(null))
           as _i10.Future<T>);
+
   @override
   _i2.InsertStatement<T, D> into<T extends _i2.Table, D>(_i2.TableInfo<T, D>? table) =>
       (super.noSuchMethod(Invocation.method(#into, [table]), returnValue: _FakeInsertStatement_12<T, D>())
           as _i2.InsertStatement<T, D>);
+
   @override
   _i2.UpdateStatement<Tbl, R> update<Tbl extends _i2.Table, R>(_i2.TableInfo<Tbl, R>? table) =>
       (super.noSuchMethod(Invocation.method(#update, [table]), returnValue: _FakeUpdateStatement_13<Tbl, R>())
           as _i2.UpdateStatement<Tbl, R>);
+
   @override
   _i2.SimpleSelectStatement<T, R> select<T extends _i2.HasResultSet, R>(_i2.ResultSetImplementation<T, R>? table,
           {bool? distinct = false}) =>
       (super.noSuchMethod(Invocation.method(#select, [table], {#distinct: distinct}),
           returnValue: _FakeSimpleSelectStatement_14<T, R>()) as _i2.SimpleSelectStatement<T, R>);
+
   @override
   _i2.JoinedSelectStatement<T, R> selectOnly<T extends _i2.HasResultSet, R>(_i2.ResultSetImplementation<T, R>? table,
           {bool? distinct = false, bool? includeJoinedTableColumns = true}) =>
@@ -292,10 +342,12 @@ class MockFLauncherDatabase extends _i1.Mock implements _i3.FLauncherDatabase {
           Invocation.method(
               #selectOnly, [table], {#distinct: distinct, #includeJoinedTableColumns: includeJoinedTableColumns}),
           returnValue: _FakeJoinedSelectStatement_15<T, R>()) as _i2.JoinedSelectStatement<T, R>);
+
   @override
   _i2.DeleteStatement<T, D> delete<T extends _i2.Table, D>(_i2.TableInfo<T, D>? table) =>
       (super.noSuchMethod(Invocation.method(#delete, [table]), returnValue: _FakeDeleteStatement_16<T, D>())
           as _i2.DeleteStatement<T, D>);
+
   @override
   _i10.Future<int> customUpdate(String? query,
           {List<_i2.Variable<dynamic>>? variables = const [],
@@ -305,11 +357,13 @@ class MockFLauncherDatabase extends _i1.Mock implements _i3.FLauncherDatabase {
           Invocation.method(
               #customUpdate, [query], {#variables: variables, #updates: updates, #updateKind: updateKind}),
           returnValue: Future<int>.value(0)) as _i10.Future<int>);
+
   @override
   _i10.Future<int> customInsert(String? query,
           {List<_i2.Variable<dynamic>>? variables = const [], Set<_i2.TableInfo<_i2.Table, dynamic>>? updates}) =>
       (super.noSuchMethod(Invocation.method(#customInsert, [query], {#variables: variables, #updates: updates}),
           returnValue: Future<int>.value(0)) as _i10.Future<int>);
+
   @override
   _i10.Future<List<_i2.QueryRow>> customWriteReturning(String? query,
           {List<_i2.Variable<dynamic>>? variables = const [],
@@ -319,12 +373,14 @@ class MockFLauncherDatabase extends _i1.Mock implements _i3.FLauncherDatabase {
           Invocation.method(
               #customWriteReturning, [query], {#variables: variables, #updates: updates, #updateKind: updateKind}),
           returnValue: Future<List<_i2.QueryRow>>.value(<_i2.QueryRow>[])) as _i10.Future<List<_i2.QueryRow>>);
+
   @override
   _i2.Selectable<_i2.QueryRow> customSelect(String? query,
           {List<_i2.Variable<dynamic>>? variables = const [],
           Set<_i2.ResultSetImplementation<dynamic, dynamic>>? readsFrom = const {}}) =>
       (super.noSuchMethod(Invocation.method(#customSelect, [query], {#variables: variables, #readsFrom: readsFrom}),
           returnValue: _FakeSelectable_17<_i2.QueryRow>()) as _i2.Selectable<_i2.QueryRow>);
+
   @override
   _i2.Selectable<_i2.QueryRow> customSelectQuery(String? query,
           {List<_i2.Variable<dynamic>>? variables = const [],
@@ -332,31 +388,38 @@ class MockFLauncherDatabase extends _i1.Mock implements _i3.FLauncherDatabase {
       (super.noSuchMethod(
           Invocation.method(#customSelectQuery, [query], {#variables: variables, #readsFrom: readsFrom}),
           returnValue: _FakeSelectable_17<_i2.QueryRow>()) as _i2.Selectable<_i2.QueryRow>);
+
   @override
   _i10.Future<void> customStatement(String? statement, [List<dynamic>? args]) =>
       (super.noSuchMethod(Invocation.method(#customStatement, [statement, args]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<T> transaction<T>(_i10.Future<T> Function()? action) =>
       (super.noSuchMethod(Invocation.method(#transaction, [action]), returnValue: Future<T>.value(null))
           as _i10.Future<T>);
+
   @override
   _i10.Future<void> batch(_i10.FutureOr<void>? Function(_i2.Batch)? runInBatch) =>
       (super.noSuchMethod(Invocation.method(#batch, [runInBatch]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i2.GenerationContext $write(_i2.Component? component, {bool? hasMultipleTables, int? startIndex}) =>
       (super.noSuchMethod(
           Invocation.method(#$write, [component], {#hasMultipleTables: hasMultipleTables, #startIndex: startIndex}),
           returnValue: _FakeGenerationContext_18()) as _i2.GenerationContext);
+
   @override
   _i2.GenerationContext $writeInsertable(_i2.TableInfo<_i2.Table, dynamic>? table, _i2.Insertable<dynamic>? insertable,
           {int? startIndex}) =>
       (super.noSuchMethod(Invocation.method(#$writeInsertable, [table, insertable], {#startIndex: startIndex}),
           returnValue: _FakeGenerationContext_18()) as _i2.GenerationContext);
+
   @override
   String $expandVar(int? start, int? amount) =>
       (super.noSuchMethod(Invocation.method(#$expandVar, [start, amount]), returnValue: '') as String);
+
   @override
   String toString() => super.toString();
 }
@@ -373,41 +436,53 @@ class MockWallpaperService extends _i1.Mock implements _i11.WallpaperService {
   _i5.FLauncherGradient get gradient =>
       (super.noSuchMethod(Invocation.getter(#gradient), returnValue: _FakeFLauncherGradient_19())
           as _i5.FLauncherGradient);
+
   @override
   set settingsService(_i12.SettingsService? settingsService) =>
       super.noSuchMethod(Invocation.setter(#settingsService, settingsService), returnValueForMissingStub: null);
+
   @override
   bool get hasListeners => (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false) as bool);
+
   @override
   _i10.Future<void> pickWallpaper() => (super.noSuchMethod(Invocation.method(#pickWallpaper, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> randomFromUnsplash(String? query) =>
       (super.noSuchMethod(Invocation.method(#randomFromUnsplash, [query]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<List<_i8.Photo>> searchFromUnsplash(String? query) =>
       (super.noSuchMethod(Invocation.method(#searchFromUnsplash, [query]),
           returnValue: Future<List<_i8.Photo>>.value(<_i8.Photo>[])) as _i10.Future<List<_i8.Photo>>);
+
   @override
   _i10.Future<void> setFromUnsplash(_i8.Photo? photo) =>
       (super.noSuchMethod(Invocation.method(#setFromUnsplash, [photo]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setGradient(_i5.FLauncherGradient? fLauncherGradient) =>
       (super.noSuchMethod(Invocation.method(#setGradient, [fLauncherGradient]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   void addListener(_i13.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#addListener, [listener]), returnValueForMissingStub: null);
+
   @override
   void removeListener(_i13.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#removeListener, [listener]), returnValueForMissingStub: null);
+
   @override
   void dispose() => super.noSuchMethod(Invocation.method(#dispose, []), returnValueForMissingStub: null);
+
   @override
   void notifyListeners() =>
       super.noSuchMethod(Invocation.method(#notifyListeners, []), returnValueForMissingStub: null);
+
   @override
   String toString() => super.toString();
 }
@@ -422,75 +497,95 @@ class MockAppsService extends _i1.Mock implements _i14.AppsService {
 
   @override
   bool get initialized => (super.noSuchMethod(Invocation.getter(#initialized), returnValue: false) as bool);
+
   @override
   List<_i3.App> get applications =>
       (super.noSuchMethod(Invocation.getter(#applications), returnValue: <_i3.App>[]) as List<_i3.App>);
+
   @override
   List<_i3.CategoryWithApps> get categoriesWithApps =>
       (super.noSuchMethod(Invocation.getter(#categoriesWithApps), returnValue: <_i3.CategoryWithApps>[])
           as List<_i3.CategoryWithApps>);
+
   @override
   bool get hasListeners => (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false) as bool);
+
   @override
   _i10.Future<void> launchApp(_i3.App? app) => (super.noSuchMethod(Invocation.method(#launchApp, [app]),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> openAppInfo(_i3.App? app) => (super.noSuchMethod(Invocation.method(#openAppInfo, [app]),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> uninstallApp(_i3.App? app) => (super.noSuchMethod(Invocation.method(#uninstallApp, [app]),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> openSettings() => (super.noSuchMethod(Invocation.method(#openSettings, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<bool> isDefaultLauncher() =>
       (super.noSuchMethod(Invocation.method(#isDefaultLauncher, []), returnValue: Future<bool>.value(false))
           as _i10.Future<bool>);
+
   @override
   _i10.Future<void> startAmbientMode() => (super.noSuchMethod(Invocation.method(#startAmbientMode, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> addToCategory(_i3.App? app, _i3.Category? category, {bool? shouldNotifyListeners = true}) => (super
       .noSuchMethod(Invocation.method(#addToCategory, [app, category], {#shouldNotifyListeners: shouldNotifyListeners}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> removeFromCategory(_i3.App? app, _i3.Category? category) =>
       (super.noSuchMethod(Invocation.method(#removeFromCategory, [app, category]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> saveOrderInCategory(_i3.Category? category) =>
       (super.noSuchMethod(Invocation.method(#saveOrderInCategory, [category]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   void reorderApplication(_i3.Category? category, int? oldIndex, int? newIndex) =>
       super.noSuchMethod(Invocation.method(#reorderApplication, [category, oldIndex, newIndex]),
           returnValueForMissingStub: null);
+
   @override
   _i10.Future<void> addCategory(String? categoryName, {bool? shouldNotifyListeners = true}) => (super.noSuchMethod(
       Invocation.method(#addCategory, [categoryName], {#shouldNotifyListeners: shouldNotifyListeners}),
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> renameCategory(_i3.Category? category, String? categoryName) =>
       (super.noSuchMethod(Invocation.method(#renameCategory, [category, categoryName]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> deleteCategory(_i3.Category? category) =>
       (super.noSuchMethod(Invocation.method(#deleteCategory, [category]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> moveCategory(int? oldIndex, int? newIndex) =>
       (super.noSuchMethod(Invocation.method(#moveCategory, [oldIndex, newIndex]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> hideApplication(_i3.App? application) =>
       (super.noSuchMethod(Invocation.method(#hideApplication, [application]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> unHideApplication(_i3.App? application) =>
       (super.noSuchMethod(Invocation.method(#unHideApplication, [application]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setCategoryType(_i3.Category? category, _i3.CategoryType? type,
           {bool? shouldNotifyListeners = true}) =>
@@ -498,29 +593,42 @@ class MockAppsService extends _i1.Mock implements _i14.AppsService {
           Invocation.method(#setCategoryType, [category, type], {#shouldNotifyListeners: shouldNotifyListeners}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setCategorySort(_i3.Category? category, _i3.CategorySort? sort) =>
       (super.noSuchMethod(Invocation.method(#setCategorySort, [category, sort]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setCategoryColumnsCount(_i3.Category? category, int? columnsCount) =>
       (super.noSuchMethod(Invocation.method(#setCategoryColumnsCount, [category, columnsCount]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setCategoryRowHeight(_i3.Category? category, int? rowHeight) =>
       (super.noSuchMethod(Invocation.method(#setCategoryRowHeight, [category, rowHeight]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
+  @override
+  _i10.Future<void> setCategoryNameHidden(_i3.Category? category, bool? nameHidden) =>
+      (super.noSuchMethod(Invocation.method(#setCategoryNameHidden, [category, nameHidden]),
+          returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   void addListener(_i13.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#addListener, [listener]), returnValueForMissingStub: null);
+
   @override
   void removeListener(_i13.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#removeListener, [listener]), returnValueForMissingStub: null);
+
   @override
   void dispose() => super.noSuchMethod(Invocation.method(#dispose, []), returnValueForMissingStub: null);
+
   @override
   void notifyListeners() =>
       super.noSuchMethod(Invocation.method(#notifyListeners, []), returnValueForMissingStub: null);
+
   @override
   String toString() => super.toString();
 }
@@ -536,45 +644,59 @@ class MockSettingsService extends _i1.Mock implements _i12.SettingsService {
   @override
   bool get crashReportsEnabled =>
       (super.noSuchMethod(Invocation.getter(#crashReportsEnabled), returnValue: false) as bool);
+
   @override
   bool get analyticsEnabled => (super.noSuchMethod(Invocation.getter(#analyticsEnabled), returnValue: false) as bool);
+
   @override
   bool get use24HourTimeFormat =>
       (super.noSuchMethod(Invocation.getter(#use24HourTimeFormat), returnValue: false) as bool);
+
   @override
   bool get unsplashEnabled => (super.noSuchMethod(Invocation.getter(#unsplashEnabled), returnValue: false) as bool);
+
   @override
   bool get hasListeners => (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false) as bool);
+
   @override
   void dispose() => super.noSuchMethod(Invocation.method(#dispose, []), returnValueForMissingStub: null);
+
   @override
   _i10.Future<void> setCrashReportsEnabled(bool? value) =>
       (super.noSuchMethod(Invocation.method(#setCrashReportsEnabled, [value]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setAnalyticsEnabled(bool? value) =>
       (super.noSuchMethod(Invocation.method(#setAnalyticsEnabled, [value]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setUse24HourTimeFormat(bool? value) =>
       (super.noSuchMethod(Invocation.method(#setUse24HourTimeFormat, [value]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setGradientUuid(String? value) => (super.noSuchMethod(Invocation.method(#setGradientUuid, [value]),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setUnsplashAuthor(String? value) =>
       (super.noSuchMethod(Invocation.method(#setUnsplashAuthor, [value]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   void addListener(_i13.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#addListener, [listener]), returnValueForMissingStub: null);
+
   @override
   void removeListener(_i13.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#removeListener, [listener]), returnValueForMissingStub: null);
+
   @override
   void notifyListeners() =>
       super.noSuchMethod(Invocation.method(#notifyListeners, []), returnValueForMissingStub: null);
+
   @override
   String toString() => super.toString();
 }
@@ -590,28 +712,36 @@ class MockFirebaseCrashlytics extends _i1.Mock implements _i15.FirebaseCrashlyti
   @override
   _i6.FirebaseApp get app =>
       (super.noSuchMethod(Invocation.getter(#app), returnValue: _FakeFirebaseApp_20()) as _i6.FirebaseApp);
+
   @override
   set app(_i6.FirebaseApp? _app) => super.noSuchMethod(Invocation.setter(#app, _app), returnValueForMissingStub: null);
+
   @override
   bool get isCrashlyticsCollectionEnabled =>
       (super.noSuchMethod(Invocation.getter(#isCrashlyticsCollectionEnabled), returnValue: false) as bool);
+
   @override
   Map<dynamic, dynamic> get pluginConstants =>
       (super.noSuchMethod(Invocation.getter(#pluginConstants), returnValue: <dynamic, dynamic>{})
           as Map<dynamic, dynamic>);
+
   @override
   _i10.Future<bool> checkForUnsentReports() =>
       (super.noSuchMethod(Invocation.method(#checkForUnsentReports, []), returnValue: Future<bool>.value(false))
           as _i10.Future<bool>);
+
   @override
   void crash() => super.noSuchMethod(Invocation.method(#crash, []), returnValueForMissingStub: null);
+
   @override
   _i10.Future<void> deleteUnsentReports() => (super.noSuchMethod(Invocation.method(#deleteUnsentReports, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<bool> didCrashOnPreviousExecution() =>
       (super.noSuchMethod(Invocation.method(#didCrashOnPreviousExecution, []), returnValue: Future<bool>.value(false))
           as _i10.Future<bool>);
+
   @override
   _i10.Future<void> recordError(dynamic exception, StackTrace? stack,
           {dynamic reason,
@@ -623,28 +753,35 @@ class MockFirebaseCrashlytics extends _i1.Mock implements _i15.FirebaseCrashlyti
               {#reason: reason, #information: information, #printDetails: printDetails, #fatal: fatal}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> recordFlutterError(_i16.FlutterErrorDetails? flutterErrorDetails) =>
       (super.noSuchMethod(Invocation.method(#recordFlutterError, [flutterErrorDetails]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> log(String? message) => (super.noSuchMethod(Invocation.method(#log, [message]),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> sendUnsentReports() => (super.noSuchMethod(Invocation.method(#sendUnsentReports, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setCrashlyticsCollectionEnabled(bool? enabled) =>
       (super.noSuchMethod(Invocation.method(#setCrashlyticsCollectionEnabled, [enabled]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setUserIdentifier(String? identifier) =>
       (super.noSuchMethod(Invocation.method(#setUserIdentifier, [identifier]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setCustomKey(String? key, Object? value) =>
       (super.noSuchMethod(Invocation.method(#setCustomKey, [key, value]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   String toString() => super.toString();
 }
@@ -660,12 +797,15 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
   @override
   _i6.FirebaseApp get app =>
       (super.noSuchMethod(Invocation.getter(#app), returnValue: _FakeFirebaseApp_20()) as _i6.FirebaseApp);
+
   @override
   set app(_i6.FirebaseApp? _app) => super.noSuchMethod(Invocation.setter(#app, _app), returnValueForMissingStub: null);
+
   @override
   Map<dynamic, dynamic> get pluginConstants =>
       (super.noSuchMethod(Invocation.getter(#pluginConstants), returnValue: <dynamic, dynamic>{})
           as Map<dynamic, dynamic>);
+
   @override
   _i10.Future<void> logEvent(
           {String? name, Map<String, Object?>? parameters, _i17.AnalyticsCallOptions? callOptions}) =>
@@ -673,6 +813,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           Invocation.method(#logEvent, [], {#name: name, #parameters: parameters, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setConsent({bool? adStorageConsentGranted, bool? analyticsStorageConsentGranted}) =>
       (super.noSuchMethod(
@@ -682,18 +823,22 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setDefaultEventParameters(Map<String, Object>? defaultParameters) =>
       (super.noSuchMethod(Invocation.method(#setDefaultEventParameters, [defaultParameters]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setAnalyticsCollectionEnabled(bool? enabled) =>
       (super.noSuchMethod(Invocation.method(#setAnalyticsCollectionEnabled, [enabled]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setUserId({String? id, _i17.AnalyticsCallOptions? callOptions}) =>
       (super.noSuchMethod(Invocation.method(#setUserId, [], {#id: id, #callOptions: callOptions}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setCurrentScreen(
           {String? screenName, String? screenClassOverride = r'Flutter', _i17.AnalyticsCallOptions? callOptions}) =>
@@ -702,13 +847,16 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               {#screenName: screenName, #screenClassOverride: screenClassOverride, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setUserProperty({String? name, String? value, _i17.AnalyticsCallOptions? callOptions}) => (super
       .noSuchMethod(Invocation.method(#setUserProperty, [], {#name: name, #value: value, #callOptions: callOptions}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> resetAnalyticsData() => (super.noSuchMethod(Invocation.method(#resetAnalyticsData, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logAddPaymentInfo(
           {String? coupon,
@@ -728,6 +876,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logAddShippingInfo(
           {String? coupon,
@@ -747,6 +896,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logAddToCart(
           {List<_i17.AnalyticsEventItem>? items,
@@ -758,6 +908,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               #logAddToCart, [], {#items: items, #value: value, #currency: currency, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logAddToWishlist(
           {List<_i17.AnalyticsEventItem>? items,
@@ -769,6 +920,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               #logAddToWishlist, [], {#items: items, #value: value, #currency: currency, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logEcommercePurchase(
           {String? currency,
@@ -806,6 +958,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logAdImpression(
           {String? adPlatform,
@@ -827,10 +980,12 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logAppOpen({_i17.AnalyticsCallOptions? callOptions}) =>
       (super.noSuchMethod(Invocation.method(#logAppOpen, [], {#callOptions: callOptions}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logBeginCheckout(
           {double? value,
@@ -843,6 +998,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               {#value: value, #currency: currency, #items: items, #coupon: coupon, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logCampaignDetails(
           {String? source,
@@ -866,6 +1022,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logEarnVirtualCurrency(
           {String? virtualCurrencyName, num? value, _i17.AnalyticsCallOptions? callOptions}) =>
@@ -874,6 +1031,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               {#virtualCurrencyName: virtualCurrencyName, #value: value, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logPresentOffer(
           {String? itemId,
@@ -897,46 +1055,55 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logPurchaseRefund({String? currency, double? value, String? transactionId}) => (super.noSuchMethod(
       Invocation.method(#logPurchaseRefund, [], {#currency: currency, #value: value, #transactionId: transactionId}),
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logGenerateLead({String? currency, double? value, _i17.AnalyticsCallOptions? callOptions}) =>
       (super.noSuchMethod(
           Invocation.method(#logGenerateLead, [], {#currency: currency, #value: value, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logJoinGroup({String? groupId, _i17.AnalyticsCallOptions? callOptions}) =>
       (super.noSuchMethod(Invocation.method(#logJoinGroup, [], {#groupId: groupId, #callOptions: callOptions}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logLevelUp({int? level, String? character, _i17.AnalyticsCallOptions? callOptions}) =>
       (super.noSuchMethod(
           Invocation.method(#logLevelUp, [], {#level: level, #character: character, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logLevelStart({String? levelName, _i17.AnalyticsCallOptions? callOptions}) =>
       (super.noSuchMethod(Invocation.method(#logLevelStart, [], {#levelName: levelName, #callOptions: callOptions}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logLevelEnd({String? levelName, int? success, _i17.AnalyticsCallOptions? callOptions}) =>
       (super.noSuchMethod(
           Invocation.method(#logLevelEnd, [], {#levelName: levelName, #success: success, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logSetCheckoutOption({int? checkoutStep, String? checkoutOption}) => (super.noSuchMethod(
       Invocation.method(#logSetCheckoutOption, [], {#checkoutStep: checkoutStep, #checkoutOption: checkoutOption}),
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logLogin({String? loginMethod, _i17.AnalyticsCallOptions? callOptions}) =>
       (super.noSuchMethod(Invocation.method(#logLogin, [], {#loginMethod: loginMethod, #callOptions: callOptions}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logPostScore({int? score, int? level, String? character, _i17.AnalyticsCallOptions? callOptions}) =>
       (super.noSuchMethod(
@@ -944,6 +1111,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               #logPostScore, [], {#score: score, #level: level, #character: character, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logPurchase(
           {String? currency,
@@ -969,6 +1137,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logRemoveFromCart(
           {String? currency,
@@ -980,6 +1149,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               #logRemoveFromCart, [], {#currency: currency, #value: value, #items: items, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logScreenView({String? screenClass, String? screenName, _i17.AnalyticsCallOptions? callOptions}) =>
       (super.noSuchMethod(
@@ -987,6 +1157,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               #logScreenView, [], {#screenClass: screenClass, #screenName: screenName, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logSelectItem(
           {String? itemListId,
@@ -998,6 +1169,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               {#itemListId: itemListId, #itemListName: itemListName, #items: items, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logSelectPromotion(
           {String? creativeName,
@@ -1019,6 +1191,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logViewCart(
           {String? currency,
@@ -1030,6 +1203,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               #logViewCart, [], {#currency: currency, #value: value, #items: items, #callOptions: callOptions}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logSearch(
           {String? searchTerm,
@@ -1057,19 +1231,23 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logSelectContent({String? contentType, String? itemId}) =>
       (super.noSuchMethod(Invocation.method(#logSelectContent, [], {#contentType: contentType, #itemId: itemId}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logShare({String? contentType, String? itemId, String? method}) => (super.noSuchMethod(
       Invocation.method(#logShare, [], {#contentType: contentType, #itemId: itemId, #method: method}),
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logSignUp({String? signUpMethod}) =>
       (super.noSuchMethod(Invocation.method(#logSignUp, [], {#signUpMethod: signUpMethod}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logSpendVirtualCurrency({String? itemName, String? virtualCurrencyName, num? value}) =>
       (super.noSuchMethod(
@@ -1077,20 +1255,25 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               {#itemName: itemName, #virtualCurrencyName: virtualCurrencyName, #value: value}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logTutorialBegin() => (super.noSuchMethod(Invocation.method(#logTutorialBegin, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logTutorialComplete() => (super.noSuchMethod(Invocation.method(#logTutorialComplete, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logUnlockAchievement({String? id}) =>
       (super.noSuchMethod(Invocation.method(#logUnlockAchievement, [], {#id: id}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logViewItem({String? currency, double? value, List<_i17.AnalyticsEventItem>? items}) =>
       (super.noSuchMethod(Invocation.method(#logViewItem, [], {#currency: currency, #value: value, #items: items}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logViewItemList({List<_i17.AnalyticsEventItem>? items, String? itemListId, String? itemListName}) =>
       (super.noSuchMethod(
@@ -1098,6 +1281,7 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
               #logViewItemList, [], {#items: items, #itemListId: itemListId, #itemListName: itemListName}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logViewPromotion(
           {String? creativeName,
@@ -1117,10 +1301,12 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logViewSearchResults({String? searchTerm}) =>
       (super.noSuchMethod(Invocation.method(#logViewSearchResults, [], {#searchTerm: searchTerm}),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> logRefund(
           {String? currency,
@@ -1144,10 +1330,12 @@ class MockFirebaseAnalytics extends _i1.Mock implements _i17.FirebaseAnalytics {
           }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setSessionTimeoutDuration(Duration? timeout) =>
       (super.noSuchMethod(Invocation.method(#setSessionTimeoutDuration, [timeout]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   String toString() => super.toString();
 }
@@ -1163,73 +1351,95 @@ class MockRemoteConfig extends _i1.Mock implements _i7.RemoteConfig {
   @override
   _i6.FirebaseApp get app =>
       (super.noSuchMethod(Invocation.getter(#app), returnValue: _FakeFirebaseApp_20()) as _i6.FirebaseApp);
+
   @override
   DateTime get lastFetchTime =>
       (super.noSuchMethod(Invocation.getter(#lastFetchTime), returnValue: _FakeDateTime_21()) as DateTime);
+
   @override
   _i7.RemoteConfigFetchStatus get lastFetchStatus =>
       (super.noSuchMethod(Invocation.getter(#lastFetchStatus), returnValue: _i7.RemoteConfigFetchStatus.noFetchYet)
           as _i7.RemoteConfigFetchStatus);
+
   @override
   _i7.RemoteConfigSettings get settings =>
       (super.noSuchMethod(Invocation.getter(#settings), returnValue: _FakeRemoteConfigSettings_22())
           as _i7.RemoteConfigSettings);
+
   @override
   Map<dynamic, dynamic> get pluginConstants =>
       (super.noSuchMethod(Invocation.getter(#pluginConstants), returnValue: <dynamic, dynamic>{})
           as Map<dynamic, dynamic>);
+
   @override
   bool get hasListeners => (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false) as bool);
+
   @override
   _i10.Future<bool> activate() =>
       (super.noSuchMethod(Invocation.method(#activate, []), returnValue: Future<bool>.value(false))
           as _i10.Future<bool>);
+
   @override
   _i10.Future<void> ensureInitialized() => (super.noSuchMethod(Invocation.method(#ensureInitialized, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> fetch() => (super.noSuchMethod(Invocation.method(#fetch, []),
       returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<bool> fetchAndActivate() =>
       (super.noSuchMethod(Invocation.method(#fetchAndActivate, []), returnValue: Future<bool>.value(false))
           as _i10.Future<bool>);
+
   @override
   Map<String, _i7.RemoteConfigValue> getAll() =>
       (super.noSuchMethod(Invocation.method(#getAll, []), returnValue: <String, _i7.RemoteConfigValue>{})
           as Map<String, _i7.RemoteConfigValue>);
+
   @override
   bool getBool(String? key) => (super.noSuchMethod(Invocation.method(#getBool, [key]), returnValue: false) as bool);
+
   @override
   int getInt(String? key) => (super.noSuchMethod(Invocation.method(#getInt, [key]), returnValue: 0) as int);
+
   @override
   double getDouble(String? key) =>
       (super.noSuchMethod(Invocation.method(#getDouble, [key]), returnValue: 0.0) as double);
+
   @override
   String getString(String? key) =>
       (super.noSuchMethod(Invocation.method(#getString, [key]), returnValue: '') as String);
+
   @override
   _i7.RemoteConfigValue getValue(String? key) =>
       (super.noSuchMethod(Invocation.method(#getValue, [key]), returnValue: _FakeRemoteConfigValue_23())
           as _i7.RemoteConfigValue);
+
   @override
   _i10.Future<void> setConfigSettings(_i7.RemoteConfigSettings? remoteConfigSettings) =>
       (super.noSuchMethod(Invocation.method(#setConfigSettings, [remoteConfigSettings]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   _i10.Future<void> setDefaults(Map<String, dynamic>? defaultParameters) =>
       (super.noSuchMethod(Invocation.method(#setDefaults, [defaultParameters]),
           returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i10.Future<void>);
+
   @override
   String toString() => super.toString();
+
   @override
   void addListener(_i13.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#addListener, [listener]), returnValueForMissingStub: null);
+
   @override
   void removeListener(_i13.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#removeListener, [listener]), returnValueForMissingStub: null);
+
   @override
   void dispose() => super.noSuchMethod(Invocation.method(#dispose, []), returnValueForMissingStub: null);
+
   @override
   void notifyListeners() =>
       super.noSuchMethod(Invocation.method(#notifyListeners, []), returnValueForMissingStub: null);
@@ -1246,14 +1456,17 @@ class MockUnsplashService extends _i1.Mock implements _i8.UnsplashService {
   @override
   _i10.Future<_i8.Photo> randomPhoto(String? query) => (super.noSuchMethod(Invocation.method(#randomPhoto, [query]),
       returnValue: Future<_i8.Photo>.value(_FakePhoto_24())) as _i10.Future<_i8.Photo>);
+
   @override
   _i10.Future<List<_i8.Photo>> searchPhotos(String? query) =>
       (super.noSuchMethod(Invocation.method(#searchPhotos, [query]),
           returnValue: Future<List<_i8.Photo>>.value(<_i8.Photo>[])) as _i10.Future<List<_i8.Photo>>);
+
   @override
   _i10.Future<_i18.Uint8List> downloadPhoto(_i8.Photo? photo) =>
       (super.noSuchMethod(Invocation.method(#downloadPhoto, [photo]),
           returnValue: Future<_i18.Uint8List>.value(_i18.Uint8List(0))) as _i10.Future<_i18.Uint8List>);
+
   @override
   String toString() => super.toString();
 }
