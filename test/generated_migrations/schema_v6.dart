@@ -9,6 +9,7 @@ class AppsData extends DataClass implements Insertable<AppsData> {
   final Uint8List? banner;
   final Uint8List? icon;
   final bool hidden;
+  final bool sideloaded;
 
   AppsData(
       {required this.packageName,
@@ -16,7 +17,8 @@ class AppsData extends DataClass implements Insertable<AppsData> {
       required this.version,
       this.banner,
       this.icon,
-      required this.hidden});
+      required this.hidden,
+      required this.sideloaded});
 
   factory AppsData.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -27,6 +29,7 @@ class AppsData extends DataClass implements Insertable<AppsData> {
       banner: const BlobType().mapFromDatabaseResponse(data['${effectivePrefix}banner']),
       icon: const BlobType().mapFromDatabaseResponse(data['${effectivePrefix}icon']),
       hidden: const BoolType().mapFromDatabaseResponse(data['${effectivePrefix}hidden'])!,
+      sideloaded: const BoolType().mapFromDatabaseResponse(data['${effectivePrefix}sideloaded'])!,
     );
   }
 
@@ -43,6 +46,7 @@ class AppsData extends DataClass implements Insertable<AppsData> {
       map['icon'] = Variable<Uint8List?>(icon);
     }
     map['hidden'] = Variable<bool>(hidden);
+    map['sideloaded'] = Variable<bool>(sideloaded);
     return map;
   }
 
@@ -54,6 +58,7 @@ class AppsData extends DataClass implements Insertable<AppsData> {
       banner: banner == null && nullToAbsent ? const Value.absent() : Value(banner),
       icon: icon == null && nullToAbsent ? const Value.absent() : Value(icon),
       hidden: Value(hidden),
+      sideloaded: Value(sideloaded),
     );
   }
 
@@ -66,6 +71,7 @@ class AppsData extends DataClass implements Insertable<AppsData> {
       banner: serializer.fromJson<Uint8List?>(json['banner']),
       icon: serializer.fromJson<Uint8List?>(json['icon']),
       hidden: serializer.fromJson<bool>(json['hidden']),
+      sideloaded: serializer.fromJson<bool>(json['sideloaded']),
     );
   }
 
@@ -79,11 +85,18 @@ class AppsData extends DataClass implements Insertable<AppsData> {
       'banner': serializer.toJson<Uint8List?>(banner),
       'icon': serializer.toJson<Uint8List?>(icon),
       'hidden': serializer.toJson<bool>(hidden),
+      'sideloaded': serializer.toJson<bool>(sideloaded),
     };
   }
 
   AppsData copyWith(
-          {String? packageName, String? name, String? version, Uint8List? banner, Uint8List? icon, bool? hidden}) =>
+          {String? packageName,
+          String? name,
+          String? version,
+          Uint8List? banner,
+          Uint8List? icon,
+          bool? hidden,
+          bool? sideloaded}) =>
       AppsData(
         packageName: packageName ?? this.packageName,
         name: name ?? this.name,
@@ -91,6 +104,7 @@ class AppsData extends DataClass implements Insertable<AppsData> {
         banner: banner ?? this.banner,
         icon: icon ?? this.icon,
         hidden: hidden ?? this.hidden,
+        sideloaded: sideloaded ?? this.sideloaded,
       );
 
   @override
@@ -101,13 +115,14 @@ class AppsData extends DataClass implements Insertable<AppsData> {
           ..write('version: $version, ')
           ..write('banner: $banner, ')
           ..write('icon: $icon, ')
-          ..write('hidden: $hidden')
+          ..write('hidden: $hidden, ')
+          ..write('sideloaded: $sideloaded')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(packageName, name, version, banner, icon, hidden);
+  int get hashCode => Object.hash(packageName, name, version, banner, icon, hidden, sideloaded);
 
   @override
   bool operator ==(Object other) =>
@@ -118,7 +133,8 @@ class AppsData extends DataClass implements Insertable<AppsData> {
           other.version == this.version &&
           other.banner == this.banner &&
           other.icon == this.icon &&
-          other.hidden == this.hidden);
+          other.hidden == this.hidden &&
+          other.sideloaded == this.sideloaded);
 }
 
 class AppsCompanion extends UpdateCompanion<AppsData> {
@@ -128,6 +144,7 @@ class AppsCompanion extends UpdateCompanion<AppsData> {
   final Value<Uint8List?> banner;
   final Value<Uint8List?> icon;
   final Value<bool> hidden;
+  final Value<bool> sideloaded;
 
   const AppsCompanion({
     this.packageName = const Value.absent(),
@@ -136,6 +153,7 @@ class AppsCompanion extends UpdateCompanion<AppsData> {
     this.banner = const Value.absent(),
     this.icon = const Value.absent(),
     this.hidden = const Value.absent(),
+    this.sideloaded = const Value.absent(),
   });
 
   AppsCompanion.insert({
@@ -145,6 +163,7 @@ class AppsCompanion extends UpdateCompanion<AppsData> {
     this.banner = const Value.absent(),
     this.icon = const Value.absent(),
     this.hidden = const Value.absent(),
+    this.sideloaded = const Value.absent(),
   })  : packageName = Value(packageName),
         name = Value(name),
         version = Value(version);
@@ -156,6 +175,7 @@ class AppsCompanion extends UpdateCompanion<AppsData> {
     Expression<Uint8List?>? banner,
     Expression<Uint8List?>? icon,
     Expression<bool>? hidden,
+    Expression<bool>? sideloaded,
   }) {
     return RawValuesInsertable({
       if (packageName != null) 'package_name': packageName,
@@ -164,6 +184,7 @@ class AppsCompanion extends UpdateCompanion<AppsData> {
       if (banner != null) 'banner': banner,
       if (icon != null) 'icon': icon,
       if (hidden != null) 'hidden': hidden,
+      if (sideloaded != null) 'sideloaded': sideloaded,
     });
   }
 
@@ -173,7 +194,8 @@ class AppsCompanion extends UpdateCompanion<AppsData> {
       Value<String>? version,
       Value<Uint8List?>? banner,
       Value<Uint8List?>? icon,
-      Value<bool>? hidden}) {
+      Value<bool>? hidden,
+      Value<bool>? sideloaded}) {
     return AppsCompanion(
       packageName: packageName ?? this.packageName,
       name: name ?? this.name,
@@ -181,6 +203,7 @@ class AppsCompanion extends UpdateCompanion<AppsData> {
       banner: banner ?? this.banner,
       icon: icon ?? this.icon,
       hidden: hidden ?? this.hidden,
+      sideloaded: sideloaded ?? this.sideloaded,
     );
   }
 
@@ -205,6 +228,9 @@ class AppsCompanion extends UpdateCompanion<AppsData> {
     if (hidden.present) {
       map['hidden'] = Variable<bool>(hidden.value);
     }
+    if (sideloaded.present) {
+      map['sideloaded'] = Variable<bool>(sideloaded.value);
+    }
     return map;
   }
 
@@ -216,7 +242,8 @@ class AppsCompanion extends UpdateCompanion<AppsData> {
           ..write('version: $version, ')
           ..write('banner: $banner, ')
           ..write('icon: $icon, ')
-          ..write('hidden: $hidden')
+          ..write('hidden: $hidden, ')
+          ..write('sideloaded: $sideloaded')
           ..write(')'))
         .toString();
   }
@@ -243,9 +270,14 @@ class Apps extends Table with TableInfo<Apps, AppsData> {
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (hidden IN (0, 1))',
       defaultValue: Constant(false));
+  late final GeneratedColumn<bool?> sideloaded = GeneratedColumn<bool?>('sideloaded', aliasedName, false,
+      type: const BoolType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (sideloaded IN (0, 1))',
+      defaultValue: Constant(false));
 
   @override
-  List<GeneratedColumn> get $columns => [packageName, name, version, banner, icon, hidden];
+  List<GeneratedColumn> get $columns => [packageName, name, version, banner, icon, hidden, sideloaded];
 
   @override
   String get aliasedName => _alias ?? 'apps';
@@ -278,6 +310,7 @@ class CategoriesData extends DataClass implements Insertable<CategoriesData> {
   final int rowHeight;
   final int columnsCount;
   final int order;
+  final bool nameHidden;
 
   CategoriesData(
       {required this.id,
@@ -286,7 +319,8 @@ class CategoriesData extends DataClass implements Insertable<CategoriesData> {
       required this.type,
       required this.rowHeight,
       required this.columnsCount,
-      required this.order});
+      required this.order,
+      required this.nameHidden});
 
   factory CategoriesData.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -298,6 +332,7 @@ class CategoriesData extends DataClass implements Insertable<CategoriesData> {
       rowHeight: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}row_height'])!,
       columnsCount: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}columns_count'])!,
       order: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}order'])!,
+      nameHidden: const BoolType().mapFromDatabaseResponse(data['${effectivePrefix}name_hidden'])!,
     );
   }
 
@@ -311,6 +346,7 @@ class CategoriesData extends DataClass implements Insertable<CategoriesData> {
     map['row_height'] = Variable<int>(rowHeight);
     map['columns_count'] = Variable<int>(columnsCount);
     map['order'] = Variable<int>(order);
+    map['name_hidden'] = Variable<bool>(nameHidden);
     return map;
   }
 
@@ -323,6 +359,7 @@ class CategoriesData extends DataClass implements Insertable<CategoriesData> {
       rowHeight: Value(rowHeight),
       columnsCount: Value(columnsCount),
       order: Value(order),
+      nameHidden: Value(nameHidden),
     );
   }
 
@@ -336,6 +373,7 @@ class CategoriesData extends DataClass implements Insertable<CategoriesData> {
       rowHeight: serializer.fromJson<int>(json['rowHeight']),
       columnsCount: serializer.fromJson<int>(json['columnsCount']),
       order: serializer.fromJson<int>(json['order']),
+      nameHidden: serializer.fromJson<bool>(json['nameHidden']),
     );
   }
 
@@ -350,11 +388,19 @@ class CategoriesData extends DataClass implements Insertable<CategoriesData> {
       'rowHeight': serializer.toJson<int>(rowHeight),
       'columnsCount': serializer.toJson<int>(columnsCount),
       'order': serializer.toJson<int>(order),
+      'nameHidden': serializer.toJson<bool>(nameHidden),
     };
   }
 
   CategoriesData copyWith(
-          {int? id, String? name, int? sort, int? type, int? rowHeight, int? columnsCount, int? order}) =>
+          {int? id,
+          String? name,
+          int? sort,
+          int? type,
+          int? rowHeight,
+          int? columnsCount,
+          int? order,
+          bool? nameHidden}) =>
       CategoriesData(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -363,6 +409,7 @@ class CategoriesData extends DataClass implements Insertable<CategoriesData> {
         rowHeight: rowHeight ?? this.rowHeight,
         columnsCount: columnsCount ?? this.columnsCount,
         order: order ?? this.order,
+        nameHidden: nameHidden ?? this.nameHidden,
       );
 
   @override
@@ -374,13 +421,14 @@ class CategoriesData extends DataClass implements Insertable<CategoriesData> {
           ..write('type: $type, ')
           ..write('rowHeight: $rowHeight, ')
           ..write('columnsCount: $columnsCount, ')
-          ..write('order: $order')
+          ..write('order: $order, ')
+          ..write('nameHidden: $nameHidden')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name, sort, type, rowHeight, columnsCount, order);
+  int get hashCode => Object.hash(id, name, sort, type, rowHeight, columnsCount, order, nameHidden);
 
   @override
   bool operator ==(Object other) =>
@@ -392,7 +440,8 @@ class CategoriesData extends DataClass implements Insertable<CategoriesData> {
           other.type == this.type &&
           other.rowHeight == this.rowHeight &&
           other.columnsCount == this.columnsCount &&
-          other.order == this.order);
+          other.order == this.order &&
+          other.nameHidden == this.nameHidden);
 }
 
 class CategoriesCompanion extends UpdateCompanion<CategoriesData> {
@@ -403,6 +452,7 @@ class CategoriesCompanion extends UpdateCompanion<CategoriesData> {
   final Value<int> rowHeight;
   final Value<int> columnsCount;
   final Value<int> order;
+  final Value<bool> nameHidden;
 
   const CategoriesCompanion({
     this.id = const Value.absent(),
@@ -412,6 +462,7 @@ class CategoriesCompanion extends UpdateCompanion<CategoriesData> {
     this.rowHeight = const Value.absent(),
     this.columnsCount = const Value.absent(),
     this.order = const Value.absent(),
+    this.nameHidden = const Value.absent(),
   });
 
   CategoriesCompanion.insert({
@@ -422,6 +473,7 @@ class CategoriesCompanion extends UpdateCompanion<CategoriesData> {
     this.rowHeight = const Value.absent(),
     this.columnsCount = const Value.absent(),
     required int order,
+    this.nameHidden = const Value.absent(),
   })  : name = Value(name),
         order = Value(order);
 
@@ -433,6 +485,7 @@ class CategoriesCompanion extends UpdateCompanion<CategoriesData> {
     Expression<int>? rowHeight,
     Expression<int>? columnsCount,
     Expression<int>? order,
+    Expression<bool>? nameHidden,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -442,6 +495,7 @@ class CategoriesCompanion extends UpdateCompanion<CategoriesData> {
       if (rowHeight != null) 'row_height': rowHeight,
       if (columnsCount != null) 'columns_count': columnsCount,
       if (order != null) 'order': order,
+      if (nameHidden != null) 'name_hidden': nameHidden,
     });
   }
 
@@ -452,7 +506,8 @@ class CategoriesCompanion extends UpdateCompanion<CategoriesData> {
       Value<int>? type,
       Value<int>? rowHeight,
       Value<int>? columnsCount,
-      Value<int>? order}) {
+      Value<int>? order,
+      Value<bool>? nameHidden}) {
     return CategoriesCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -461,6 +516,7 @@ class CategoriesCompanion extends UpdateCompanion<CategoriesData> {
       rowHeight: rowHeight ?? this.rowHeight,
       columnsCount: columnsCount ?? this.columnsCount,
       order: order ?? this.order,
+      nameHidden: nameHidden ?? this.nameHidden,
     );
   }
 
@@ -488,6 +544,9 @@ class CategoriesCompanion extends UpdateCompanion<CategoriesData> {
     if (order.present) {
       map['order'] = Variable<int>(order.value);
     }
+    if (nameHidden.present) {
+      map['name_hidden'] = Variable<bool>(nameHidden.value);
+    }
     return map;
   }
 
@@ -500,7 +559,8 @@ class CategoriesCompanion extends UpdateCompanion<CategoriesData> {
           ..write('type: $type, ')
           ..write('rowHeight: $rowHeight, ')
           ..write('columnsCount: $columnsCount, ')
-          ..write('order: $order')
+          ..write('order: $order, ')
+          ..write('nameHidden: $nameHidden')
           ..write(')'))
         .toString();
   }
@@ -526,9 +586,14 @@ class Categories extends Table with TableInfo<Categories, CategoriesData> {
       type: const IntType(), requiredDuringInsert: false, defaultValue: Constant(6));
   late final GeneratedColumn<int?> order =
       GeneratedColumn<int?>('order', aliasedName, false, type: const IntType(), requiredDuringInsert: true);
+  late final GeneratedColumn<bool?> nameHidden = GeneratedColumn<bool?>('name_hidden', aliasedName, false,
+      type: const BoolType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (name_hidden IN (0, 1))',
+      defaultValue: Constant(false));
 
   @override
-  List<GeneratedColumn> get $columns => [id, name, sort, type, rowHeight, columnsCount, order];
+  List<GeneratedColumn> get $columns => [id, name, sort, type, rowHeight, columnsCount, order, nameHidden];
 
   @override
   String get aliasedName => _alias ?? 'categories';
@@ -741,8 +806,8 @@ class AppsCategories extends Table with TableInfo<AppsCategories, AppsCategories
   bool get dontWriteConstraints => false;
 }
 
-class DatabaseAtV4 extends GeneratedDatabase {
-  DatabaseAtV4(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+class DatabaseAtV6 extends GeneratedDatabase {
+  DatabaseAtV6(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final Apps apps = Apps(this);
   late final Categories categories = Categories(this);
   late final AppsCategories appsCategories = AppsCategories(this);
@@ -754,5 +819,5 @@ class DatabaseAtV4 extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [apps, categories, appsCategories];
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 6;
 }

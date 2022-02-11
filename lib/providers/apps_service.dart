@@ -266,4 +266,10 @@ class AppsService extends ChangeNotifier {
     _categoriesWithApps = await _database.listCategoriesWithVisibleApps();
     notifyListeners();
   }
+
+  Future<void> setCategoryNameHidden(Category category, bool nameHidden) async {
+    await _database.updateCategory(category.id, CategoriesCompanion(nameHidden: Value(nameHidden)));
+    _categoriesWithApps = await _database.listCategoriesWithVisibleApps();
+    notifyListeners();
+  }
 }

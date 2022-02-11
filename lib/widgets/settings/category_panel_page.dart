@@ -149,6 +149,15 @@ class CategoryPanelPage extends StatelessWidget {
                           ],
                         ),
                       ),
+                    _listTile(
+                        context,
+                        Text("Hide name"),
+                        Text(
+                            "Allow to have a clean category: only the applications are displayed without the category name"),
+                        trailing: Switch(
+                          value: category.nameHidden,
+                          onChanged: (value) => context.read<AppsService>().setCategoryNameHidden(category, value),
+                        )),
                     Divider(),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),

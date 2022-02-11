@@ -61,6 +61,8 @@ class Categories extends Table {
   IntColumn get columnsCount => integer().withDefault(Constant(6))();
 
   IntColumn get order => integer()();
+
+  BoolColumn get nameHidden => boolean().withDefault(Constant(false))();
 }
 
 @DataClassName("AppCategory")
@@ -108,7 +110,7 @@ class FLauncherDatabase extends _$FLauncherDatabase {
   FLauncherDatabase.inMemory() : super(LazyDatabase(() => NativeDatabase.memory()));
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -132,6 +134,9 @@ class FLauncherDatabase extends _$FLauncherDatabase {
           }
           if (from <= 4 && from != 1) {
             await migrator.addColumn(apps, apps.sideloaded);
+          }
+          if (from <= 5) {
+            await migrator.addColumn(categories, categories.nameHidden);
           }
         },
         beforeOpen: (openingDetails) async {
