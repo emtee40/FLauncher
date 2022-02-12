@@ -27,6 +27,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _crashReportsEnabledKey = "crash_reports_enabled";
 const _analyticsEnabledKey = "analytics_enabled";
 const _use24HourTimeFormatKey = "use_24_hour_time_format";
+const _soundFeedbackEnabledKey = "sound_feedback_enabled";
 const _gradientUuidKey = "gradient_uuid";
 const _unsplashEnabledKey = "unsplash_enabled";
 const _unsplashAuthorKey = "unsplash_author";
@@ -35,7 +36,7 @@ class SettingsService extends ChangeNotifier {
   final SharedPreferences _sharedPreferences;
   final FirebaseCrashlytics _firebaseCrashlytics;
   final FirebaseAnalytics _firebaseAnalytics;
-  final RemoteConfig _remoteConfig;
+  final FirebaseRemoteConfig _firebaseRemoteConfig;
   late final Timer _remoteConfigRefreshTimer;
 
   bool get crashReportsEnabled => _sharedPreferences.getBool(_crashReportsEnabledKey) ?? true;
@@ -44,13 +45,20 @@ class SettingsService extends ChangeNotifier {
 
   bool get use24HourTimeFormat => _sharedPreferences.getBool(_use24HourTimeFormatKey) ?? true;
 
+  bool get soundFeedbackEnabled => _sharedPreferences.getBool(_soundFeedbackEnabledKey) ?? true;
+
   String? get gradientUuid => _sharedPreferences.getString(_gradientUuidKey);
 
-  bool get unsplashEnabled => _remoteConfig.getBool(_unsplashEnabledKey);
+  bool get unsplashEnabled => _firebaseRemoteConfig.getBool(_unsplashEnabledKey);
 
   String? get unsplashAuthor => _sharedPreferences.getString(_unsplashAuthorKey);
 
-  SettingsService(this._sharedPreferences, this._firebaseCrashlytics, this._firebaseAnalytics, this._remoteConfig) {
+  SettingsService(
+    this._sharedPreferences,
+    this._firebaseCrashlytics,
+    this._firebaseAnalytics,
+    this._firebaseRemoteConfig,
+  ) {
     _firebaseCrashlytics.setCrashlyticsCollectionEnabled(kReleaseMode && crashReportsEnabled);
     _firebaseAnalytics.setAnalyticsCollectionEnabled(kReleaseMode && analyticsEnabled);
     _remoteConfigRefreshTimer = Timer.periodic(Duration(hours: 6, minutes: 1), (_) => _refreshFirebaseRemoteConfig());
@@ -79,6 +87,11 @@ class SettingsService extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> setSoundFeedbackEnabled(bool value) async {
+    await _sharedPreferences.setBool(_soundFeedbackEnabledKey, value);
+    notifyListeners();
+  }
+
   Future<void> setGradientUuid(String value) async {
     await _sharedPreferences.setString(_gradientUuidKey, value);
     notifyListeners();
@@ -96,7 +109,7 @@ class SettingsService extends ChangeNotifier {
   Future<void> _refreshFirebaseRemoteConfig() async {
     bool updated = false;
     try {
-      updated = await _remoteConfig.fetchAndActivate();
+      updated = await _firebaseRemoteConfig.fetchAndActivate();
     } catch (e) {
       debugPrint("Could not refresh Firebase Remote Config: $e");
     }
