@@ -22,8 +22,10 @@ import 'dart:ui';
 import 'package:flauncher/custom_traversal_policy.dart';
 import 'package:flauncher/database.dart';
 import 'package:flauncher/providers/apps_service.dart';
+import 'package:flauncher/providers/settings_service.dart';
 import 'package:flauncher/providers/wallpaper_service.dart';
 import 'package:flauncher/widgets/apps_grid.dart';
+import 'package:flauncher/widgets/battery_widget.dart';
 import 'package:flauncher/widgets/category_row.dart';
 import 'package:flauncher/widgets/settings/settings_panel.dart';
 import 'package:flauncher/widgets/time_widget.dart';
@@ -99,6 +101,15 @@ class FLauncher extends StatelessWidget {
                 onPressed: () => showDialog(context: context, builder: (_) => SettingsPanel()),
               ),
             ],
+          ),
+          Consumer<SettingsService>(
+            builder: (context, settingsService, __) => Padding (
+              padding: (!settingsService.isTv && settingsService.showBatteryIndicator) ? EdgeInsets.only(left: 16) : EdgeInsets.only(left: 0),
+              child: Align(
+                alignment: Alignment.center,
+                child: (!settingsService.isTv && settingsService.showBatteryIndicator) ? BatteryWidget() : Container(),
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(left: 16, right: 32),

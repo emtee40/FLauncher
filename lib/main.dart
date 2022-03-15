@@ -73,6 +73,7 @@ Future<void> main() async {
     final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
     final AndroidDeviceInfo _androidInfo = await _deviceInfo.androidInfo;
     final bool _isTV = _androidInfo.systemFeatures.contains('android.software.leanback_only');
+    await sharedPreferences.setBool('is_tv', _isTV);
     // If the app is running on an Android phone hide Android status and navigation bars
     // The user can access them through a swipe gesture at the edges of the display
     if (!_isTV) {

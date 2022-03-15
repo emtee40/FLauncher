@@ -88,6 +88,23 @@ class SettingsPanelPage extends StatelessWidget {
                     title: Text("Use 24-hour time format"),
                     dense: true,
                   ),
+                  if (!settingsService.isTv) ...[
+                    Divider(),
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                      value: settingsService.showBatteryIndicator,
+                      onChanged: (value) => settingsService.setShowBatteryIndicator(value),
+                      title: Text("Show battery indicator"),
+                      dense: true,
+                    ),
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                      value: settingsService.showBatteryPercentage,
+                      onChanged: (value) => settingsService.setShowBatteryPercentage(value),
+                      title: Text("Show battery percentage"),
+                      dense: true,
+                    ),
+                  ],
                   Divider(),
                   SwitchListTile(
                     contentPadding: EdgeInsets.symmetric(horizontal: 8),
