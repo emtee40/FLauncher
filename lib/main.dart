@@ -19,6 +19,7 @@
 import 'dart:async';
 import 'dart:isolate';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -28,6 +29,7 @@ import 'package:flauncher/flauncher_channel.dart';
 import 'package:flauncher/unsplash_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unsplash_client/unsplash_client.dart';
@@ -67,6 +69,17 @@ Future<void> main() async {
         ),
       ),
     );
+    // Check if the app is running on an Android TV device
+    final DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
+    final AndroidDeviceInfo _androidInfo = await _deviceInfo.androidInfo;
+    final bool _isTV = _androidInfo.systemFeatures.contains('android.software.leanback_only');
+    // If the app is running on an Android phone hide Android status and navigation bars
+    // The user can access them through a swipe gesture at the edges of the display
+    if (!_isTV) {
+        SystemChrome.setEnabledSystemUIMode(
+          SystemUiMode.immersiveSticky,
+        );
+    }
     runApp(
       FLauncherApp(
         sharedPreferences,
