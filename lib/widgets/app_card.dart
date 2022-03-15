@@ -191,28 +191,31 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
   }
 
   List<Widget> _arrows() => [
-        _arrow(Alignment.centerLeft, Icons.keyboard_arrow_left),
-        _arrow(Alignment.topCenter, Icons.keyboard_arrow_up),
-        _arrow(Alignment.bottomCenter, Icons.keyboard_arrow_down),
-        _arrow(Alignment.centerRight, Icons.keyboard_arrow_right),
+        _arrow(Alignment.centerLeft, Icons.keyboard_arrow_left, LogicalKeyboardKey.arrowLeft),
+        _arrow(Alignment.topCenter, Icons.keyboard_arrow_up, LogicalKeyboardKey.arrowUp),
+        _arrow(Alignment.bottomCenter, Icons.keyboard_arrow_down, LogicalKeyboardKey.arrowDown),
+        _arrow(Alignment.centerRight, Icons.keyboard_arrow_right, LogicalKeyboardKey.arrowRight),
       ];
 
-  Widget _arrow(Alignment alignment, IconData icon) => Align(
-        alignment: alignment,
-        child: Padding(
-          padding: EdgeInsets.all(4),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Theme.of(context).primaryColor.withOpacity(0.8),
-            ),
-            child: Icon(
-              icon,
-              size: 16,
-            ),
+  Widget _arrow(Alignment alignment, IconData icon, LogicalKeyboardKey key) => Align(
+    alignment: alignment,
+    child: InkWell(
+      onTap: () => _onPressed(context, key),
+      child: Padding(
+        padding: EdgeInsets.all(4),
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Theme.of(context).primaryColor.withOpacity(0.8),
+          ),
+          child: Icon(
+            icon,
+            size: 16,
           ),
         ),
-      );
+      ),
+    ),
+  );
 
   KeyEventResult _onPressed(BuildContext context, LogicalKeyboardKey? key) {
     if (_moving) {
@@ -226,7 +229,7 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
         widget.onMove(AxisDirection.right);
       } else if (key == LogicalKeyboardKey.arrowDown) {
         widget.onMove(AxisDirection.down);
-      } else if (_validationKeys.contains(key)) {
+      } else if (key == null || _validationKeys.contains(key)) {
         setState(() => _moving = false);
         widget.onMoveEnd();
       }
