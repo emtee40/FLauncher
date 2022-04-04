@@ -16,7 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import 'package:flauncher/providers/settings_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddCategoryDialog extends StatelessWidget {
   final String? initialValue;
@@ -26,25 +28,27 @@ class AddCategoryDialog extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => SimpleDialog(
-        insetPadding: EdgeInsets.only(bottom: 120),
-        contentPadding: EdgeInsets.all(24),
-        title: Text(initialValue != null ? "Rename Category" : "Add Category"),
-        children: [
-          TextFormField(
-            autofocus: true,
-            initialValue: initialValue,
-            decoration: InputDecoration(labelText: "Name"),
-            validator: (value) => value!.trim().isEmpty ? "Must not be empty" : null,
-            autovalidateMode: AutovalidateMode.always,
-            keyboardType: TextInputType.text,
-            textCapitalization: TextCapitalization.sentences,
-            onFieldSubmitted: (value) {
-              if (value.trim().isNotEmpty) {
-                Navigator.of(context).pop(value);
-              }
-            },
-          )
-        ],
+  Widget build(BuildContext context) => Consumer<SettingsService>(
+        builder: (context, settingsService, __) => SimpleDialog(
+          insetPadding: EdgeInsets.only(bottom: settingsService.isTv ? 120 : 8),
+          contentPadding: EdgeInsets.all(settingsService.isTv ? 24 : 12),
+          title: Text(initialValue != null ? "Rename Category" : "Add Category"),
+          children: [
+            TextFormField(
+              autofocus: true,
+              initialValue: initialValue,
+              decoration: InputDecoration(labelText: "Name"),
+              validator: (value) => value!.trim().isEmpty ? "Must not be empty" : null,
+              autovalidateMode: AutovalidateMode.always,
+              keyboardType: TextInputType.text,
+              textCapitalization: TextCapitalization.sentences,
+              onFieldSubmitted: (value) {
+                if (value.trim().isNotEmpty) {
+                  Navigator.of(context).pop(value);
+                }
+              },
+            )
+          ],
+        ),
       );
 }
