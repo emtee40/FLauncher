@@ -111,7 +111,7 @@ class CategoryPanelPage extends StatelessWidget {
                               value: category.columnsCount,
                               isDense: true,
                               isExpanded: true,
-                              items: [for (int i = 5; i <= 10; i++) i]
+                              items: [for (int i = 3; i <= 10; i++) i]
                                   .map(
                                     (value) => DropdownMenuItem(
                                       value: value,

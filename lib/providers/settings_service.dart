@@ -28,6 +28,9 @@ const _crashReportsEnabledKey = "crash_reports_enabled";
 const _analyticsEnabledKey = "analytics_enabled";
 const _use24HourTimeFormatKey = "use_24_hour_time_format";
 const _gradientUuidKey = "gradient_uuid";
+const _isTvKey = "is_tv";
+const _showBatteryIndicatorKey = "show_battery_indicator";
+const _showBatteryPercentageKey = "show_battery_percentage";
 const _unsplashEnabledKey = "unsplash_enabled";
 const _unsplashAuthorKey = "unsplash_author";
 
@@ -45,6 +48,12 @@ class SettingsService extends ChangeNotifier {
   bool get use24HourTimeFormat => _sharedPreferences.getBool(_use24HourTimeFormatKey) ?? true;
 
   String? get gradientUuid => _sharedPreferences.getString(_gradientUuidKey);
+
+  bool get isTv => _sharedPreferences.getBool(_isTvKey) ?? true;
+
+  bool get showBatteryIndicator => _sharedPreferences.getBool(_showBatteryIndicatorKey) ?? true;
+
+  bool get showBatteryPercentage => _sharedPreferences.getBool(_showBatteryPercentageKey) ?? false;
 
   bool get unsplashEnabled => _firebaseRemoteConfig.getBool(_unsplashEnabledKey);
 
@@ -86,6 +95,21 @@ class SettingsService extends ChangeNotifier {
 
   Future<void> setGradientUuid(String value) async {
     await _sharedPreferences.setString(_gradientUuidKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setIsTv(bool value) async {
+    await _sharedPreferences.setBool(_isTvKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setShowBatteryIndicator(bool value) async {
+    await _sharedPreferences.setBool(_showBatteryIndicatorKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setShowBatteryPercentage(bool value) async {
+    await _sharedPreferences.setBool(_showBatteryPercentageKey, value);
     notifyListeners();
   }
 
