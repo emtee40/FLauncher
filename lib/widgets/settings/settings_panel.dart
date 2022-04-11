@@ -23,6 +23,7 @@ import 'package:flauncher/widgets/settings/categories_panel_page.dart';
 import 'package:flauncher/widgets/settings/category_panel_page.dart';
 import 'package:flauncher/widgets/settings/gradient_panel_page.dart';
 import 'package:flauncher/widgets/settings/settings_panel_page.dart';
+import 'package:flauncher/widgets/settings/settings_backup_restore_panel_page.dart';
 import 'package:flauncher/widgets/settings/unsplash_panel_page.dart';
 import 'package:flauncher/widgets/settings/wallpaper_panel_page.dart';
 import 'package:flutter/foundation.dart';
@@ -69,6 +70,8 @@ class _SettingsPanelState extends State<SettingsPanel> {
                     return MaterialPageRoute(
                       builder: (_) => CategoryPanelPage(categoryId: settings.arguments! as int),
                     );
+                  case SettingsBackupRestorePanelPage.routeName:
+                    return MaterialPageRoute(builder: (_) => SettingsBackupRestorePanelPage());
                   default:
                     throw ArgumentError.value(settings.name, "settings.name", "Route not supported.");
                 }
