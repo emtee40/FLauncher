@@ -26,7 +26,7 @@ void main() {
   });
 
   test("getApplications", () async {
-    final channel = MethodChannel('me.efesser.flauncher/method');
+    const channel = MethodChannel('me.efesser.flauncher/method');
     channel.setMockMethodCallHandler((call) async {
       if (call.method == "getApplications") {
         return [
@@ -45,7 +45,7 @@ void main() {
   });
 
   test("launchApp", () async {
-    final channel = MethodChannel('me.efesser.flauncher/method');
+    const channel = MethodChannel('me.efesser.flauncher/method');
     String? packageName;
     channel.setMockMethodCallHandler((call) async {
       if (call.method == "launchApp") {
@@ -62,7 +62,7 @@ void main() {
   });
 
   test("openSettings", () async {
-    final channel = MethodChannel('me.efesser.flauncher/method');
+    const channel = MethodChannel('me.efesser.flauncher/method');
     bool called = false;
     channel.setMockMethodCallHandler((call) async {
       if (call.method == "openSettings") {
@@ -79,7 +79,7 @@ void main() {
   });
 
   test("openAppInfo", () async {
-    final channel = MethodChannel('me.efesser.flauncher/method');
+    const channel = MethodChannel('me.efesser.flauncher/method');
     String? packageName;
     channel.setMockMethodCallHandler((call) async {
       if (call.method == "openAppInfo") {
@@ -96,7 +96,7 @@ void main() {
   });
 
   test("uninstallApp", () async {
-    final channel = MethodChannel('me.efesser.flauncher/method');
+    const channel = MethodChannel('me.efesser.flauncher/method');
     String? packageName;
     channel.setMockMethodCallHandler((call) async {
       if (call.method == "uninstallApp") {
@@ -113,7 +113,7 @@ void main() {
   });
 
   test("isDefaultLauncher", () async {
-    final channel = MethodChannel('me.efesser.flauncher/method');
+    const channel = MethodChannel('me.efesser.flauncher/method');
     channel.setMockMethodCallHandler((call) async {
       if (call.method == "isDefaultLauncher") {
         return true;
@@ -128,7 +128,7 @@ void main() {
   });
 
   test("checkForGetContentAvailability", () async {
-    final channel = MethodChannel('me.efesser.flauncher/method');
+    const channel = MethodChannel('me.efesser.flauncher/method');
     channel.setMockMethodCallHandler((call) async {
       if (call.method == "checkForGetContentAvailability") {
         return true;
@@ -143,7 +143,7 @@ void main() {
   });
 
   test("startAmbientMode", () async {
-    final channel = MethodChannel('me.efesser.flauncher/method');
+    const channel = MethodChannel('me.efesser.flauncher/method');
     bool called = false;
     channel.setMockMethodCallHandler((call) async {
       if (call.method == "startAmbientMode") {

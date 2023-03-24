@@ -27,7 +27,7 @@ class CategoryPanelPage extends StatelessWidget {
 
   final int categoryId;
 
-  CategoryPanelPage({Key? key, required this.categoryId}) : super(key: key);
+  const CategoryPanelPage({Key? key, required this.categoryId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
@@ -38,24 +38,24 @@ class CategoryPanelPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(category.name, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
-                    Divider(),
+                    const Divider(),
                     _listTile(
                       context,
-                      Text("Name"),
+                      const Text("Name"),
                       Text(category.name),
                       trailing: IconButton(
-                        constraints: BoxConstraints(),
+                        constraints: const BoxConstraints(),
                         splashRadius: 20,
-                        icon: Icon(Icons.edit),
+                        icon: const Icon(Icons.edit),
                         onPressed: () => _renameCategory(context, category),
                       ),
                     ),
                     _listTile(
                       context,
-                      Text("Sort"),
+                      const Text("Sort"),
                       Column(
                         children: [
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           DropdownButton<CategorySort>(
                             value: category.sort,
                             onChanged: (value) => context.read<AppsService>().setCategorySort(category, value!),
@@ -77,10 +77,10 @@ class CategoryPanelPage extends StatelessWidget {
                     ),
                     _listTile(
                       context,
-                      Text("Type"),
+                      const Text("Type"),
                       Column(
                         children: [
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           DropdownButton<CategoryType>(
                             value: category.type,
                             onChanged: (value) => context.read<AppsService>().setCategoryType(category, value!),
@@ -103,10 +103,10 @@ class CategoryPanelPage extends StatelessWidget {
                     if (category.type == CategoryType.grid)
                       _listTile(
                         context,
-                        Text("Columns count"),
+                        const Text("Columns count"),
                         Column(
                           children: [
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             DropdownButton<int>(
                               value: category.columnsCount,
                               isDense: true,
@@ -128,10 +128,10 @@ class CategoryPanelPage extends StatelessWidget {
                     if (category.type == CategoryType.row)
                       _listTile(
                         context,
-                        Text("Row height"),
+                        const Text("Row height"),
                         Column(
                           children: [
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             DropdownButton<int>(
                               value: category.rowHeight,
                               isDense: true,
@@ -149,15 +149,17 @@ class CategoryPanelPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                    Divider(),
+                    const Divider(),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.red[400]),
-                        child: Text("Delete"),
+                        child: const Text("Delete"),
                         onPressed: () async {
                           await context.read<AppsService>().deleteCategory(category);
-                          Navigator.of(context).pop();
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                          }
                         },
                       ),
                     )
@@ -186,7 +188,7 @@ class CategoryPanelPage extends StatelessWidget {
   Future<void> _renameCategory(BuildContext context, Category category) async {
     final categoryName =
         await showDialog<String>(context: context, builder: (_) => AddCategoryDialog(initialValue: category.name));
-    if (categoryName != null) {
+    if (categoryName != null && context.mounted) {
       await context.read<AppsService>().renameCategory(category, categoryName);
     }
   }

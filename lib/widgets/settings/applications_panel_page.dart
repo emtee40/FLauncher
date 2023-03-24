@@ -27,6 +27,8 @@ import 'package:provider/provider.dart';
 class ApplicationsPanelPage extends StatefulWidget {
   static const String routeName = "applications_panel";
 
+  const ApplicationsPanelPage({super.key});
+
   @override
   State<ApplicationsPanelPage> createState() => _ApplicationsPanelPageState();
 }
@@ -40,33 +42,33 @@ class _ApplicationsPanelPageState extends State<ApplicationsPanelPage> {
         child: Column(
           children: [
             Text(_title, style: Theme.of(context).textTheme.titleLarge),
-            Divider(),
+            const Divider(),
             Material(
               type: MaterialType.transparency,
               child: TabBar(
                 onTap: (index) {
                   switch (index) {
                     case 0:
-                      setState(() => {_title = "TV Applications"});
+                      setState(() => _title = "TV Applications");
                       break;
                     case 1:
-                      setState(() => {_title = "Non-TV Applications"});
+                      setState(() => _title = "Non-TV Applications");
                       break;
                     case 2:
-                      setState(() => {_title = "Hidden Applications"});
+                      setState(() => _title = "Hidden Applications");
                       break;
                     default:
                       throw ArgumentError.value(index, "index");
                   }
                 },
-                tabs: [
+                tabs: const [
                   Tab(icon: Icon(Icons.tv)),
                   Tab(icon: Icon(Icons.android)),
                   Tab(icon: Icon(Icons.visibility_off_outlined)),
                 ],
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Expanded(child: TabBarView(children: [_TVTab(), _SideloadedTab(), _HiddenTab()])),
           ],
         ),
@@ -112,7 +114,7 @@ class _HiddenTab extends StatelessWidget {
 Widget _appCard(BuildContext context, App application) => Card(
       clipBehavior: Clip.antiAlias,
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 8),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
         title: Text(
           application.name,
           style: Theme.of(context).textTheme.bodyMedium,
@@ -125,18 +127,18 @@ Widget _appCard(BuildContext context, App application) => Card(
           children: [
             if (!application.hidden)
               IconButton(
-                constraints: BoxConstraints(),
+                constraints: const BoxConstraints(),
                 splashRadius: 20,
-                icon: Icon(Icons.add_box_outlined),
+                icon: const Icon(Icons.add_box_outlined),
                 onPressed: () => showDialog<Category>(
                   context: context,
                   builder: (_) => AddToCategoryDialog(application),
                 ),
               ),
             IconButton(
-              constraints: BoxConstraints(),
+              constraints: const BoxConstraints(),
               splashRadius: 20,
-              icon: Icon(Icons.info_outline),
+              icon: const Icon(Icons.info_outline),
               onPressed: () => showDialog(
                 context: context,
                 builder: (context) => ApplicationInfoPanel(

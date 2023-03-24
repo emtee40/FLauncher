@@ -22,7 +22,7 @@ class EnsureVisible extends StatelessWidget {
   final Widget child;
   final double alignment;
 
-  EnsureVisible({Key? key, required this.child, this.alignment = 0.0}) : super(key: key);
+  const EnsureVisible({Key? key, required this.child, this.alignment = 0.0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Focus(
@@ -32,7 +32,7 @@ class EnsureVisible extends StatelessWidget {
             Scrollable.ensureVisible(
               context,
               alignment: alignment,
-              duration: Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 100),
               curve: Curves.easeInOut,
             );
           }

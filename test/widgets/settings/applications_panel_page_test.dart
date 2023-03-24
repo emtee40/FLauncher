@@ -34,7 +34,7 @@ import '../../mocks.mocks.dart';
 void main() {
   setUpAll(() async {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
-    binding.window.physicalSizeTestValue = Size(1280, 720);
+    binding.window.physicalSizeTestValue = const Size(1280, 720);
     binding.window.devicePixelRatioTestValue = 1.0;
     // Scale-down the font size because the font 'Ahem' used when running tests is much wider than Roboto
     binding.platformDispatcher.textScaleFactorTestValue = 0.8;
@@ -155,7 +155,7 @@ Future<void> _pumpWidgetWithProviders(WidgetTester tester, AppsService appsServi
       providers: [
         ChangeNotifierProvider<AppsService>.value(value: appsService),
       ],
-      builder: (_, __) => MaterialApp(home: ApplicationsPanelPage()),
+      builder: (_, __) => const MaterialApp(home: ApplicationsPanelPage()),
     ),
   );
   await tester.pumpAndSettle();

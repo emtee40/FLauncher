@@ -27,23 +27,25 @@ import 'package:provider/provider.dart';
 class UnsplashPanelPage extends StatelessWidget {
   static const String routeName = "unsplash_panel";
 
+  const UnsplashPanelPage({super.key});
+
   @override
   Widget build(BuildContext context) => DefaultTabController(
         length: 2,
         child: Column(
           children: [
             Text("Unsplash", style: Theme.of(context).textTheme.titleLarge),
-            Divider(),
+            const Divider(),
             Material(
               type: MaterialType.transparency,
               child: TabBar(
                 tabs: [
-                  Tab(child: Row(children: [Icon(Icons.sync), SizedBox(width: 8), Text("Random")])),
-                  Tab(child: Row(children: [Icon(Icons.search), SizedBox(width: 8), Text("Search")])),
+                  Tab(child: Row(children: const [Icon(Icons.sync), SizedBox(width: 8), Text("Random")])),
+                  Tab(child: Row(children: const [Icon(Icons.search), SizedBox(width: 8), Text("Search")])),
                 ],
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Expanded(child: TabBarView(children: [_RandomTab(), _SearchTab()])),
           ],
         ),
@@ -66,16 +68,16 @@ class _RandomTabState extends State<_RandomTab> {
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           children: [
-            _randomCard("Landscape", AssetImage("assets/landscape.png"), autofocus: true),
-            _randomCard("Abstract", AssetImage("assets/abstract.png")),
-            _randomCard("Minimal", AssetImage("assets/minimal.png")),
-            _randomCard("Texture", AssetImage("assets/texture.png")),
-            _randomCard("Architecture", AssetImage("assets/architecture.png")),
-            _randomCard("Plant", AssetImage("assets/plant.png")),
-            _randomCard("Technology", AssetImage("assets/technology.png")),
-            _randomCard("Animal", AssetImage("assets/animal.png")),
-            _randomCard("Colorful", AssetImage("assets/colorful.png")),
-            _randomCard("Space", AssetImage("assets/space.png")),
+            _randomCard("Landscape", const AssetImage("assets/landscape.png"), autofocus: true),
+            _randomCard("Abstract", const AssetImage("assets/abstract.png")),
+            _randomCard("Minimal", const AssetImage("assets/minimal.png")),
+            _randomCard("Texture", const AssetImage("assets/texture.png")),
+            _randomCard("Architecture", const AssetImage("assets/architecture.png")),
+            _randomCard("Plant", const AssetImage("assets/plant.png")),
+            _randomCard("Technology", const AssetImage("assets/technology.png")),
+            _randomCard("Animal", const AssetImage("assets/animal.png")),
+            _randomCard("Colorful", const AssetImage("assets/colorful.png")),
+            _randomCard("Space", const AssetImage("assets/space.png")),
           ]);
 
   Widget _randomCard(String text, AssetImage assetImage, {bool autofocus = false}) => Focus(
@@ -100,7 +102,7 @@ class _RandomTabState extends State<_RandomTab> {
                     }
                   },
                   child: Padding(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Row(
                       children: [
                         Ink.image(
@@ -108,21 +110,22 @@ class _RandomTabState extends State<_RandomTab> {
                           height: double.infinity,
                           width: 32,
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Flexible(child: Text(text, overflow: TextOverflow.ellipsis))
                       ],
                     ),
                   ),
                 ),
               ),
-              if (!enabled && Focus.of(context).hasFocus) Center(child: CircularProgressIndicator()),
+              if (!enabled && Focus.of(context).hasFocus) const Center(child: CircularProgressIndicator()),
             ],
           ),
         ),
       );
 
   ShapeBorder? _cardBorder(bool hasFocus) => hasFocus
-      ? RoundedRectangleBorder(side: BorderSide(color: Colors.white, width: 2), borderRadius: BorderRadius.circular(4))
+      ? RoundedRectangleBorder(
+          side: const BorderSide(color: Colors.white, width: 2), borderRadius: BorderRadius.circular(4))
       : null;
 }
 
@@ -139,7 +142,7 @@ class _SearchTabState extends State<_SearchTab> {
   Widget build(BuildContext context) => Column(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(4, 0, 4, 16),
+            padding: const EdgeInsets.fromLTRB(4, 0, 4, 16),
             child: FocusKeyboardListener(
               onPressed: (key) {
                 if (key == LogicalKeyboardKey.arrowDown) {
@@ -153,7 +156,7 @@ class _SearchTabState extends State<_SearchTab> {
                 return KeyEventResult.ignored;
               },
               builder: (context) => TextField(
-                decoration: InputDecoration(labelText: "Search", isDense: true),
+                decoration: const InputDecoration(labelText: "Search", isDense: true),
                 keyboardType: TextInputType.text,
                 onSubmitted: (value) async {
                   if (enabled) {
@@ -218,12 +221,12 @@ class _SearchTabState extends State<_SearchTab> {
                         child: Ink.image(image: NetworkImage(photo.small.toString()), fit: BoxFit.cover),
                       ),
                     ),
-                    if (!enabled && Focus.of(context).hasFocus) Center(child: CircularProgressIndicator()),
+                    if (!enabled && Focus.of(context).hasFocus) const Center(child: CircularProgressIndicator()),
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: Text(
                   photo.username,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(decoration: TextDecoration.underline),
@@ -236,6 +239,7 @@ class _SearchTabState extends State<_SearchTab> {
       );
 
   ShapeBorder? _cardBorder(bool hasFocus) => hasFocus
-      ? RoundedRectangleBorder(side: BorderSide(color: Colors.white, width: 2), borderRadius: BorderRadius.circular(4))
+      ? RoundedRectangleBorder(
+          side: const BorderSide(color: Colors.white, width: 2), borderRadius: BorderRadius.circular(4))
       : null;
 }

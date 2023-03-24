@@ -67,14 +67,14 @@ Future<void> main() async {
     );
     runApp(
       FLauncherApp(
-        sharedPreferences,
-        firebaseCrashlytics,
-        firebaseAnalytics,
-        imagePicker,
-        fLauncherChannel,
-        fLauncherDatabase,
-        unsplashService,
-        remoteConfig,
+        sharedPreferences: sharedPreferences,
+        firebaseCrashlytics: firebaseCrashlytics,
+        firebaseAnalytics: firebaseAnalytics,
+        imagePicker: imagePicker,
+        fLauncherChannel: fLauncherChannel,
+        fLauncherDatabase: fLauncherDatabase,
+        unsplashService: unsplashService,
+        firebaseRemoteConfig: remoteConfig,
       ),
     );
   }, firebaseCrashlytics.recordError);
@@ -85,8 +85,8 @@ Future<FirebaseRemoteConfig> _initFirebaseRemoteConfig() async {
   await remoteConfig.setDefaults({"unsplash_enabled": false, "unsplash_access_key": "", "unsplash_secret_key": ""});
   await remoteConfig.setConfigSettings(
     RemoteConfigSettings(
-      fetchTimeout: Duration(minutes: 1),
-      minimumFetchInterval: kReleaseMode ? Duration(hours: 6) : Duration.zero,
+      fetchTimeout: const Duration(minutes: 1),
+      minimumFetchInterval: kReleaseMode ? const Duration(hours: 6) : Duration.zero,
     ),
   );
   await remoteConfig.ensureInitialized().catchError((error, stackTrace) async {

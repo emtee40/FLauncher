@@ -27,11 +27,13 @@ import 'package:provider/provider.dart';
 class CategoriesPanelPage extends StatelessWidget {
   static const String routeName = "categories_panel";
 
+  const CategoriesPanelPage({super.key});
+
   @override
   Widget build(BuildContext context) => Column(
         children: [
           Text("Categories", style: Theme.of(context).textTheme.titleLarge),
-          Divider(),
+          const Divider(),
           Selector<AppsService, List<CategoryWithApps>>(
             selector: (_, appsService) => appsService.categoriesWithApps,
             builder: (_, categories, __) => Expanded(
@@ -43,11 +45,12 @@ class CategoriesPanelPage extends StatelessWidget {
             ),
           ),
           TextButton.icon(
-            icon: Icon(Icons.add),
-            label: Text("Add Category"),
+            icon: const Icon(Icons.add),
+            label: const Text("Add Category"),
             onPressed: () async {
-              final categoryName = await showDialog<String>(context: context, builder: (_) => AddCategoryDialog());
-              if (categoryName != null) {
+              final categoryName =
+                  await showDialog<String>(context: context, builder: (_) => const AddCategoryDialog());
+              if (categoryName != null && context.mounted) {
                 await context.read<AppsService>().addCategory(categoryName);
               }
             },
@@ -57,7 +60,7 @@ class CategoriesPanelPage extends StatelessWidget {
 
   Widget _category(BuildContext context, List<CategoryWithApps> categories, int index) => Padding(
         key: Key(categories[index].category.id.toString()),
-        padding: EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.only(bottom: 8),
         child: Card(
           margin: EdgeInsets.zero,
           child: EnsureVisible(
@@ -69,21 +72,21 @@ class CategoriesPanelPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    constraints: BoxConstraints(),
+                    constraints: const BoxConstraints(),
                     splashRadius: 20,
-                    icon: Icon(Icons.arrow_upward),
+                    icon: const Icon(Icons.arrow_upward),
                     onPressed: index > 0 ? () => _move(context, index, index - 1) : null,
                   ),
                   IconButton(
-                    constraints: BoxConstraints(),
+                    constraints: const BoxConstraints(),
                     splashRadius: 20,
-                    icon: Icon(Icons.arrow_downward),
+                    icon: const Icon(Icons.arrow_downward),
                     onPressed: index < categories.length - 1 ? () => _move(context, index, index + 1) : null,
                   ),
                   IconButton(
-                    constraints: BoxConstraints(),
+                    constraints: const BoxConstraints(),
                     splashRadius: 20,
-                    icon: Icon(Icons.settings),
+                    icon: const Icon(Icons.settings),
                     onPressed: () => Navigator.of(context).pushNamed(
                       CategoryPanelPage.routeName,
                       arguments: categories[index].category.id,

@@ -22,7 +22,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 class FLauncherAboutDialog extends StatelessWidget {
   final PackageInfo packageInfo;
 
-  FLauncherAboutDialog({
+  const FLauncherAboutDialog({
     Key? key,
     required this.packageInfo,
   }) : super(key: key);
@@ -37,23 +37,23 @@ class FLauncherAboutDialog extends StatelessWidget {
       applicationIcon: Image.asset("assets/logo.png", height: 72),
       applicationLegalese: "© 2021 Étienne Fesser",
       children: [
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         RichText(
           text: TextSpan(
             style: textStyle,
             children: [
-              TextSpan(
+              const TextSpan(
                 text: "FLauncher is an open-source alternative launcher for Android TV.\n"
                     "Source code available at ",
               ),
               TextSpan(text: "https://gitlab.com/etiennf01/flauncher", style: underlined),
-              TextSpan(text: ".\n\n"),
-              TextSpan(text: "Logo by Katie "),
+              const TextSpan(text: ".\n\n"),
+              const TextSpan(text: "Logo by Katie "),
               TextSpan(text: "@fureturoe", style: underlined),
-              TextSpan(text: ", "),
-              TextSpan(text: "design by "),
+              const TextSpan(text: ", "),
+              const TextSpan(text: "design by "),
               TextSpan(text: "@FXCostanzo", style: underlined),
-              TextSpan(text: "."),
+              const TextSpan(text: "."),
             ],
           ),
         )

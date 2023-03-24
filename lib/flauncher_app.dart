@@ -58,16 +58,24 @@ class FLauncherApp extends StatelessWidget {
     900: Color(0xFF000000),
   });
 
-  FLauncherApp(
-    this._sharedPreferences,
-    this._firebaseCrashlytics,
-    this._firebaseAnalytics,
-    this._imagePicker,
-    this._fLauncherChannel,
-    this._fLauncherDatabase,
-    this._unsplashService,
-    this._firebaseRemoteConfig,
-  );
+  const FLauncherApp({
+    super.key,
+    required SharedPreferences sharedPreferences,
+    required FirebaseCrashlytics firebaseCrashlytics,
+    required FirebaseAnalytics firebaseAnalytics,
+    required ImagePicker imagePicker,
+    required FLauncherChannel fLauncherChannel,
+    required FLauncherDatabase fLauncherDatabase,
+    required UnsplashService unsplashService,
+    required FirebaseRemoteConfig firebaseRemoteConfig,
+  })  : _sharedPreferences = sharedPreferences,
+        _firebaseCrashlytics = firebaseCrashlytics,
+        _firebaseAnalytics = firebaseAnalytics,
+        _imagePicker = imagePicker,
+        _fLauncherChannel = fLauncherChannel,
+        _fLauncherDatabase = fLauncherDatabase,
+        _unsplashService = unsplashService,
+        _firebaseRemoteConfig = firebaseRemoteConfig;
 
   @override
   Widget build(BuildContext context) => MultiProvider(
@@ -85,8 +93,8 @@ class FLauncherApp extends StatelessWidget {
         child: MaterialApp(
           shortcuts: {
             ...WidgetsApp.defaultShortcuts,
-            SingleActivator(LogicalKeyboardKey.select): ActivateIntent(),
-            SingleActivator(LogicalKeyboardKey.gameButtonB): PrioritizedIntents(orderedIntents: [
+            const SingleActivator(LogicalKeyboardKey.select): const ActivateIntent(),
+            const SingleActivator(LogicalKeyboardKey.gameButtonB): const PrioritizedIntents(orderedIntents: [
               DismissIntent(),
               BackIntent(),
             ]),
@@ -97,21 +105,21 @@ class FLauncherApp extends StatelessWidget {
           },
           title: 'FLauncher',
           theme: ThemeData(
-            brightness: Brightness.dark,
-            primarySwatch: _swatch,
-            // ignore: deprecated_member_use
-            accentColor: _swatch[200],
-            cardColor: _swatch[300],
+            colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: _swatch,
+              accentColor: _swatch[200],
+              cardColor: _swatch[300],
+              backgroundColor: _swatch[400],
+              brightness: Brightness.dark,
+            ),
             canvasColor: _swatch[300],
             dialogBackgroundColor: _swatch[400],
-            // ignore: deprecated_member_use
-            backgroundColor: _swatch[400],
             scaffoldBackgroundColor: _swatch[400],
             textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom(foregroundColor: Colors.white)),
-            appBarTheme: AppBarTheme(elevation: 0, backgroundColor: Colors.transparent),
+            appBarTheme: const AppBarTheme(elevation: 0, backgroundColor: Colors.transparent),
             typography: Typography.material2018(),
             inputDecorationTheme: InputDecorationTheme(
-              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+              focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
               labelStyle: Typography.material2018().white.bodyMedium,
             ),
             textSelectionTheme: TextSelectionThemeData(
@@ -124,12 +132,13 @@ class FLauncherApp extends StatelessWidget {
             builder: (context) => WillPopScope(
               onWillPop: () async {
                 final shouldPop = await shouldPopScope(context);
-                if (!shouldPop) {
+                if (!shouldPop && context.mounted) {
                   context.read<AppsService>().startAmbientMode();
                 }
                 return shouldPop;
               },
-              child: Actions(actions: {BackIntent: BackAction(context, systemNavigator: true)}, child: FLauncher()),
+              child:
+                  Actions(actions: {BackIntent: BackAction(context, systemNavigator: true)}, child: const FLauncher()),
             ),
           ),
         ),

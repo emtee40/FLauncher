@@ -78,7 +78,7 @@ class AppsService extends ChangeNotifier {
         version: Value(data["version"] ?? "(unknown)"),
         banner: Value(data["banner"]),
         icon: Value(data["icon"]),
-        hidden: Value.absent(),
+        hidden: const Value.absent(),
         sideloaded: Value(data["sideloaded"]),
       );
 
@@ -238,14 +238,14 @@ class AppsService extends ChangeNotifier {
   }
 
   Future<void> hideApplication(App application) async {
-    await _database.updateApp(application.packageName, AppsCompanion(hidden: Value(true)));
+    await _database.updateApp(application.packageName, const AppsCompanion(hidden: Value(true)));
     _categoriesWithApps = await _database.listCategoriesWithVisibleApps();
     _applications = await _database.listApplications();
     notifyListeners();
   }
 
   Future<void> unHideApplication(App application) async {
-    await _database.updateApp(application.packageName, AppsCompanion(hidden: Value(false)));
+    await _database.updateApp(application.packageName, const AppsCompanion(hidden: Value(false)));
     _categoriesWithApps = await _database.listCategoriesWithVisibleApps();
     _applications = await _database.listApplications();
     notifyListeners();

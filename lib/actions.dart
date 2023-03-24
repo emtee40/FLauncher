@@ -41,9 +41,13 @@ class BackAction extends Action<BackIntent> {
 
   @override
   Future<void> invoke(BackIntent intent) async {
-    if (systemNavigator && await shouldPopScope(context)) {
-      SystemNavigator.pop();
-    } else {
+    if (systemNavigator) {
+      bool popScope = await shouldPopScope(context);
+
+      if (popScope && context.mounted) {
+        SystemNavigator.pop();
+      }
+    } else if (context.mounted) {
       Navigator.of(context).maybePop();
     }
   }
