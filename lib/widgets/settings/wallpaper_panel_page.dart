@@ -29,17 +29,19 @@ import 'package:webview_flutter/webview_flutter.dart';
 class WallpaperPanelPage extends StatelessWidget {
   static const String routeName = "wallpaper_panel";
 
+  const WallpaperPanelPage({super.key});
+
   @override
   Widget build(BuildContext context) => Column(
         children: [
           Text("Wallpaper", style: Theme.of(context).textTheme.titleLarge),
-          Divider(),
+          const Divider(),
           if (context.read<SettingsService>().unsplashEnabled)
             TextButton(
               autofocus: true,
               child: Row(
                 children: [
-                  ImageIcon(AssetImage("assets/unsplash.png")),
+                  const ImageIcon(AssetImage("assets/unsplash.png")),
                   Container(width: 8),
                   Text("Unsplash", style: Theme.of(context).textTheme.bodyMedium),
                 ],
@@ -50,7 +52,7 @@ class WallpaperPanelPage extends StatelessWidget {
             autofocus: !context.read<SettingsService>().unsplashEnabled,
             child: Row(
               children: [
-                Icon(Icons.gradient),
+                const Icon(Icons.gradient),
                 Container(width: 8),
                 Text("Gradient", style: Theme.of(context).textTheme.bodyMedium),
               ],
@@ -60,7 +62,7 @@ class WallpaperPanelPage extends StatelessWidget {
           TextButton(
             child: Row(
               children: [
-                Icon(Icons.insert_drive_file_outlined),
+                const Icon(Icons.insert_drive_file_outlined),
                 Container(width: 8),
                 Text("Custom", style: Theme.of(context).textTheme.bodyMedium),
               ],
@@ -71,9 +73,9 @@ class WallpaperPanelPage extends StatelessWidget {
               } on NoFileExplorerException {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    duration: Duration(seconds: 8),
+                    duration: const Duration(seconds: 8),
                     content: Row(
-                      children: [
+                      children: const [
                         Icon(Icons.error_outline, color: Colors.red),
                         SizedBox(width: 8),
                         Text("Please install a file explorer in order to pick an image.")
@@ -84,7 +86,7 @@ class WallpaperPanelPage extends StatelessWidget {
               }
             },
           ),
-          Spacer(),
+          const Spacer(),
           Selector<SettingsService, String?>(
             selector: (_, settingsService) => settingsService.unsplashAuthor,
             builder: (context, json, _) {

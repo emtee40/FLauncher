@@ -197,7 +197,7 @@ void main() {
           ),
         );
     final categoryId = await oldDb.into(oldDb.categories).insert(
-          v4.CategoriesCompanion.insert(name: "Applications", type: Value(1), order: 0),
+          v4.CategoriesCompanion.insert(name: "Applications", type: const Value(1), order: 0),
         );
     await oldDb.into(oldDb.appsCategories).insert(
           v4.AppsCategoriesCompanion.insert(categoryId: categoryId, appPackageName: "me.efesser.flauncher", order: 0),

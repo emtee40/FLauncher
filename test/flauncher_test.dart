@@ -41,7 +41,7 @@ import 'mocks.mocks.dart';
 void main() {
   setUpAll(() async {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
-    binding.window.physicalSizeTestValue = Size(1280, 720);
+    binding.window.physicalSizeTestValue = const Size(1280, 720);
     binding.window.devicePixelRatioTestValue = 1.0;
     // Scale-down the font size because the font 'Ahem' used when running tests is much wider than Roboto
     binding.platformDispatcher.textScaleFactorTestValue = 0.8;
@@ -87,7 +87,7 @@ void main() {
     expect(find.byKey(Key("${applicationsCategory.id}-me.efesser.flauncher.2")), findsOneWidget);
     expect(find.byType(CategoryRow), findsOneWidget);
     expect(find.byKey(Key("${favoritesCategory.id}-me.efesser.flauncher.1")), findsOneWidget);
-    expect(tester.widget(find.byKey(Key("background"))), isA<Container>());
+    expect(tester.widget(find.byKey(const Key("background"))), isA<Container>());
   });
 
   testWidgets("Home page shows category empty-state", (tester) async {
@@ -126,7 +126,7 @@ void main() {
 
     await _pumpWidgetWithProviders(tester, wallpaperService, appsService, settingsService);
 
-    expect(tester.widget(find.byKey(Key("background"))), isA<Image>());
+    expect(tester.widget(find.byKey(const Key("background"))), isA<Image>());
   });
 
   testWidgets("Home page displays background gradient", (tester) async {
@@ -141,7 +141,7 @@ void main() {
 
     await _pumpWidgetWithProviders(tester, wallpaperService, appsService, settingsService);
 
-    expect(tester.widget(find.byKey(Key("background"))), isA<Container>());
+    expect(tester.widget(find.byKey(const Key("background"))), isA<Container>());
   });
 
   testWidgets("Pressing select on settings icon opens SettingsPanel", (tester) async {
@@ -660,10 +660,10 @@ Future<void> _pumpWidgetWithProviders(
         ChangeNotifierProvider<SettingsService>.value(value: settingsService),
         Provider<TickerModel>(create: (_) => TickerModel(tester))
       ],
-      builder: (_, __) => MaterialApp(
+      builder: (_, __) => const MaterialApp(
         home: FLauncher(),
       ),
     ),
   );
-  await tester.pump(Duration(seconds: 30), EnginePhase.sendSemanticsUpdate);
+  await tester.pump(const Duration(seconds: 30), EnginePhase.sendSemanticsUpdate);
 }

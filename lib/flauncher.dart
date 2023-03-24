@@ -31,6 +31,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FLauncher extends StatelessWidget {
+  const FLauncher({super.key});
+
   @override
   Widget build(BuildContext context) => FocusTraversalGroup(
         policy: RowByRowTraversalPolicy(),
@@ -43,7 +45,7 @@ class FLauncher extends StatelessWidget {
               backgroundColor: Colors.transparent,
               appBar: _appBar(context),
               body: Padding(
-                padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 child: Consumer<AppsService>(
                   builder: (context, appsService, _) => appsService.initialized
                       ? SingleChildScrollView(child: _categories(appsService.categoriesWithApps))
@@ -60,7 +62,7 @@ class FLauncher extends StatelessWidget {
           switch (categoryWithApps.category.type) {
             case CategoryType.row:
               return Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CategoryRow(
                     key: Key(categoryWithApps.category.id.toString()),
                     category: categoryWithApps.category,
@@ -68,7 +70,7 @@ class FLauncher extends StatelessWidget {
               );
             case CategoryType.grid:
               return Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 8),
                 child: AppsGrid(
                     key: Key(categoryWithApps.category.id.toString()),
                     category: categoryWithApps.category,
@@ -88,19 +90,19 @@ class FLauncher extends StatelessWidget {
                 top: 18.0,
                 child: ImageFiltered(
                   imageFilter: ImageFilter.blur(sigmaX: 2, sigmaY: 2, tileMode: TileMode.decal),
-                  child: Icon(Icons.settings_outlined, color: Colors.black54),
+                  child: const Icon(Icons.settings_outlined, color: Colors.black54),
                 ),
               ),
               IconButton(
-                padding: EdgeInsets.all(2),
-                constraints: BoxConstraints(),
+                padding: const EdgeInsets.all(2),
+                constraints: const BoxConstraints(),
                 splashRadius: 20,
-                icon: Icon(Icons.settings_outlined),
-                onPressed: () => showDialog(context: context, builder: (_) => SettingsPanel()),
+                icon: const Icon(Icons.settings_outlined),
+                onPressed: () => showDialog(context: context, builder: (_) => const SettingsPanel()),
               ),
             ],
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(left: 16, right: 32),
             child: Align(
               alignment: Alignment.center,
@@ -113,19 +115,19 @@ class FLauncher extends StatelessWidget {
   Widget _wallpaper(BuildContext context, Uint8List? wallpaperImage, Gradient gradient) => wallpaperImage != null
       ? Image.memory(
           wallpaperImage,
-          key: Key("background"),
+          key: const Key("background"),
           fit: BoxFit.cover,
           height: window.physicalSize.height,
           width: window.physicalSize.width,
         )
-      : Container(key: Key("background"), decoration: BoxDecoration(gradient: gradient));
+      : Container(key: const Key("background"), decoration: BoxDecoration(gradient: gradient));
 
   Widget _emptyState(BuildContext context) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
+            const CircularProgressIndicator(),
+            const SizedBox(height: 16),
             Text("Loading...", style: Theme.of(context).textTheme.titleLarge),
           ],
         ),

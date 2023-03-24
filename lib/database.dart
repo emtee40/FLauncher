@@ -37,9 +37,9 @@ class Apps extends Table {
 
   BlobColumn get icon => blob().nullable()();
 
-  BoolColumn get hidden => boolean().withDefault(Constant(false))();
+  BoolColumn get hidden => boolean().withDefault(const Constant(false))();
 
-  BoolColumn get sideloaded => boolean().withDefault(Constant(false))();
+  BoolColumn get sideloaded => boolean().withDefault(const Constant(false))();
 
   @override
   Set<Column> get primaryKey => {packageName};
@@ -51,13 +51,13 @@ class Categories extends Table {
 
   TextColumn get name => text()();
 
-  IntColumn get sort => intEnum<CategorySort>().withDefault(Constant(0))();
+  IntColumn get sort => intEnum<CategorySort>().withDefault(const Constant(0))();
 
-  IntColumn get type => intEnum<CategoryType>().withDefault(Constant(0))();
+  IntColumn get type => intEnum<CategoryType>().withDefault(const Constant(0))();
 
-  IntColumn get rowHeight => integer().withDefault(Constant(110))();
+  IntColumn get rowHeight => integer().withDefault(const Constant(110))();
 
-  IntColumn get columnsCount => integer().withDefault(Constant(6))();
+  IntColumn get columnsCount => integer().withDefault(const Constant(6))();
 
   IntColumn get order => integer()();
 }
@@ -120,7 +120,7 @@ class FLauncherDatabase extends _$FLauncherDatabase {
             await migrator.addColumn(categories, categories.rowHeight);
             await migrator.addColumn(categories, categories.columnsCount);
             await (update(categories)..where((tbl) => tbl.name.equals("Applications")))
-                .write(CategoriesCompanion(type: Value(CategoryType.grid)));
+                .write(const CategoriesCompanion(type: Value(CategoryType.grid)));
           }
           if (from <= 4 && from != 1) {
             await migrator.addColumn(apps, apps.sideloaded);
@@ -183,7 +183,7 @@ class FLauncherDatabase extends _$FLauncherDatabase {
       OrderingTerm.asc(categories.order),
       OrderingTerm.asc(
         categories.sort.caseMatch(
-          when: {Constant(0): appsCategories.order, Constant(1): apps.name.lower()},
+          when: {const Constant(0): appsCategories.order, const Constant(1): apps.name.lower()},
         ),
       ),
     ]);
@@ -203,7 +203,7 @@ class FLauncherDatabase extends _$FLauncherDatabase {
 
   Future<int?> nextAppCategoryOrder(int categoryId) async {
     final query = selectOnly(appsCategories);
-    final maxExpression = coalesce([appsCategories.order.max(), Constant(-1)]) + Constant(1);
+    final maxExpression = coalesce([appsCategories.order.max(), const Constant(-1)]) + const Constant(1);
     query.addColumns([maxExpression]);
     query.where(appsCategories.categoryId.equals(categoryId));
     final result = await query.getSingle();

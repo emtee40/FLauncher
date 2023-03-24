@@ -30,19 +30,21 @@ import 'package:provider/provider.dart';
 class SettingsPanelPage extends StatelessWidget {
   static const String routeName = "settings_panel";
 
+  const SettingsPanelPage({super.key});
+
   @override
   Widget build(BuildContext context) => Consumer<SettingsService>(
         builder: (context, settingsService, __) => SingleChildScrollView(
           child: Column(
             children: [
               Text("Settings", style: Theme.of(context).textTheme.titleLarge),
-              Divider(),
+              const Divider(),
               EnsureVisible(
                 alignment: 0.5,
                 child: TextButton(
                   child: Row(
                     children: [
-                      Icon(Icons.apps),
+                      const Icon(Icons.apps),
                       Container(width: 8),
                       Text("Applications", style: Theme.of(context).textTheme.bodyMedium),
                     ],
@@ -53,7 +55,7 @@ class SettingsPanelPage extends StatelessWidget {
               TextButton(
                 child: Row(
                   children: [
-                    Icon(Icons.category),
+                    const Icon(Icons.category),
                     Container(width: 8),
                     Text("Categories", style: Theme.of(context).textTheme.bodyMedium),
                   ],
@@ -63,61 +65,61 @@ class SettingsPanelPage extends StatelessWidget {
               TextButton(
                 child: Row(
                   children: [
-                    Icon(Icons.wallpaper_outlined),
+                    const Icon(Icons.wallpaper_outlined),
                     Container(width: 8),
                     Text("Wallpaper", style: Theme.of(context).textTheme.bodyMedium),
                   ],
                 ),
                 onPressed: () => Navigator.of(context).pushNamed(WallpaperPanelPage.routeName),
               ),
-              Divider(),
+              const Divider(),
               TextButton(
                 child: Row(
                   children: [
-                    Icon(Icons.settings_outlined),
+                    const Icon(Icons.settings_outlined),
                     Container(width: 8),
                     Text("Android settings", style: Theme.of(context).textTheme.bodyMedium),
                   ],
                 ),
                 onPressed: () => context.read<AppsService>().openSettings(),
               ),
-              Divider(),
+              const Divider(),
               SwitchListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 8),
                 value: settingsService.use24HourTimeFormat,
                 onChanged: (value) => settingsService.setUse24HourTimeFormat(value),
-                title: Text("Use 24-hour time format"),
+                title: const Text("Use 24-hour time format"),
                 dense: true,
               ),
               SwitchListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 8),
                 value: settingsService.appHighlightAnimationEnabled,
                 onChanged: (value) => settingsService.setAppHighlightAnimationEnabled(value),
-                title: Text("App card highlight animation"),
+                title: const Text("App card highlight animation"),
                 dense: true,
               ),
-              Divider(),
+              const Divider(),
               SwitchListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 8),
                 value: settingsService.crashReportsEnabled,
                 onChanged: (value) => settingsService.setCrashReportsEnabled(value),
-                title: Text("Crash Reporting"),
+                title: const Text("Crash Reporting"),
                 dense: true,
-                subtitle: Text("Automatically send crash reports through Firebase Crashlytics."),
+                subtitle: const Text("Automatically send crash reports through Firebase Crashlytics."),
               ),
               SwitchListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 8),
                 value: settingsService.analyticsEnabled,
                 onChanged: (value) => settingsService.setAnalyticsEnabled(value),
-                title: Text("Analytics Reporting"),
+                title: const Text("Analytics Reporting"),
                 dense: true,
-                subtitle: Text("Share analytics data through Firebase Analytics."),
+                subtitle: const Text("Share analytics data through Firebase Analytics."),
               ),
-              Divider(),
+              const Divider(),
               TextButton(
                 child: Row(
                   children: [
-                    Icon(Icons.info_outline),
+                    const Icon(Icons.info_outline),
                     Container(width: 8),
                     Text("About FLauncher", style: Theme.of(context).textTheme.bodyMedium),
                   ],

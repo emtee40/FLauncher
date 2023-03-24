@@ -24,7 +24,7 @@ import 'package:provider/provider.dart';
 class AddToCategoryDialog extends StatelessWidget {
   final App application;
 
-  AddToCategoryDialog(this.application);
+  const AddToCategoryDialog(this.application, {super.key});
 
   @override
   Widget build(BuildContext context) => Selector<AppsService, List<Category>>(
@@ -33,8 +33,8 @@ class AddToCategoryDialog extends StatelessWidget {
             .map((categoryWithApps) => categoryWithApps.category)
             .toList(),
         builder: (context, categories, _) => SimpleDialog(
-          title: Text("Add to..."),
-          contentPadding: EdgeInsets.all(16),
+          title: const Text("Add to..."),
+          contentPadding: const EdgeInsets.all(16),
           children: categories
               .map(
                 (category) => Card(
@@ -42,7 +42,9 @@ class AddToCategoryDialog extends StatelessWidget {
                   child: ListTile(
                     onTap: () async {
                       await context.read<AppsService>().addToCategory(application, category);
-                      Navigator.of(context).pop();
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                      }
                     },
                     title: Text(category.name),
                   ),

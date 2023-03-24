@@ -23,7 +23,8 @@ class RightPanelDialog extends StatelessWidget {
   final Widget child;
   final double width;
 
-  RightPanelDialog({
+  const RightPanelDialog({
+    super.key,
     required this.child,
     this.width = 250,
   });
@@ -35,7 +36,7 @@ class RightPanelDialog extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerRight,
           child: Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             // ignore: deprecated_member_use
             color: Theme.of(context).backgroundColor,
             width: width,

@@ -85,17 +85,17 @@ void main() {
             packageName: "me.efesser.flauncher",
             name: "FLauncher",
             version: "(unknown)",
-            banner: Value(null),
-            icon: Value(null),
-            sideloaded: Value(false),
+            banner: const Value(null),
+            icon: const Value(null),
+            sideloaded: const Value(false),
           ),
           AppsCompanion.insert(
             packageName: "me.efesser.flauncher.2",
             name: "FLauncher 2",
             version: "2.0.0",
-            banner: Value(null),
-            icon: Value(null),
-            sideloaded: Value(true),
+            banner: const Value(null),
+            icon: const Value(null),
+            sideloaded: const Value(true),
           ),
         ]),
         database.deleteApps([]),
@@ -106,7 +106,7 @@ void main() {
         ),
         database.updateCategory(
           tvApplicationsCategory.id,
-          CategoriesCompanion(type: Value(CategoryType.grid)),
+          const CategoriesCompanion(type: Value(CategoryType.grid)),
         ),
         database.insertAppsCategories([
           AppsCategoriesCompanion.insert(
@@ -170,17 +170,17 @@ void main() {
             packageName: "me.efesser.flauncher",
             name: "FLauncher",
             version: "2.0.0",
-            banner: Value(null),
-            icon: Value(null),
-            sideloaded: Value(false),
+            banner: const Value(null),
+            icon: const Value(null),
+            sideloaded: const Value(false),
           ),
           AppsCompanion.insert(
             packageName: "me.efesser.flauncher.2",
             name: "FLauncher 2",
             version: "1.0.0",
-            banner: Value(null),
-            icon: Value(null),
-            sideloaded: Value(false),
+            banner: const Value(null),
+            icon: const Value(null),
+            sideloaded: const Value(false),
           )
         ]),
         database.deleteApps(["uninstalled.app"]),
@@ -324,7 +324,7 @@ void main() {
     await appsService.addCategory("New Category");
 
     verify(database.insertCategory(CategoriesCompanion.insert(name: "New Category", order: 0)));
-    verify(database.updateCategories([CategoriesCompanion(id: Value(existingCategory.id), order: Value(1))]));
+    verify(database.updateCategories([CategoriesCompanion(id: Value(existingCategory.id), order: const Value(1))]));
     verify(database.listCategoriesWithVisibleApps());
   });
 
@@ -340,7 +340,7 @@ void main() {
 
     await appsService.renameCategory(category, "New name");
 
-    verify(database.updateCategory(category.id, CategoriesCompanion(name: Value("New name"))));
+    verify(database.updateCategory(category.id, const CategoriesCompanion(name: Value("New name"))));
     verify(database.listCategoriesWithVisibleApps());
   });
 
@@ -383,8 +383,8 @@ void main() {
 
     verify(database.updateCategories(
       [
-        CategoriesCompanion(id: Value(favoritesCategory.id), order: Value(0)),
-        CategoriesCompanion(id: Value(applicationsCategory.id), order: Value(1))
+        CategoriesCompanion(id: Value(favoritesCategory.id), order: const Value(0)),
+        CategoriesCompanion(id: Value(applicationsCategory.id), order: const Value(1))
       ],
     ));
     verify(database.listCategoriesWithVisibleApps());
@@ -398,7 +398,7 @@ void main() {
 
     await appsService.hideApplication(application);
 
-    verify(database.updateApp(application.packageName, AppsCompanion(hidden: Value(true))));
+    verify(database.updateApp(application.packageName, const AppsCompanion(hidden: Value(true))));
     verify(database.listCategoriesWithVisibleApps());
     verify(database.listApplications());
     expect(appsService.applications, [application]);
@@ -411,7 +411,7 @@ void main() {
 
     await appsService.unHideApplication(application);
 
-    verify(database.updateApp(application.packageName, AppsCompanion(hidden: Value(false))));
+    verify(database.updateApp(application.packageName, const AppsCompanion(hidden: Value(false))));
     verify(database.listCategoriesWithVisibleApps());
     verify(database.listApplications());
   });
@@ -423,7 +423,7 @@ void main() {
 
     await appsService.setCategoryType(category, CategoryType.grid);
 
-    verify(database.updateCategory(category.id, CategoriesCompanion(type: Value(CategoryType.grid))));
+    verify(database.updateCategory(category.id, const CategoriesCompanion(type: Value(CategoryType.grid))));
     verify(database.listCategoriesWithVisibleApps());
   });
 
@@ -434,7 +434,7 @@ void main() {
 
     await appsService.setCategorySort(category, CategorySort.alphabetical);
 
-    verify(database.updateCategory(category.id, CategoriesCompanion(sort: Value(CategorySort.alphabetical))));
+    verify(database.updateCategory(category.id, const CategoriesCompanion(sort: Value(CategorySort.alphabetical))));
     verify(database.listCategoriesWithVisibleApps());
   });
 
@@ -445,7 +445,7 @@ void main() {
 
     await appsService.setCategoryColumnsCount(category, 8);
 
-    verify(database.updateCategory(category.id, CategoriesCompanion(columnsCount: Value(8))));
+    verify(database.updateCategory(category.id, const CategoriesCompanion(columnsCount: Value(8))));
     verify(database.listCategoriesWithVisibleApps());
   });
 
@@ -456,7 +456,7 @@ void main() {
 
     await appsService.setCategoryRowHeight(category, 120);
 
-    verify(database.updateCategory(category.id, CategoriesCompanion(rowHeight: Value(120))));
+    verify(database.updateCategory(category.id, const CategoriesCompanion(rowHeight: Value(120))));
     verify(database.listCategoriesWithVisibleApps());
   });
 }

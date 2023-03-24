@@ -32,7 +32,7 @@ import '../../mocks.mocks.dart';
 void main() {
   setUpAll(() async {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
-    binding.window.physicalSizeTestValue = Size(1280, 720);
+    binding.window.physicalSizeTestValue = const Size(1280, 720);
     binding.window.devicePixelRatioTestValue = 1.0;
     // Scale-down the font size because the font 'Ahem' used when running tests is much wider than Roboto
     binding.platformDispatcher.textScaleFactorTestValue = 0.8;
@@ -49,7 +49,7 @@ void main() {
     expect(find.text("Photo by John Doe on Unsplash"), findsOneWidget);
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    expect(find.byKey(Key("UnsplashPanelPage")), findsOneWidget);
+    expect(find.byKey(const Key("UnsplashPanelPage")), findsOneWidget);
   });
 
   testWidgets("'Gradient' navigates to GradientPanelPage", (tester) async {
@@ -63,7 +63,7 @@ void main() {
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    expect(find.byKey(Key("GradientPanelPage")), findsOneWidget);
+    expect(find.byKey(const Key("GradientPanelPage")), findsOneWidget);
   });
 
   group("'Custom'", () {
@@ -114,10 +114,10 @@ Future<void> _pumpWidgetWithProviders(
       ],
       builder: (_, __) => MaterialApp(
         routes: {
-          UnsplashPanelPage.routeName: (_) => Container(key: Key("UnsplashPanelPage")),
-          GradientPanelPage.routeName: (_) => Container(key: Key("GradientPanelPage")),
+          UnsplashPanelPage.routeName: (_) => Container(key: const Key("UnsplashPanelPage")),
+          GradientPanelPage.routeName: (_) => Container(key: const Key("GradientPanelPage")),
         },
-        home: Scaffold(body: WallpaperPanelPage()),
+        home: const Scaffold(body: WallpaperPanelPage()),
       ),
     ),
   );

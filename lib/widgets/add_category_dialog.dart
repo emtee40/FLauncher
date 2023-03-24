@@ -21,20 +21,21 @@ import 'package:flutter/material.dart';
 class AddCategoryDialog extends StatelessWidget {
   final String? initialValue;
 
-  AddCategoryDialog({
+  const AddCategoryDialog({
+    super.key,
     this.initialValue,
   });
 
   @override
   Widget build(BuildContext context) => SimpleDialog(
-        insetPadding: EdgeInsets.only(bottom: 120),
-        contentPadding: EdgeInsets.all(24),
+        insetPadding: const EdgeInsets.only(bottom: 120),
+        contentPadding: const EdgeInsets.all(24),
         title: Text(initialValue != null ? "Rename Category" : "Add Category"),
         children: [
           TextFormField(
             autofocus: true,
             initialValue: initialValue,
-            decoration: InputDecoration(labelText: "Name"),
+            decoration: const InputDecoration(labelText: "Name"),
             validator: (value) => value!.trim().isEmpty ? "Must not be empty" : null,
             autovalidateMode: AutovalidateMode.always,
             keyboardType: TextInputType.text,

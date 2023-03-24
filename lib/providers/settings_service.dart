@@ -61,7 +61,8 @@ class SettingsService extends ChangeNotifier {
   ) {
     _firebaseCrashlytics.setCrashlyticsCollectionEnabled(kReleaseMode && crashReportsEnabled);
     _firebaseAnalytics.setAnalyticsCollectionEnabled(kReleaseMode && analyticsEnabled);
-    _remoteConfigRefreshTimer = Timer.periodic(Duration(hours: 6, minutes: 1), (_) => _refreshFirebaseRemoteConfig());
+    _remoteConfigRefreshTimer =
+        Timer.periodic(const Duration(hours: 6, minutes: 1), (_) => _refreshFirebaseRemoteConfig());
   }
 
   @override

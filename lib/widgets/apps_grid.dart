@@ -31,7 +31,7 @@ class AppsGrid extends StatelessWidget {
   final Category category;
   final List<App> applications;
 
-  AppsGrid({
+  const AppsGrid({
     Key? key,
     required this.category,
     required this.applications,
@@ -42,13 +42,13 @@ class AppsGrid extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 16),
+            padding: const EdgeInsets.only(left: 16),
             child: Text(
               category.name,
               style: Theme.of(context)
                   .textTheme
                   .titleLarge!
-                  .copyWith(shadows: [Shadow(color: Colors.black54, offset: Offset(1, 1), blurRadius: 8)]),
+                  .copyWith(shadows: [const Shadow(color: Colors.black54, offset: Offset(1, 1), blurRadius: 8)]),
             ),
           ),
           applications.isNotEmpty
@@ -56,7 +56,7 @@ class AppsGrid extends StatelessWidget {
                   shrinkWrap: true,
                   primary: false,
                   gridDelegate: _buildSliverGridDelegate(),
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   childrenDelegate: SliverChildBuilderDelegate(
                     (context, index) => EnsureVisible(
                       key: Key("${category.id}-${applications[index].packageName}"),
@@ -126,13 +126,13 @@ class AppsGrid extends StatelessWidget {
       );
 
   Widget _emptyState(BuildContext context) => Padding(
-        padding: EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.only(top: 8),
         child: SizedBox(
           height: 110,
           child: EnsureVisible(
             alignment: 0.1,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: AspectRatio(
@@ -143,9 +143,9 @@ class AppsGrid extends StatelessWidget {
                     child: InkWell(
                       onTap: () => showDialog(
                         context: context,
-                        builder: (_) => SettingsPanel(initialRoute: CategoriesPanelPage.routeName),
+                        builder: (_) => const SettingsPanel(initialRoute: CategoriesPanelPage.routeName),
                       ),
-                      child: Padding(
+                      child: const Padding(
                         padding: EdgeInsets.all(8),
                         child: Center(
                           child: Text(

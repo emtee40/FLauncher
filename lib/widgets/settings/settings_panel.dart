@@ -54,17 +54,17 @@ class _SettingsPanelState extends State<SettingsPanel> {
               onGenerateRoute: (settings) {
                 switch (settings.name) {
                   case SettingsPanelPage.routeName:
-                    return MaterialPageRoute(builder: (_) => SettingsPanelPage());
+                    return MaterialPageRoute(builder: (_) => const SettingsPanelPage());
                   case WallpaperPanelPage.routeName:
-                    return MaterialPageRoute(builder: (_) => WallpaperPanelPage());
+                    return MaterialPageRoute(builder: (_) => const WallpaperPanelPage());
                   case UnsplashPanelPage.routeName:
-                    return MaterialPageRoute(builder: (_) => UnsplashPanelPage());
+                    return MaterialPageRoute(builder: (_) => const UnsplashPanelPage());
                   case GradientPanelPage.routeName:
-                    return MaterialPageRoute(builder: (_) => GradientPanelPage());
+                    return MaterialPageRoute(builder: (_) => const GradientPanelPage());
                   case ApplicationsPanelPage.routeName:
-                    return MaterialPageRoute(builder: (_) => ApplicationsPanelPage());
+                    return MaterialPageRoute(builder: (_) => const ApplicationsPanelPage());
                   case CategoriesPanelPage.routeName:
-                    return MaterialPageRoute(builder: (_) => CategoriesPanelPage());
+                    return MaterialPageRoute(builder: (_) => const CategoriesPanelPage());
                   case CategoryPanelPage.routeName:
                     return MaterialPageRoute(
                       builder: (_) => CategoryPanelPage(categoryId: settings.arguments! as int),

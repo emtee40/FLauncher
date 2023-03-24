@@ -24,11 +24,13 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class TimeWidget extends StatefulWidget {
+  const TimeWidget({super.key});
+
   @override
-  _TimeWidgetState createState() => _TimeWidgetState();
+  TimeWidgetState createState() => TimeWidgetState();
 }
 
-class _TimeWidgetState extends State<TimeWidget> {
+class TimeWidgetState extends State<TimeWidget> {
   late DateTime _now;
   late Timer _timer;
 
@@ -36,7 +38,7 @@ class _TimeWidgetState extends State<TimeWidget> {
   void initState() {
     super.initState();
     _now = DateTime.now();
-    _timer = Timer.periodic(Duration(seconds: 1), (_) => _refreshTime());
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) => _refreshTime());
   }
 
   @override
@@ -51,7 +53,7 @@ class _TimeWidgetState extends State<TimeWidget> {
         builder: (context, use24HourTimeFormat, _) => Text(
           use24HourTimeFormat ? DateFormat.Hm().format(_now) : DateFormat.jm().format(_now),
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-            shadows: [Shadow(color: Colors.black54, offset: Offset(1, 1), blurRadius: 8)],
+            shadows: [const Shadow(color: Colors.black54, offset: Offset(1, 1), blurRadius: 8)],
           ),
           textAlign: TextAlign.end,
         ),

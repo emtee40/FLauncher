@@ -1,5 +1,5 @@
 variables:
-  FLUTTER_DOCKER_IMAGE: cirrusci/flutter:3.7.5
+  FLUTTER_DOCKER_IMAGE: cirrusci/flutter:3.7.7
 
 stages:
   - precheck
@@ -27,7 +27,7 @@ stylelint:
   stage: precheck
   needs: [ ]
   script:
-    - flutter format --line-length 120 --dry-run --set-exit-if-changed .
+    - dart format --line-length 120 --set-exit-if-changed .
 
 analyze:
   image: $FLUTTER_DOCKER_IMAGE

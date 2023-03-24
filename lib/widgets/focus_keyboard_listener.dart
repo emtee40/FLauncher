@@ -26,7 +26,7 @@ class FocusKeyboardListener extends StatefulWidget {
   final KeyEventResult Function(LogicalKeyboardKey)? onPressed;
   final KeyEventResult Function(LogicalKeyboardKey)? onLongPress;
 
-  FocusKeyboardListener({
+  const FocusKeyboardListener({
     Key? key,
     required this.builder,
     this.onPressed,
@@ -34,10 +34,10 @@ class FocusKeyboardListener extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FocusKeyboardListenerState createState() => _FocusKeyboardListenerState();
+  FocusKeyboardListenerState createState() => FocusKeyboardListenerState();
 }
 
-class _FocusKeyboardListenerState extends State<FocusKeyboardListener> {
+class FocusKeyboardListenerState extends State<FocusKeyboardListener> {
   int? _keyDownAt;
 
   @override

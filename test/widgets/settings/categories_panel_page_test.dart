@@ -33,7 +33,7 @@ import '../../mocks.mocks.dart';
 void main() {
   setUpAll(() async {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
-    binding.window.physicalSizeTestValue = Size(1280, 720);
+    binding.window.physicalSizeTestValue = const Size(1280, 720);
     binding.window.devicePixelRatioTestValue = 1.0;
     // Scale-down the font size because the font 'Ahem' used when running tests is much wider than Roboto
     binding.platformDispatcher.textScaleFactorTestValue = 0.8;
@@ -82,7 +82,7 @@ void main() {
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
 
-    expect(find.byKey(Key("CategoryPanelPage")), findsOneWidget);
+    expect(find.byKey(const Key("CategoryPanelPage")), findsOneWidget);
   });
 
   testWidgets("'Add Category' opens AddCategoryDialog", (tester) async {
@@ -111,9 +111,9 @@ Future<void> _pumpWidgetWithProviders(WidgetTester tester, AppsService appsServi
       ],
       builder: (_, __) => MaterialApp(
         routes: {
-          CategoryPanelPage.routeName: (_) => Container(key: Key("CategoryPanelPage")),
+          CategoryPanelPage.routeName: (_) => Container(key: const Key("CategoryPanelPage")),
         },
-        home: Scaffold(body: CategoriesPanelPage()),
+        home: const Scaffold(body: CategoriesPanelPage()),
       ),
     ),
   );

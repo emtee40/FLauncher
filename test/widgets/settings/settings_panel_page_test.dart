@@ -37,7 +37,7 @@ import '../../mocks.mocks.dart';
 void main() {
   setUpAll(() async {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
-    binding.window.physicalSizeTestValue = Size(1280, 720);
+    binding.window.physicalSizeTestValue = const Size(1280, 720);
     binding.window.devicePixelRatioTestValue = 1.0;
     // Scale-down the font size because the font 'Ahem' used when running tests is much wider than Roboto
     binding.platformDispatcher.textScaleFactorTestValue = 0.8;
@@ -58,7 +58,7 @@ void main() {
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    expect(find.byKey(Key("ApplicationsPanelPage")), findsOneWidget);
+    expect(find.byKey(const Key("ApplicationsPanelPage")), findsOneWidget);
   });
 
   testWidgets("'Categories' opens CategoriesPanelPage", (tester) async {
@@ -77,7 +77,7 @@ void main() {
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    expect(find.byKey(Key("CategoriesPanelPage")), findsOneWidget);
+    expect(find.byKey(const Key("CategoriesPanelPage")), findsOneWidget);
   });
 
   testWidgets("'Wallpaper' navigates to WallpaperPanelPage", (tester) async {
@@ -97,7 +97,7 @@ void main() {
     await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    expect(find.byKey(Key("WallpaperPanelPage")), findsOneWidget);
+    expect(find.byKey(const Key("WallpaperPanelPage")), findsOneWidget);
   });
 
   testWidgets("'Android settings' calls AppsService", (tester) async {
@@ -233,11 +233,11 @@ Future<void> _pumpWidgetWithProviders(
       ],
       builder: (_, __) => MaterialApp(
         routes: {
-          CategoriesPanelPage.routeName: (_) => Container(key: Key("CategoriesPanelPage")),
-          WallpaperPanelPage.routeName: (_) => Container(key: Key("WallpaperPanelPage")),
-          ApplicationsPanelPage.routeName: (_) => Container(key: Key("ApplicationsPanelPage")),
+          CategoriesPanelPage.routeName: (_) => Container(key: const Key("CategoriesPanelPage")),
+          WallpaperPanelPage.routeName: (_) => Container(key: const Key("WallpaperPanelPage")),
+          ApplicationsPanelPage.routeName: (_) => Container(key: const Key("ApplicationsPanelPage")),
         },
-        home: Material(child: SettingsPanelPage()),
+        home: const Material(child: SettingsPanelPage()),
       ),
     ),
   );
